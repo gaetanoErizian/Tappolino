@@ -32,4 +32,8 @@ Aggiornato: 14/11/2026 (sera) — in caso di conflitto vale questo file, poi `05
    - Un branch per gioco (`game/<nome-gioco>`); a gioco approvato si unisce a `main`.
    - Chiavi di firma e certificati mai nel repository: solo nei segreti di GitHub.
 10. **Modello consigliato**: Opus con impegno medio per i giochi dal 2 in poi; impegno alto per il gioco 1, per la costruzione dell'app contenitore e per le sessioni di pubblicazione.
-11. **Chat di regia**: una chat del progetto resta dedicata a strategia, decisioni e roadmap. Le chat dei giochi sviluppano; decisioni nuove e cambi di rotta si prendono in regia e finiscono in questo file.
+11. **Scelte tecniche dal gioco 1** (aggiunte dalla chat Pompieri, adattate al collettore)
+    - Acquisto in-app con il plugin `@capgo/native-purchases`. Il prodotto è ora uno solo, `it.tappolino.app.unlock_all`; il vecchio `<appId>.remove_ads` per gioco non si usa più.
+    - Workflow CI nella radice del monorepo: `.github/workflows/app-android.yml`, `app-ios.yml`, `app-web.yml`, con `working-directory: app` e tag `app-v*`. I workflow `pompieri-*.yml` della prima versione vanno convertiti in questi nella Fase 1.
+    - Copia di riferimento del codice comune in `04-TEMPLATE.md` (documenti del progetto): descrive la versione "un'app per gioco" e va aggiornata dopo la Fase 1.
+12. **Chat di regia**: una chat del progetto resta dedicata a strategia, decisioni e roadmap. Le chat dei giochi sviluppano; decisioni nuove e cambi di rotta si prendono in regia e finiscono in questo file.
