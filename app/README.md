@@ -42,14 +42,14 @@ src/
 android/ ios/        progetti nativi (rigenerabili: npx cap add + node scripts/native-setup.mjs)
 scripts/             make-icons.ts (icona, splash, grafiche store), native-setup.mjs (personalizzazioni native)
 assets/              sorgenti per @capacitor/assets
-store/               schede store (bozza 6 lingue), privacy policy, risposte dichiarazioni, grafiche, screenshot dei giochi
+store/               schede store (bozza 6 lingue; games/<id>/ per le app singole), privacy policy, dichiarazioni, grafiche (screenshot fuori da git: scripts/store-screenshots.py)
 ```
 Build automatiche nella radice del repository: `.github/workflows/app-web.yml`, `app-android.yml`, `app-ios.yml`.
 
 ## Aggiungere un gioco (Fase 2 in poi)
 
 1. Creare `src/games/<id>/` con:
-   - `index.ts` che esporta di default un `GameModule` (vedi `core/module.ts`): `id`, `textures()`, `locales`, `scenes`, `startScene`, `song`;
+   - `index.ts` che esporta di default un `GameModule` (vedi `core/module.ts`): `id`, `textures()`, `locales`, `scenes`, `startScene`, `song` e `init` (deve chiamare `save.load()`, altrimenti i progressi non vengono letti);
    - scene Phaser con chiavi prefissate `"<id>:"` (es. `super('pasticceria:Game')`), pulsante casa nel menu del gioco che chiama `backToHub(this)` da `src/launcher.ts`;
    - testi nelle 6 lingue con chiavi prefissate `"<id>."`;
    - salvataggi in `new Store('tappolino.<id>', DEFAULT)` (solo progressi: lingua, muto e acquisto sono nello stato condiviso);

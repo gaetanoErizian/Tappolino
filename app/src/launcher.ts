@@ -32,6 +32,7 @@ async function loadModule(scene: Phaser.Scene, entry: GameEntry): Promise<GameMo
   const cached = loaded.get(entry.id);
   if (cached) return cached;
   const mod = (await entry.load()).default;
+  await mod.init?.();
   addLocales(mod.locales);
   await registerSvgTextures(scene, mod.textures());
   for (const S of mod.scenes) scene.game.scene.add('', S, false);

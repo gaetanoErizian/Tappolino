@@ -20,6 +20,8 @@ export interface GameModule {
   startScene: string;
   /** musica del gioco */
   song?: Song;
+  /** chiamata una volta al primo avvio del gioco: es. caricare i salvataggi */
+  init?: () => Promise<void>;
 }
 
 export interface GameEntry {

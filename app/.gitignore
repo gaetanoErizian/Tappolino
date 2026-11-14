@@ -12,3 +12,6 @@ android/app/build/
 ios/App/build/
 ios/App/DerivedData/
 dist-web/
+
+# Screenshot store: generati con scripts/store-screenshots.py, mai in git (decisione 14)
+store/screenshots/
