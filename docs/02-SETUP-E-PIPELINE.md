@@ -1,89 +1,89 @@
 # 02 — Setup tecnico e pipeline (web → Android → iOS → store)
 
+> Dal 14/11/2026 i giochi sono moduli di un'unica app **Tappolino**. Struttura e contratto dei moduli sono in `05-STRATEGIA-E-ROADMAP.md`; questo file descrive stack, versioni, comandi e checklist.
+
 ## Stack scelto
 | Livello | Scelta | Perché |
 |---|---|---|
-| Motore di gioco | **Phaser** (ultima versione stabile) | 2D, leggero, perfetto per giochi touch semplici; gira nel browser, quindi la versione web di test è immediata |
+| Motore di gioco | **Phaser 4** | 2D, leggero, perfetto per giochi touch semplici; gira nel browser, quindi la versione web di test è immediata |
 | Linguaggio | **TypeScript** | Errori trovati prima, codice riusabile tra i giochi |
 | Build | **Vite** | Avvio e build rapidi |
-| Contenitore mobile | **Capacitor** (ultima stabile) | Trasforma la build web in progetto nativo Android (Gradle) e iOS (Xcode) |
-| Pubblicità Android | `@capacitor-community/admob` | Banner in basso, child-directed. **Non installato su iOS** |
-| Acquisto in-app | Plugin che usa direttamente Play Billing e StoreKit, senza server terzi (candidato: `cordova-plugin-purchase`) | Nessun dato a terzi, compatibile con le regole per bambini |
+| Contenitore mobile | **Capacitor 8** | Trasforma la build web in progetto nativo Android (Gradle) e iOS (Xcode, Swift Package Manager) |
+| Pubblicità Android | `@capacitor-community/admob` | Banner in basso, child-directed. **Escluso da iOS** con `ios.includePlugins` in `capacitor.config.ts` |
+| Acquisto in-app | `@capgo/native-purchases` (Play Billing + StoreKit 2 diretti, nessun server, supporta SPM) | Scelto al gioco 1 al posto di `cordova-plugin-purchase` (plugin Cordova poco adatti a Capacitor 8 con SPM) |
 | Salvataggi | `@capacitor/preferences` (locale) | Niente account, niente cloud |
-| Test | Vitest (logica) + prova manuale su browser in modalità mobile | |
+| Grafica | SVG scritti nel codice, rasterizzati all'avvio, stile 2.5D | Originale, nitida, nessun file di terzi |
+| Audio | Sintetizzato con Web Audio | Nessun file audio, nessuna licenza |
+| Test | Vitest (logica) + prova nel browser in modalità mobile (Playwright headless per screenshot) | |
 
-Le versioni esatte vanno fissate al primo gioco, controllando la documentazione aggiornata, e poi riportate qui sotto in "Versioni bloccate".
+### Versioni bloccate (dal gioco 1, 14/11/2026)
+| Pacchetto | Versione |
+|---|---|
+| phaser | 4.2.1 |
+| @capacitor/core, cli, android, ios | 8.6.2 |
+| @capacitor/preferences | 8.0.1 |
+| @capacitor-community/admob | 8.3.0 |
+| @capgo/native-purchases | 8.9.16 |
+| vite | 8.3.8 |
+| typescript | 7.0.2 |
+| vitest | 5.1.0 |
+| @capacitor/assets | 4.0.0 |
+| sharp / tsx (script icone) | 0.35.5 / 4.23.15 |
+| Android | minSdk 24, target/compile 36 |
+| iOS | deployment target 15.0 |
+| GitHub Actions | checkout@v7, setup-node@v7, setup-java@v6 (Temurin 21), upload-artifact@v7, r0adkll/upload-google-play@v1 |
 
-### Versioni bloccate
-*(da compilare al termine del gioco 1)*
+Installare sempre con `npm i -E` (versioni esatte).
 
-## Struttura di ogni gioco
-```
-games/<nome-gioco>/
-  package.json
-  vite.config.ts
-  capacitor.config.ts        # appId: it.tappolino.<nomegioco>
-  index.html
-  src/
-    main.ts                  # avvio Phaser, scala FIT, orientamento
-    scenes/                  # Boot, Menu, Game, Reward, Parents
-    core/                    # CODICE COMUNE (copiato da template/)
-      ads.ts                 # banner footer: AdMob su Android, banner della casa su iOS, nulla sul web
-      purchase.ts            # acquisto "remove_ads" + ripristino
-      parentalGate.ts        # blocco adulti
-      i18n.ts                # carica locales/<lingua>.json dalla lingua del dispositivo
-      storage.ts             # progressi e stato acquisto
-      audio.ts               # musica, effetti, muto
-      layout.ts              # area sicura + spazio riservato al banner (il gioco non finisce mai sotto il banner)
-    locales/ it.json en.json es.json fr.json de.json pt.json
-  public/assets/             # immagini, audio
-  store/                     # testi scheda store nelle 6 lingue, screenshot, icona 1024, privacy policy
-  CREDITS.md
-  README.md                  # come avviare, buildare, pubblicare
-```
-La cartella `core/` è il **template condiviso**: nasce con il gioco 1, vive in `template/` e viene riusata identica nei giochi successivi.
+## Struttura
+Quella definitiva (`app/` con `core/`, `hub/`, `games/<id>/`) è in `05-STRATEGIA-E-ROADMAP.md`.
+
+Stato attuale del repository: il gioco 1 è sul branch `game/pompieri-in-azione` nella forma precedente, "un'app per gioco" (`games/pompieri-in-azione/`, `template/core/`, `.github/workflows/pompieri-*.yml`). La Fase 1 lo converte nella struttura definitiva.
+
+Dentro ogni modulo gioco restano validi i file del gioco 1: `art.ts`, `levels.ts`, `save.ts`, `sfx.ts`, `world.ts`, `scenes/`, `locales/` (6 lingue), `tests/`.
 
 ## Fasi di sviluppo di ogni gioco
 1. **Design** (breve): meccanica in una frase, gesto unico, ciclo di gioco, ricompense, elenco asset.
-2. **Prototipo web**: gioco giocabile nel browser, grafica provvisoria.
+2. **Prototipo web**: gioco giocabile nel browser.
 3. **Rifinitura**: grafica definitiva, suoni, animazioni di feedback, tutorial con manina, 6 lingue.
-4. **Versione web di test**: build pubblicata come pagina condivisibile, da provare sul telefono (meglio se con un bambino vero).
-5. **Integrazioni mobile**: banner, acquisto, parental gate, icona, splash.
-6. **Build Android**: AAB firmato → test interno su Play Console.
-7. **Build iOS**: archivio Xcode in CI cloud → TestFlight.
-8. **Pubblicazione**: schede store, dichiarazioni privacy, invio in revisione.
+4. **Versione web di test**: `npx vite build --mode artifact` (Phaser da CDN) e pubblicazione di `dist-web/` come pagina condivisibile.
+5. **Ok di Gaetano**, poi unione del branch a `main`.
+6. **Build dell'app**: workflow `app-android.yml` → AAB firmato → test interno su Play Console; `app-ios.yml` → TestFlight.
+7. **Pubblicazione** dell'aggiornamento: novità nella scheda store, invio in revisione.
 
 ## Comandi principali
 ```bash
 npm install
-npm run dev                 # sviluppo nel browser
-npm run build               # build web in dist/
-npx cap add android         # una sola volta
-npx cap add ios             # una sola volta, su macOS (in CI)
-npx cap sync                # copia la build web nei progetti nativi
-npx cap open android        # apre Android Studio
-cd android && ./gradlew bundleRelease   # AAB per Play Store
+npm run dev                         # sviluppo nel browser (?lang=en ?reset=1 ?banner=1 ?debug=1 ?game=<id> ?unlock=1)
+npm test
+npm run build                       # build per le app (dist/)
+npx vite build --mode artifact      # build per la pagina web di test (dist-web/)
+npm run icons && npx capacitor-assets generate --iconBackgroundColor '#8fd3ff' --splashBackgroundColor '#8fd3ff'
+npx cap sync                        # copia la build web nei progetti nativi
 ```
 
 ## Cosa serve a Gaetano (una tantum)
-- **Account Google Play Console**: già esistente da anni, nessun obbligo dei 12 tester.
-- **Account Apple Developer** (99 USD l'anno, da verificare al momento dell'iscrizione).
-- **Account AdMob** (solo Android): un'app e un'unità banner per ogni gioco.
-- **Computer con Android Studio** (Windows o Linux) per l'AAB, oppure la stessa CI cloud.
-- **Niente Mac**: build iOS in CI cloud con runner macOS (GitHub Actions o Codemagic).
-- **Keystore Android** di firma: generato una volta, conservato con backup. Se si perde non si aggiorna più l'app. Mai nel repository.
-- **Pagina web pubblica** con privacy policy (basta una pagina statica per tutti i giochi).
+- **Account Google Play Console** (esistente da anni: nessun obbligo dei 12 tester).
+- **Account Apple Developer** (99 USD l'anno) + **chiave API App Store Connect** con ruolo Admin (firma gestita nel cloud dalla CI).
+- **Account AdMob** (solo Android): un'app "Tappolino" e un'unità banner.
+- **Keystore Android** di firma: generato una volta, conservato con backup (comando nel README del gioco 1).
+- **Segreti della CI** nel repository GitHub (elenco nel README del gioco 1).
+- **Pagina web pubblica** con la privacy policy (testo pronto in `store/privacy-policy.html`).
+- Non serve un Mac né Android Studio: le build firmate le fa GitHub Actions.
 
 ## Chi fa cosa
-- **Claude (in chat)**: design, codice, grafica vettoriale, traduzioni, versione web di test, configurazione Capacitor, workflow di build, testi per le schede store, privacy policy, checklist.
-- **In CI o sul computer di Gaetano**: compilazione firmata Android e iOS, caricamento sugli store. L'ambiente cloud delle chat non ha Xcode e ha rete limitata, quindi gli eseguibili finali firmati si generano lì con gli script preparati.
+- **Claude (chat dei giochi)**: design, codice, grafica vettoriale, traduzioni, versione web di test, configurazione Capacitor, workflow CI, testi per le schede store, privacy policy, screenshot, checklist.
+- **Claude (chat di regia)**: strategia, decisioni, roadmap, allineamento dei documenti.
+- **GitHub Actions**: compilazione firmata Android e iOS, caricamento su Play (traccia interna) e TestFlight.
+- **Gaetano**: account, segreti, prodotto in-app, invio in revisione, prova su telefono vero.
 
 ## Configurazione annunci (Android)
 - Banner adattivo ancorato in basso; `layout.ts` riduce l'area di gioco dell'altezza del banner.
-- Richieste con *tagForChildDirectedTreatment = true*, annunci non personalizzati, *maxAdContentRating = G*.
-- In sviluppo usare sempre gli ID di test AdMob.
-- Se `remove_ads` è acquistato: il banner non viene mai caricato e l'area di gioco torna piena.
-- In Play Console: pubblico di destinazione solo fasce bambini, adesione alle norme per le famiglie.
+- Richieste con *tagForChildDirectedTreatment = true*, *tagForUnderAgeOfConsent = true*, annunci non personalizzati (npa), *maxAdContentRating = General*.
+- Permesso `AD_ID` rimosso dal manifest.
+- In sviluppo sempre gli ID di test AdMob (`testing: true`).
+- Se `unlock_all` è acquistato: il banner non viene mai caricato e l'area di gioco torna piena.
+- Su iOS nessun banner.
 
 ## Checklist di pubblicazione
 - [ ] Icona 1024×1024, splash, screenshot per telefono e tablet
@@ -91,8 +91,10 @@ cd android && ./gradlew bundleRelease   # AAB per Play Store
 - [ ] Privacy policy online e collegata
 - [ ] Google: classificazione contenuti (IARC), pubblico di destinazione, Data Safety, dichiarazione annunci
 - [ ] Apple: fascia d'età, categoria Kids, Privacy Nutrition Label, parental gate verificato su acquisto e link
-- [ ] Prodotto in-app `remove_ads` creato e approvato su entrambi gli store
+- [ ] Prodotto in-app `it.tappolino.app.unlock_all` creato e approvato su entrambi gli store
 - [ ] "Ripristina acquisti" funzionante
+- [ ] Giochi bloccati che non si avviano senza acquisto; giochi gratis sempre accessibili
+- [ ] ID AdMob reali e `testing: false`
 - [ ] Prova offline, prova su telefono piccolo e su tablet
 - [ ] Nessun banner che copre pulsanti o area di gioco
 - [ ] Regole degli store ricontrollate (cambiano spesso)

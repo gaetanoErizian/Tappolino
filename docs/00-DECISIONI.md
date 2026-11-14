@@ -37,3 +37,8 @@ Aggiornato: 14/11/2026 (sera) — in caso di conflitto vale questo file, poi `05
     - Workflow CI nella radice del monorepo: `.github/workflows/app-android.yml`, `app-ios.yml`, `app-web.yml`, con `working-directory: app` e tag `app-v*`. I workflow `pompieri-*.yml` della prima versione vanno convertiti in questi nella Fase 1.
     - Copia di riferimento del codice comune in `04-TEMPLATE.md` (documenti del progetto): descrive la versione "un'app per gioco" e va aggiornata dopo la Fase 1.
 12. **Chat di regia**: una chat del progetto resta dedicata a strategia, decisioni e roadmap. Le chat dei giochi sviluppano; decisioni nuove e cambi di rotta si prendono in regia e finiscono in questo file.
+13. **Quale copia dei documenti vale**: fa fede la cartella `docs/` sul branch `main` del repository. I documenti del progetto su claude.ai sono una copia, allineata dalla chat di regia.
+    - Le chat dei giochi **non modificano i documenti del progetto** su claude.ai.
+    - Nel proprio branch possono aggiornare solo `docs/03-ROADMAP.md` (stato e registro del loro gioco); le modifiche arrivano su `main` con l'unione del branch.
+    - Tutto il resto (decisioni, strategia, setup) si segnala a Gaetano, che lo porta in regia.
+    - `04-TEMPLATE.md` esiste solo nei documenti del progetto ed è una fotografia del codice comune al gioco 1: il codice vero è nel repository.

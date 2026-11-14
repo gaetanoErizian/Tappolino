@@ -90,7 +90,7 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 ## Stato
 | Fase | Stato |
 |---|---|
-| 0 — Pompieri, versione web | In corso |
+| 0 — Pompieri, versione web | Web pronta e codice sul branch `game/pompieri-in-azione`; manca l'ok di Gaetano |
 | 1 — App contenitore + catena di build | Da fare |
 | 2 — Giochi 2–5 | Da fare |
 | 3 — Lancio pubblico v1.0 | Da fare |

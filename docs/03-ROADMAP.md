@@ -1,21 +1,21 @@
-# 03 — Roadmap: i primi 10 giochi
+# 03 — I primi 10 giochi: schede, stato e registro
 
-Ordine di sviluppo alternato, dal più semplice al più articolato. Il gioco 1 crea anche il template comune (`core/`).
+I giochi sono moduli dell'app Tappolino. Fasi e strategia in `05-STRATEGIA-E-ROADMAP.md`. Il gioco 1 ha creato il codice comune (`core/`).
 
-**Stati**: Da fare · In corso · Web pronta · Android pronto · iOS pronto · Pubblicato
+**Stati**: Da fare · In corso · Web pronta · Approvato · Nell'app (test interno) · Pubblicato
 
-| # | Gioco | Tema | Gesto | Stato |
-|---|---|---|---|---|
-| 1 | Pompieri in Azione | maschietto | tocco | Da fare |
-| 2 | Pasticceria Magica | femminuccia | trascinamento | Da fare |
-| 3 | Scavo dei Dinosauri | maschietto | strofinare | Da fare |
-| 4 | Salone degli Unicorni | femminuccia | strofinare / tocco | Da fare |
-| 5 | Razzo tra le Stelle | maschietto | tenere premuto | Da fare |
-| 6 | Cuccioli dal Dottore | femminuccia | trascinamento | Da fare |
-| 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | Da fare |
-| 8 | Giardino delle Fate | femminuccia | tocco | Da fare |
-| 9 | Treno degli Animali | maschietto | trascinamento | Da fare |
-| 10 | Atelier delle Principesse | femminuccia | trascinamento | Da fare |
+| # | Gioco | Tema | Gesto | Accesso | Stato |
+|---|---|---|---|---|---|
+| 1 | Pompieri in Azione | maschietto | tocco | gratis | Web pronta — in attesa dell'ok di Gaetano |
+| 2 | Pasticceria Magica | femminuccia | trascinamento | gratis | Da fare |
+| 3 | Scavo dei Dinosauri | maschietto | strofinare | gratis | Da fare |
+| 4 | Salone degli Unicorni | femminuccia | strofinare / tocco | bloccato | Da fare |
+| 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | Da fare |
+| 6 | Cuccioli dal Dottore | femminuccia | trascinamento | bloccato | Da fare |
+| 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | bloccato | Da fare |
+| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | Da fare |
+| 9 | Treno degli Animali | maschietto | trascinamento | bloccato | Da fare |
+| 10 | Atelier delle Principesse | femminuccia | trascinamento | bloccato | Da fare |
 
 ## Schede
 
@@ -49,8 +49,10 @@ Gli animali aspettano in stazione: trascina ognuno nel vagone con la forma o il 
 ### 10. Atelier delle Principesse
 Vesti il personaggio trascinando abiti, corone, scarpe e accessori; scegli lo sfondo (castello, bosco, festa). Si possono scegliere personaggi diversi, anche principi e cavalieri. Ricompensa: nuovi abiti sbloccati giocando.
 
-## Decisioni
-Tutte le decisioni aperte iniziali sono state chiuse: vedi `00-DECISIONI.md`.
+## In sospeso per Gaetano
+- Ok (o ritocchi) sulla versione web di Pompieri.
+- Verifica disponibilità di "Tappolino" (dominio, store, EUIPO).
+- Iscrizione Apple Developer e segreti per la CI nel repository (elenco nel README del gioco 1).
 
 ## Registro
-*(Claude aggiunge qui una riga per ogni gioco completato: data, link alla versione web, note utili per i successivi.)*
+- **14/11/2026 — Gioco 1 "Pompieri in Azione"** (grafica 2.5D): versione web di test pubblicata come pagina claude.ai "Pompieri in Azione" (https://claude.ai/artifact/D5FYh9wfxXLkoCMFFoUJt9). Codice sul branch `game/pompieri-in-azione` del repository (commit `5297fb3`), ancora nella forma "un'app per gioco": `games/pompieri-in-azione/`, `template/core/`, `.github/workflows/pompieri-*.yml`. 10 livelli (3×2 → 6×3 finestre, poi difficoltà massima), gattino da salvare dal livello 2, 6 camion sbloccabili ogni 2 livelli, garage-collezione, area genitori con gate, 6 lingue, 15 test Vitest, screenshot store IT/EN per telefono, iPhone 6,9" e iPad 13". Note per i successivi: IAP con `@capgo/native-purchases`; in Phaser 4 non ruotare oggetti grandi; pagina web con `vite build --mode artifact`. Da verificare su dispositivo: banner AdMob, acquisto/ripristino, prima build iOS in CI.
