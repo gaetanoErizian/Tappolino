@@ -1,0 +1,14 @@
+node_modules/
+dist/
+*.keystore
+*.jks
+*.p8
+*.mobileprovision
+.DS_Store
+android/app/release/
+android/.gradle/
+android/build/
+android/app/build/
+ios/App/build/
+ios/App/DerivedData/
+dist-web/

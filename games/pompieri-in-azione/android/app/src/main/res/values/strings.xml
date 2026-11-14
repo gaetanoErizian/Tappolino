@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Pompieri in Azione</string>
+    <string name="title_activity_main">Pompieri in Azione</string>
+    <string name="package_name">it.tappolino.pompieri</string>
+    <string name="custom_url_scheme">it.tappolino.pompieri</string>
+    <!-- ID app AdMob: ora è l'ID di TEST di Google. Sostituire prima della pubblicazione. -->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+</resources>
