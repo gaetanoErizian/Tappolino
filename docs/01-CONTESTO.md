@@ -37,7 +37,7 @@ Giochi semplici e molto coinvolgenti per bambini (3–7 anni), senza la pubblici
 
 ## Identità
 - Nome sviluppatore/brand: **Tappolino** (vedi `00-DECISIONI.md`).
-- Stile grafico comune: forme piene e arrotondate, colori vivaci, contorni spessi, grafica vettoriale originale (nessun personaggio o marchio di terzi).
+- Stile grafico comune: "2.5D" con volumi, luci, ombre e piani in parallasse, movimento in 2D (dettagli al punto 7 di `00-DECISIONI.md`). Forme arrotondate, colori vivaci, grafica originale (nessun personaggio o marchio di terzi).
 - Asset: solo originali o con licenza CC0 (es. Kenney.nl); annotare la fonte in `CREDITS.md` di ogni gioco.
 
 ## Nota sulla divisione "maschietto / femminuccia"
