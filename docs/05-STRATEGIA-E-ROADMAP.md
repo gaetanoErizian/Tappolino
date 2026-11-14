@@ -37,7 +37,8 @@ Regole:
 - Ogni gioco si carica solo quando viene aperto (import dinamico), così l'avvio resta rapido anche con 10 giochi.
 - Ogni gioco ha un pulsante "casa" che riporta al menu.
 - Un gioco bloccato non si avvia mai: il tocco apre il parental gate e poi la schermata di acquisto.
-- Sul web di test `?game=<id>` apre direttamente un gioco e `?unlock=1` simula l'acquisto.
+- Sul web di test `?game=<id>` apre direttamente un gioco, `?unlock=1` simula l'acquisto e `?lock=1` blocca tutto; sulle pagine claude.ai valgono `#lock`, `#unlock`, `#reset` (tabella completa in `02-SETUP-E-PIPELINE.md`).
+- Schede store del singolo gioco in `app/store/games/<id>/`; screenshot fuori da git (decisioni 14 e 16).
 
 ### Acquisto e annunci nel core
 - Prodotto unico `it.tappolino.app.unlock_all`: sblocca tutti i giochi e toglie il banner.
@@ -55,8 +56,8 @@ Regole:
 - Creare `app/` con core, menu dei giochi e Pompieri trasformato in modulo.
 - Acquisto unico `unlock_all`, lucchetti, area genitori nel menu.
 - Workflow CI: AAB Android e build iOS con caricamento su TestFlight.
-- Prima installazione sui telefoni tramite test interno (Play Console) e TestFlight: serve a collaudare tutta la catena con un solo gioco. **Non è il lancio pubblico.**
-- Unire a `main`.
+- Unire a `main` appena test e build web passano (decisione 15), in un solo commit e senza screenshot (decisione 14).
+- Prima installazione sui telefoni tramite test interno (Play Console) e TestFlight, appena ci sono segreti e account Apple: serve a collaudare tutta la catena con un solo gioco. **Non è il lancio pubblico** e non blocca la Fase 2.
 
 ### Fase 2 — Giochi 2–5 (una chat per gioco, Opus medio)
 Ordine: Pasticceria Magica, Scavo dei Dinosauri, Salone degli Unicorni, Razzo tra le Stelle.
@@ -90,8 +91,8 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 ## Stato
 | Fase | Stato |
 |---|---|
-| 0 — Pompieri, versione web | Web pronta e codice sul branch `game/pompieri-in-azione`; manca l'ok di Gaetano |
-| 1 — App contenitore + catena di build | Da fare |
+| 0 — Pompieri, versione web | Chiusa (14/11/2026) |
+| 1 — App contenitore + catena di build | Costruita sul branch `game/pompieri-in-azione` (`app/`, workflow `app-*.yml`). Mancano: rimozione degli screenshot da git, unione a `main` in squash, prima build di prova su Android e iOS (servono segreti e account Apple) |
 | 2 — Giochi 2–5 | Da fare |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |

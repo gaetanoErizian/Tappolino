@@ -62,6 +62,19 @@ npm run icons && npx capacitor-assets generate --iconBackgroundColor '#8fd3ff' -
 npx cap sync                        # copia la build web nei progetti nativi
 ```
 
+### Parametri di prova (solo web)
+| Parametro | Effetto |
+|---|---|
+| `?game=<id>` | apre direttamente un gioco |
+| `?unlock=1` / `#unlock` | simula l'acquisto |
+| `?lock=1` / `#lock` | mostra tutti i giochi come bloccati, per provare il percorso di acquisto |
+| `?reset=1` / `#reset` | azzera progressi e impostazioni |
+| `?lang=en` | forza la lingua |
+| `?banner=1` | simula lo spazio del banner Android |
+| `?debug=1` | espone `window.__game` per i test automatici |
+
+Sulle pagine di test pubblicate su claude.ai i parametri `?…` non arrivano al gioco: lì si usano le varianti `#lock`, `#unlock` e `#reset`.
+
 ## Cosa serve a Gaetano (una tantum)
 - **Account Google Play Console** (esistente da anni: nessun obbligo dei 12 tester).
 - **Account Apple Developer** (99 USD l'anno) + **chiave API App Store Connect** con ruolo Admin (firma gestita nel cloud dalla CI).

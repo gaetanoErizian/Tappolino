@@ -35,10 +35,16 @@ Aggiornato: 14/11/2026 (sera) — in caso di conflitto vale questo file, poi `05
 11. **Scelte tecniche dal gioco 1** (aggiunte dalla chat Pompieri, adattate al collettore)
     - Acquisto in-app con il plugin `@capgo/native-purchases`. Il prodotto è ora uno solo, `it.tappolino.app.unlock_all`; il vecchio `<appId>.remove_ads` per gioco non si usa più.
     - Workflow CI nella radice del monorepo: `.github/workflows/app-android.yml`, `app-ios.yml`, `app-web.yml`, con `working-directory: app` e tag `app-v*`. I workflow `pompieri-*.yml` della prima versione vanno convertiti in questi nella Fase 1.
-    - Copia di riferimento del codice comune in `04-TEMPLATE.md` (documenti del progetto): descrive la versione "un'app per gioco" e va aggiornata dopo la Fase 1.
+    - Riferimento per il codice comune: `app/README.md` e `app/src/core/` nel repository.
 12. **Chat di regia**: una chat del progetto resta dedicata a strategia, decisioni e roadmap. Le chat dei giochi sviluppano; decisioni nuove e cambi di rotta si prendono in regia e finiscono in questo file.
 13. **Quale copia dei documenti vale**: fa fede la cartella `docs/` sul branch `main` del repository. I documenti del progetto su claude.ai sono una copia, allineata dalla chat di regia.
     - Le chat dei giochi **non modificano i documenti del progetto** su claude.ai.
     - Nel proprio branch possono aggiornare solo `docs/03-ROADMAP.md` (stato e registro del loro gioco); le modifiche arrivano su `main` con l'unione del branch.
     - Tutto il resto (decisioni, strategia, setup) si segnala a Gaetano, che lo porta in regia.
-    - `04-TEMPLATE.md` esiste solo nei documenti del progetto ed è una fotografia del codice comune al gioco 1: il codice vero è nel repository.
+    - `04-TEMPLATE.md` nei documenti del progetto è solo un rimando: il codice comune è in `app/src/core/` e si legge da `app/README.md`.
+14. **Screenshot degli store fuori da git.** Sono file generati e pesanti (51 MB per un solo gioco in due lingue): nel repository restano solo lo script che li produce e le grafiche leggere (icona, feature graphic).
+    - `app/store/screenshots/` va in `.gitignore`; gli screenshot si rigenerano quando servono e si consegnano come zip in chat o come artifact di un workflow.
+    - Niente Git LFS: aggiunge quote e complessità per file che si possono rifare.
+    - Il branch che li contiene si unisce a `main` **in un solo commit (squash)** dopo averli rimossi, così non entrano nella storia di `main`.
+15. **Unione a `main` senza aspettare le build sui telefoni.** Un branch si unisce quando test e build web passano e Gaetano ha dato l'ok sul gioco. Le build Android e iOS di prova seguono appena ci sono i segreti e l'account Apple: non devono bloccare i giochi successivi.
+16. **Schede store per singolo gioco** in `app/store/games/<id>/`: servono per le future app singole (Fase 5). La scheda dell'app Tappolino sta in `app/store/`.
