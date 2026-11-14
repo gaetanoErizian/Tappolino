@@ -38,7 +38,7 @@ Installare sempre con `npm i -E` (versioni esatte).
 ## Struttura
 Quella definitiva (`app/` con `core/`, `hub/`, `games/<id>/`) è in `05-STRATEGIA-E-ROADMAP.md`.
 
-Stato attuale del repository: il gioco 1 è sul branch `game/pompieri-in-azione` nella forma precedente, "un'app per gioco" (`games/pompieri-in-azione/`, `template/core/`, `.github/workflows/pompieri-*.yml`). La Fase 1 lo converte nella struttura definitiva.
+La struttura è costruita sul branch `game/pompieri-in-azione` (in attesa di unione a `main`): `app/README.md` spiega come avviare, provare e compilare, ed elenca i segreti della CI e il comando per il keystore.
 
 Dentro ogni modulo gioco restano validi i file del gioco 1: `art.ts`, `levels.ts`, `save.ts`, `sfx.ts`, `world.ts`, `scenes/`, `locales/` (6 lingue), `tests/`.
 
@@ -79,8 +79,8 @@ Sulle pagine di test pubblicate su claude.ai i parametri `?…` non arrivano al 
 - **Account Google Play Console** (esistente da anni: nessun obbligo dei 12 tester).
 - **Account Apple Developer** (99 USD l'anno) + **chiave API App Store Connect** con ruolo Admin (firma gestita nel cloud dalla CI).
 - **Account AdMob** (solo Android): un'app "Tappolino" e un'unità banner.
-- **Keystore Android** di firma: generato una volta, conservato con backup (comando nel README del gioco 1).
-- **Segreti della CI** nel repository GitHub (elenco nel README del gioco 1).
+- **Keystore Android** di firma: generato una volta, conservato con backup (comando in `app/README.md`).
+- **Segreti della CI** nel repository GitHub (elenco in `app/README.md`).
 - **Pagina web pubblica** con la privacy policy (testo pronto in `store/privacy-policy.html`).
 - Non serve un Mac né Android Studio: le build firmate le fa GitHub Actions.
 
