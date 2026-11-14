@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tappolino</string>
+    <string name="title_activity_main">Tappolino</string>
+    <string name="package_name">it.tappolino.app</string>
+    <string name="custom_url_scheme">it.tappolino.app</string>
+    <!-- ID app AdMob: ora è l'ID di TEST di Google. Sostituire prima della pubblicazione. -->
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+</resources>

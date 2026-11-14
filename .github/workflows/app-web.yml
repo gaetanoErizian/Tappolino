@@ -1,0 +1,32 @@
+name: App — test e build web
+
+on:
+  push:
+    branches: [main, "game/**"]
+    paths: ["app/**", ".github/workflows/app-web.yml"]
+  pull_request:
+    paths: ["app/**"]
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npx vite build --mode artifact
+      - uses: actions/upload-artifact@v7
+        with:
+          name: web
+          path: |
+            app/dist
+            app/dist-web
