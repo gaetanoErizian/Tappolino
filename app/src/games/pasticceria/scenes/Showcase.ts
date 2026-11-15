@@ -18,7 +18,7 @@ export class Showcase extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    drawKitchen(this, { counter: false, window: false });
+    drawKitchen(this, { counter: false, window: false, fgAside: true });
     title3d(this, 960, 120, t('pasticceria.showcase'), 100);
     this.drawCase();
 

@@ -198,19 +198,21 @@ function ingredientSvg(id: IngredientId): string {
       <circle cx="94" cy="50" r="12" fill="#fff"/><circle cx="114" cy="40" r="15" fill="#fff"/><circle cx="134" cy="50" r="11" fill="#fff"/>
       ${shine(70, 130, 9, 30, 0, 0.55)}`;
     case 'egg': return `<defs>${ballGrad('e', '#fffef9', '#f7e9cf', '#d6b98c')}${G('c', '#7cc4f2', false, 0.5)}</defs>
-      <ellipse cx="110" cy="104" rx="58" ry="74" fill="url(#e)" stroke="#d9c09a" stroke-width="2"/>
-      ${shine(88, 70, 14, 24, -20, 0.85)}
-      <path d="M52 146 Q54 204 110 206 Q166 204 168 146 Z" fill="url(#c)" stroke="#3f8fc4" stroke-width="3"/>
-      <ellipse cx="110" cy="146" rx="58" ry="10" fill="#a8dbfa"/>
+      <ellipse cx="110" cy="146" rx="58" ry="10" fill="#2f6f9e"/>
+      <ellipse cx="110" cy="100" rx="56" ry="72" fill="url(#e)" stroke="#d9c09a" stroke-width="2"/>
+      ${shine(88, 66, 14, 24, -20, 0.85)}
+      <path d="M52 146 A58 10 0 0 0 168 146 Q166 204 110 206 Q54 204 52 146 Z" fill="url(#c)" stroke="#3f8fc4" stroke-width="3"/>
+      <path d="M53 146 A57 10 0 0 0 167 146" stroke="#c4e8fc" stroke-width="5" fill="none"/>
       ${[[80, 170], [110, 186], [140, 170]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#fff" opacity=".9"/>`).join('')}
       <rect x="96" y="204" width="28" height="14" fill="#5aa9dc"/>
       <ellipse cx="110" cy="222" rx="52" ry="12" fill="#3f8fc4"/><ellipse cx="110" cy="218" rx="48" ry="9" fill="#8fd0f7"/>`;
     case 'milk': return `<defs><linearGradient id="m" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#f1f5fa"/><stop offset="1" stop-color="#c9d6e6"/></linearGradient>${G('cp', '#4fa3ff')}</defs>
       <path d="M86 44 V30 H134 V44 Q144 54 146 72 L154 104 Q162 122 162 142 V212 Q162 232 142 232 H78 Q58 232 58 212 V142 Q58 122 66 104 L74 72 Q76 54 86 44 Z" fill="url(#m)" stroke="#9fb4cc" stroke-width="3"/>
       <rect x="80" y="12" width="60" height="26" rx="9" fill="url(#cp)" stroke="#2f7ad1" stroke-width="2"/>
+      <rect x="70" y="112" width="11" height="98" rx="5" fill="#fff" opacity=".85"/>
       <rect x="66" y="146" width="88" height="62" rx="14" fill="#5fb8f5"/>
       <path d="M110 158 Q124 176 124 186 Q124 200 110 200 Q96 200 96 186 Q96 176 110 158 Z" fill="#fff"/>
-      <rect x="70" y="112" width="11" height="98" rx="5" fill="#fff" opacity=".85"/>`;
+      <rect x="74" y="152" width="6" height="50" rx="3" fill="#fff" opacity=".45"/>`;
     case 'sugar': {
       const cube = (x: number, y: number) => `<path d="M${x} ${y} l14 -8 h30 l-14 8 Z" fill="#ffffff"/><rect x="${x}" y="${y}" width="30" height="30" fill="#eef1f6"/>
         <path d="M${x + 30} ${y} l14 -8 v30 l-14 8 Z" fill="#c9d1de"/>`;
@@ -283,7 +285,7 @@ export const INGREDIENT_TINT: Record<IngredientId, number> = {
 function applianceTextures(): SvgTex[] {
   const kinds = [
     { key: 'pa_oven', body: '#ffb8cc', inner: ['#7a3a52', '#2e1626'], emblem: `<circle cx="398" cy="139" r="22" fill="#fff"/><path d="M398 139 L398 124 M398 139 L410 146" stroke="#e0628f" stroke-width="5" stroke-linecap="round"/>` },
-    { key: 'pa_freezer', body: '#a9dcf7', inner: ['#e9fbff', '#8fcbe8'], emblem: `<path d="M398 116 V162 M378 128 L418 150 M418 128 L378 150" stroke="#fff" stroke-width="6" stroke-linecap="round"/>` },
+    { key: 'pa_freezer', body: '#a9dcf7', inner: ['#cdeaf7', '#6fa6c8'], emblem: `<path d="M398 116 V162 M378 128 L418 150 M418 128 L378 150" stroke="#fff" stroke-width="6" stroke-linecap="round"/>` },
   ];
   const out: SvgTex[] = [];
   for (const k of kinds) {
@@ -310,7 +312,7 @@ function applianceTextures(): SvgTex[] {
       key: `${k.key}_door`, w: 360, h: 252, svg: svgDoc(360, 252, `<defs>${G('fd', k.body, false, 0.55)}
         <linearGradient id="mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9aa6b8"/></linearGradient></defs>
         <path d="M4 26 Q4 6 24 6 H336 Q356 6 356 26 V230 Q356 248 336 248 H24 Q4 248 4 230 Z M40 56 V216 H320 V56 Z" fill="url(#fd)" fill-rule="evenodd" stroke="${shade(k.body, -0.4)}" stroke-width="3"/>
-        <rect x="40" y="56" width="280" height="160" rx="10" fill="${k.key === 'pa_oven' ? '#3a1a2a' : '#cfeeff'}" opacity=".28"/>
+        <rect x="40" y="56" width="280" height="160" rx="10" fill="${k.key === 'pa_oven' ? '#3a1a2a' : '#2f6f9e'}" opacity="${k.key === 'pa_oven' ? 0.28 : 0.14}"/>
         <path d="M70 56 H130 L80 216 H40 V120 Z M190 56 H220 L170 216 H140 Z" fill="#fff" opacity=".22"/>
         <rect x="90" y="16" width="180" height="18" rx="9" fill="url(#mt)" stroke="#7d8aa0" stroke-width="2"/>`),
     });
@@ -349,10 +351,10 @@ function moldSvg(r: Recipe, done: boolean): string {
     }
     case 'cake': return `${defs}
       <path d="M60 110 V188 A110 26 0 0 0 280 188 V110 Z" fill="url(#mt)"/>
+      <path d="M60 110 A110 26 0 0 1 280 110" stroke="#9aa6b8" stroke-width="5" fill="none"/>
       ${done ? `<path d="M64 112 Q70 52 170 46 Q270 52 276 112 Z" fill="url(#gd)"/>${shine(120, 70, 30, 9, -12, 0.55)}`
         : `<ellipse cx="170" cy="118" rx="104" ry="22" fill="url(#bt)"/>${gloss(170, 118, 104)}`}
       <path d="M60 110 A110 26 0 0 0 280 110" stroke="#eef2f8" stroke-width="6" fill="none"/>
-      <path d="M60 110 A110 26 0 0 1 280 110" stroke="#9aa6b8" stroke-width="5" fill="none"/>
       <path d="M76 130 V180" stroke="#fff" stroke-width="8" opacity=".55" stroke-linecap="round"/>`;
     case 'gelato': return `${defs}
       <path d="M70 100 L86 196 Q170 214 254 196 L270 100 Z" fill="#dff1fb" opacity=".75" stroke="#9fc9e2" stroke-width="3"/>
@@ -430,18 +432,19 @@ function dessertArt(r: Recipe): DessertArt {
     case 'gelato': return {
       w: 320, h: 460,
       base: `<defs>${G('cn', '#f2c27a', false, 0.45)}${G('st', '#ff9cc4', true, 0.35)}</defs>
+        <ellipse cx="160" cy="380" rx="64" ry="12" fill="#b9467a"/>
         <clipPath id="cc"><path d="M58 200 L160 430 L262 200 Z"/></clipPath>
         <path d="M58 200 L160 430 L262 200 Z" fill="url(#cn)"/>
         <g clip-path="url(#cc)" stroke="#c48a3c" stroke-width="4" opacity=".6">${Array.from({ length: 12 }, (_, i) => `<path d="M${-60 + i * 40} 180 L${80 + i * 40} 460"/><path d="M${380 - i * 40} 180 L${240 - i * 40} 460"/>`).join('')}</g>
         <path d="M58 200 L160 430 L262 200" fill="none" stroke="#c48a3c" stroke-width="3"/>
         <ellipse cx="160" cy="200" rx="104" ry="22" fill="#e9a95a"/>
         <path d="M74 206 L150 380" stroke="#fff" stroke-width="8" opacity=".35" stroke-linecap="round"/>
-        <path d="M96 380 H224 L210 448 H110 Z" fill="url(#st)" stroke="#d9548f" stroke-width="3"/>
-        <ellipse cx="160" cy="380" rx="64" ry="12" fill="#ffd0e4"/>`,
+        <path d="M96 380 A64 12 0 0 0 224 380 L210 448 H110 Z" fill="url(#st)" stroke="#d9548f" stroke-width="3"/>
+        <path d="M97 380 A63 12 0 0 0 223 380" stroke="#ffd0e4" stroke-width="5" fill="none"/>`,
       fw: 300, fh: 330,
       frost: `<defs>${GREY}</defs>
         <path d="M54 250 Q30 230 52 210 Q40 140 108 124 Q150 108 196 124 Q262 140 250 210 Q272 230 246 250 Q232 268 214 254 Q198 276 178 258 Q160 280 142 258 Q122 278 106 256 Q86 272 76 254 Q62 268 54 250 Z" fill="url(#gr)" stroke="#9a9a9a" stroke-width="3"/>
-        <path d="M86 150 Q70 60 150 40 Q230 60 214 150 Q222 172 202 176 Q190 190 172 178 Q160 194 144 180 Q126 194 112 178 Q90 182 86 150 Z" fill="url(#gr)" stroke="#9a9a9a" stroke-width="3"/>`,
+        <path d="M72 150 Q58 40 150 32 Q242 40 228 150 Q230 178 206 178 Q190 196 174 182 Q150 200 126 182 Q110 196 94 178 Q70 178 72 150 Z" fill="url(#gr)" stroke="#9a9a9a" stroke-width="3"/>`,
       gloss: `${shine(112, 80, 22, 12, -30, 0.75)}${shine(92, 170, 24, 10, -20, 0.55)}`,
     };
   }
@@ -501,6 +504,12 @@ function toppingTextures(): SvgTex[] {
 // Clienti-animaletti (busto dietro il bancone): attesa, bocca aperta, felice
 // =====================================================================
 
+/** Texture dei clienti: 40 px liberi in alto (orecchie) e busto lungo fino in fondo. */
+export const CUST_H = 820;
+const CUST_TOP = 40;
+/** Distanza dalla base della texture alla bocca. */
+export const CUST_MOUTH = CUST_H - CUST_TOP - 342;
+
 interface Animal { fur: string; inner: string; muzzle: string; nose: string; shirt: string; ears: string; extra?: string; }
 
 const ANIMALS: Record<CustomerId, Animal> = {
@@ -542,8 +551,8 @@ function customerSvg(id: CustomerId, state: 'idle' | 'eat' | 'happy'): string {
     : state === 'happy'
       ? `<path d="M178 326 Q220 384 262 326 Z" fill="#8a2a3a"/><path d="M196 350 Q220 366 244 350 Q220 344 196 350 Z" fill="#ff7f9a"/>`
       : `<path d="M196 330 Q208 344 220 332 Q232 344 244 330" stroke="#3a2230" stroke-width="6" fill="none" stroke-linecap="round"/>`;
-  return `<defs>${ballGrad('fu', shade(a.fur, 0.5), a.fur, shade(a.fur, -0.28))}${G('sh', a.shirt, false, 0.45)}</defs>
-    <path d="M60 520 Q60 420 140 400 Q220 384 300 400 Q380 420 380 520 Z" fill="url(#sh)" stroke="${shade(a.shirt, -0.35)}" stroke-width="3"/>
+  return `<defs>${ballGrad('fu', shade(a.fur, 0.5), a.fur, shade(a.fur, -0.28))}${G('sh', a.shirt, false, 0.45)}</defs><g transform="translate(0 ${CUST_TOP})">
+    <path d="M60 ${CUST_H - CUST_TOP} Q60 420 140 400 Q220 384 300 400 Q380 420 380 ${CUST_H - CUST_TOP} Z" fill="url(#sh)" stroke="${shade(a.shirt, -0.35)}" stroke-width="3"/>
     <path d="M150 404 L220 470 L290 404 Q220 420 150 404 Z" fill="#fff" stroke="#e7d6e0" stroke-width="2"/>
     <path d="M150 404 Q220 420 290 404" stroke="#ff8fbd" stroke-width="7" fill="none"/>
     <circle cx="220" cy="430" r="9" fill="#ff8fbd"/>
@@ -555,12 +564,12 @@ function customerSvg(id: CustomerId, state: 'idle' | 'eat' | 'happy'): string {
     <ellipse cx="220" cy="304" rx="16" ry="11" fill="${a.nose}"/>${shine(214, 300, 5, 3, 0, 0.8)}
     ${mouth}
     <ellipse cx="146" cy="318" rx="20" ry="12" fill="#ff7fa8" opacity=".4"/><ellipse cx="294" cy="318" rx="20" ry="12" fill="#ff7fa8" opacity=".4"/>
-    ${shine(150, 200, 30, 16, -35, 0.45)}`;
+    ${shine(150, 200, 30, 16, -35, 0.45)}</g>`;
 }
 
 function customerTextures(): SvgTex[] {
   return CUSTOMERS.flatMap((id) => (['idle', 'eat', 'happy'] as const).map((s) => ({
-    key: `pa_cust_${id}_${s}`, w: 440, h: 520, svg: svgDoc(440, 520, customerSvg(id, s)),
+    key: `pa_cust_${id}_${s}`, w: 440, h: CUST_H, svg: svgDoc(440, CUST_H, customerSvg(id, s)),
   })));
 }
 

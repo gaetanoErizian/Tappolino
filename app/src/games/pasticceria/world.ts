@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { colorHex, recipeById, type Creation, type CustomerId, type Recipe, type ToppingId } from './recipes';
+import { CUST_H, CUST_MOUTH } from './art';
 
 /** Elementi di scena condivisi: pasticceria a piani, bancone, dolce composto, cliente, trascinamento, manina. */
 
@@ -11,7 +12,7 @@ export const hex = (c: string): number => parseInt(c.slice(1), 16);
  * Sfondo 2.5D: parete a righe, finestra con paesaggio nella foschia (piano lontano), mensole (piano medio),
  * lampade con alone, bancone in primo piano, barattoli sfocati ai bordi. Parallasse all'ingresso.
  */
-export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; window?: boolean } = {}): { fg: Phaser.GameObjects.Image[] } {
+export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; window?: boolean; fgAside?: boolean } = {}): { fg: Phaser.GameObjects.Image[] } {
   const g = scene.add.graphics().setDepth(0);
   g.fillGradientStyle(0xffe6ef, 0xffe6ef, 0xffcadb, 0xffcadb, 1).fillRect(-2000, -1600, 5920, 3200);
   g.fillStyle(0xffffff, 0.32);
@@ -50,9 +51,10 @@ export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; wind
       c.fillStyle(0xffffff, 0.8).fillRoundedRect(x + 115, COUNTER_Y + 100, 60, 14, 7);
     }
   }
+  // in partita i barattoli restano più ai margini, per non coprire ingredienti e vassoi
   const fg = [
-    scene.add.image(40, 1200, 'pa_fg_jar').setOrigin(0.5, 1).setScale(1.25).setDepth(800),
-    scene.add.image(1890, 1190, 'pa_fg_stand').setOrigin(0.5, 1).setScale(1.2).setDepth(800),
+    scene.add.image(opts.fgAside ? -190 : 40, 1200, 'pa_fg_jar').setOrigin(0.5, 1).setScale(1.25).setDepth(800),
+    scene.add.image(opts.fgAside ? 2110 : 1890, 1190, 'pa_fg_stand').setOrigin(0.5, 1).setScale(1.2).setDepth(800),
   ];
   const slide = (o: { x: number }, dx: number) => {
     const x = o.x;
@@ -69,9 +71,17 @@ export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; wind
 // Dolce composto: piattino, base, glassa colorata con riflessi, decorazioni
 // ---------------------------------------------------------------------
 
+/** Altezza del bordo superiore di ogni dolce rispetto al suo centro: [senza glassa, con glassa]. */
+const DESSERT_TOP: Record<string, [number, number]> = {
+  cupcake: [-70, -255], cookie: [-118, -118], cake: [-140, -150], gelato: [-56, -238],
+};
+
 export class Dessert {
   readonly c: Phaser.GameObjects.Container;
   readonly recipe: Recipe;
+  /** dolce senza piattino: origine sul piattino, così i morsi lo rimpiccioliscono verso il basso */
+  private body: Phaser.GameObjects.Container;
+  private plate?: Phaser.GameObjects.Image;
   private frost: Phaser.GameObjects.Image;
   private gloss: Phaser.GameObjects.Image;
   private tops: Phaser.GameObjects.Image[] = [];
@@ -81,14 +91,16 @@ export class Dessert {
     this.recipe = recipeById(creation.r);
     this.creation = { r: creation.r, c: null, t: [] };
     const r = this.recipe;
+    const P = r.plateDy;
     const parts: Phaser.GameObjects.GameObject[] = [];
     if (opts.plate !== false) {
-      parts.push(scene.add.image(0, r.plateDy, 'pa_plate').setScale(r.id === 'gelato' ? 0.6 : r.id === 'cookie' ? 0.95 : 0.85));
+      this.plate = scene.add.image(0, P, 'pa_plate').setScale(r.id === 'gelato' ? 0.6 : r.id === 'cookie' ? 0.95 : 0.85);
+      parts.push(this.plate);
     }
-    parts.push(scene.add.image(0, 0, `pa_base_${r.id}`));
-    this.frost = scene.add.image(0, r.frostDy, `pa_frost_${r.id}`).setVisible(false);
-    this.gloss = scene.add.image(0, r.frostDy, `pa_frost_${r.id}_hl`).setVisible(false);
-    parts.push(this.frost, this.gloss);
+    this.frost = scene.add.image(0, r.frostDy - P, `pa_frost_${r.id}`).setVisible(false);
+    this.gloss = scene.add.image(0, r.frostDy - P, `pa_frost_${r.id}_hl`).setVisible(false);
+    this.body = scene.add.container(0, P, [scene.add.image(0, -P, `pa_base_${r.id}`), this.frost, this.gloss]);
+    parts.push(this.body);
     this.c = scene.add.container(x, y, parts).setDepth(opts.depth ?? 50);
     if (creation.c) this.setColor(creation.c, false);
     for (const [id, dx, dy] of creation.t) this.addTopping(id, dx, dy, false);
@@ -114,15 +126,16 @@ export class Dessert {
   }
 
   addTopping(id: ToppingId, dx: number, dy: number, animate = true): Phaser.GameObjects.Image {
-    const img = this.scene.add.image(dx, dy, `pa_top_${id}`).setScale(0.9);
+    const ly = dy - this.recipe.plateDy;
+    const img = this.scene.add.image(dx, ly, `pa_top_${id}`).setScale(0.9).setData('y', ly);
     // le decorazioni più in basso stanno davanti (profondità)
-    const first = this.c.getIndex(this.gloss) + 1;
-    this.c.addAt(img, first + this.tops.filter((t) => t.y <= dy).length);
+    const first = this.body.getIndex(this.gloss) + 1;
+    this.body.addAt(img, first + this.tops.filter((t) => (t.getData('y') as number) <= ly).length);
     this.tops.push(img);
     this.creation.t.push([id, Math.round(dx), Math.round(dy)]);
     if (animate) {
-      img.setScale(0).setY(dy - 40);
-      this.scene.tweens.add({ targets: img, scale: 0.9, y: dy, duration: 300, ease: 'Back.easeOut' });
+      img.setScale(0).setY(ly - 40);
+      this.scene.tweens.add({ targets: img, scale: 0.9, y: ly, duration: 300, ease: 'Back.easeOut' });
     }
     return img;
   }
@@ -132,9 +145,29 @@ export class Dessert {
     return { x: (x - this.c.x) / this.c.scaleX, y: (y - this.c.y) / this.c.scaleY };
   }
 
+  /** Bordo più alto del dolce (coordinate del mondo): lì il cliente appoggia la bocca. */
+  biteTop(): { x: number; y: number } {
+    const top = DESSERT_TOP[this.recipe.id][this.frosted ? 1 : 0];
+    const ly = this.recipe.plateDy + (top - this.recipe.plateDy) * this.body.scaleY;
+    return { x: this.c.x, y: this.c.y + ly * this.c.scaleY };
+  }
+
+  /** Un morso: il dolce si rimpicciolisce verso il piattino. */
+  bite(k = 0.7): void {
+    const s = this.body.scaleX * k;
+    this.scene.tweens.add({ targets: this.body, scaleX: s * 1.12, scaleY: s * 0.88, duration: 90, ease: 'Quad.easeOut',
+      onComplete: () => this.scene.tweens.add({ targets: this.body, scaleX: s, scaleY: s, duration: 140, ease: 'Back.easeOut' }) });
+  }
+
+  /** Sparisce l'ultimo boccone, resta il piattino. */
+  finish(): void {
+    this.scene.tweens.add({ targets: this.body, scale: 0, duration: 160, ease: 'Quad.easeIn' });
+  }
+
   /** Versione "sagoma" per i dolci ancora da scoprire. */
   silhouette(): void {
-    this.c.each((o: Phaser.GameObjects.GameObject) => (o as Phaser.GameObjects.Image).setTint(0x5a4a6e));
+    this.plate?.setTint(0x5a4a6e);
+    this.body.each((o: Phaser.GameObjects.GameObject) => (o as Phaser.GameObjects.Image).setTint(0x5a4a6e));
   }
 }
 
@@ -148,13 +181,45 @@ export const previewCreation = (r: Recipe): Creation => ({
 // Cliente-animaletto dietro il bancone
 // ---------------------------------------------------------------------
 
+/** Base della texture del cliente quando sta in piedi dietro il bancone. */
+export const CUST_Y = COUNTER_Y + 310;
+
 export class Customer {
   readonly img: Phaser.GameObjects.Image;
   private bob: Phaser.Tweens.Tween;
 
   constructor(private scene: Phaser.Scene, readonly id: CustomerId, x: number, depth = 15) {
-    this.img = scene.add.image(x, COUNTER_Y + 70, `pa_cust_${id}_idle`).setOrigin(0.5, 1).setDepth(depth);
+    this.img = scene.add.image(x, CUST_Y, `pa_cust_${id}_idle`).setOrigin(0.5, 1).setDepth(depth);
     this.bob = scene.tweens.add({ targets: this.img, scaleY: 1.025, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    // Il busto si vede solo sopra il bancone: così il cliente può sporgersi davanti al dolce per mangiarlo.
+    const clip = () => {
+      if (!this.img.active) return;
+      const top = this.img.y - CUST_H * this.img.scaleY;
+      this.img.setCrop(0, 0, 440, Phaser.Math.Clamp((COUNTER_Y + 6 - top) / this.img.scaleY, 0, CUST_H));
+    };
+    clip();
+    scene.events.on('update', clip);
+    scene.events.once('shutdown', () => scene.events.off('update', clip));
+  }
+
+  /**
+   * Morso: il cliente (dietro al dolce) si allunga finché la bocca tocca il bordo alto del dolce,
+   * poi torna al suo posto. Il busto lungo resta sempre nascosto dal bancone.
+   */
+  biteAt(x: number, topY: number, onBite: () => void, onDone: () => void): void {
+    const homeX = this.img.x;
+    this.face('eat');
+    const ty = Math.max(topY - 16 + CUST_MOUTH, COUNTER_Y + 30);
+    this.scene.tweens.add({
+      targets: this.img, x: x + 24, y: ty, duration: 280, ease: 'Quad.easeOut',
+      onComplete: () => {
+        onBite();
+        this.scene.tweens.add({
+          targets: this.img, x: homeX, y: CUST_Y, duration: 320, delay: 160, ease: 'Quad.easeInOut',
+          onComplete: () => { this.face('idle'); onDone(); },
+        });
+      },
+    });
   }
 
   face(state: 'idle' | 'eat' | 'happy'): void { this.img.setTexture(`pa_cust_${this.id}_${state}`); }
@@ -164,21 +229,21 @@ export class Customer {
     this.img.x = 2500;
     this.scene.tweens.add({
       targets: this.img, x: toX, duration: 900, ease: 'Cubic.easeOut',
-      onUpdate: (tw) => { this.img.y = COUNTER_Y + 70 - Math.abs(Math.sin(tw.progress * Math.PI * 4)) * 26; },
-      onComplete: () => { this.img.y = COUNTER_Y + 70; onDone?.(); },
+      onUpdate: (tw) => { this.img.y = CUST_Y - Math.abs(Math.sin(tw.progress * Math.PI * 4)) * 26; },
+      onComplete: () => { this.img.y = CUST_Y; onDone?.(); },
     });
   }
 
   leave(onDone?: () => void): void {
     this.scene.tweens.add({
       targets: this.img, x: 2600, duration: 800, ease: 'Cubic.easeIn',
-      onUpdate: (tw) => { this.img.y = COUNTER_Y + 70 - Math.abs(Math.sin(tw.progress * Math.PI * 4)) * 26; },
+      onUpdate: (tw) => { this.img.y = CUST_Y - Math.abs(Math.sin(tw.progress * Math.PI * 4)) * 26; },
       onComplete: () => onDone?.(),
     });
   }
 
   jump(): void {
-    this.scene.tweens.add({ targets: this.img, y: COUNTER_Y + 40, duration: 140, yoyo: true, repeat: 1, ease: 'Quad.easeOut' });
+    this.scene.tweens.add({ targets: this.img, y: CUST_Y - 30, duration: 140, yoyo: true, repeat: 1, ease: 'Quad.easeOut' });
   }
 
   destroy(): void { this.bob.stop(); this.img.destroy(); }

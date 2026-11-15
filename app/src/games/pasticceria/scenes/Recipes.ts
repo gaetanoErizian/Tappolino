@@ -16,7 +16,7 @@ export class Recipes extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    drawKitchen(this);
+    drawKitchen(this, { fgAside: true });
     const open = unlocked(save.state.served).recipes;
 
     RECIPES.forEach((r, i) => {

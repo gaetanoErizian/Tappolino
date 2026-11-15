@@ -56,7 +56,6 @@ export class Game extends Phaser.Scene {
   private dessert!: Dessert;
   private trays: Phaser.GameObjects.GameObject[] = [];
   private serveBtn: Phaser.GameObjects.Image | null = null;
-  private fg: Phaser.GameObjects.Image[] = [];
 
   constructor() { super('pasticceria:Game'); }
 
@@ -82,7 +81,7 @@ export class Game extends Phaser.Scene {
       void i;
     }));
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    this.fg = drawKitchen(this).fg;
+    drawKitchen(this, { fgAside: true });
     this.hint = new Hint(this);
     this.drag = new DragManager(this, {
       onDrop: (it, x, y) => this.onDrop(it, x, y),
@@ -148,7 +147,7 @@ export class Game extends Phaser.Scene {
     this.customer.enter(1560, () => {
       sfx.hello();
       this.customer.jump();
-      const bubble = this.add.image(1200, 330, 'pa_bubble').setDepth(60).setScale(0);
+      const bubble = this.add.image(1200, 330, 'pa_bubble').setDepth(60).setScale(0).setFlipX(true);
       const want = new Dessert(this, 1205, 330, previewCreation(this.recipe), { plate: false, depth: 61 });
       want.c.setScale(0);
       const s = this.recipe.id === 'cookie' ? 0.4 : 0.33;
@@ -316,7 +315,7 @@ export class Game extends Phaser.Scene {
     const k = this.recipe.cold ? 'pa_freezer' : 'pa_oven';
     const dx = 20 * OVEN.scale;
     this.oven = this.add.image(2500, COUNTER_Y + 18, k).setOrigin(0.5, 1).setScale(OVEN.scale).setDepth(30);
-    this.ovenGlow = this.add.image(2500 - dx, this.cavity().y, 'glow').setDepth(31.5).setScale(2.6, 1.7).setAlpha(0)
+    this.ovenGlow = this.add.image(2500 - dx, this.cavity().y, 'glow').setDepth(31.5).setScale(1.9, 1.3).setAlpha(0)
       .setTint(this.recipe.cold ? 0x8fe8ff : 0xff9a3c).setBlendMode(Phaser.BlendModes.ADD);
     this.door = this.add.image(2500 - dx, COUNTER_Y + 18 - 122 * OVEN.scale, `${k}_door`).setOrigin(0.5, 1).setScale(OVEN.scale, OVEN.scale * 0.12).setDepth(33);
     this.tweens.add({ targets: this.oven, x: OVEN.x, duration: 700, ease: 'Cubic.easeOut' });
@@ -344,8 +343,8 @@ export class Game extends Phaser.Scene {
       onComplete: () => {
         sfx.doorClose();
         this.tweens.add({ targets: this.door, scaleY: OVEN.scale, duration: 300, ease: 'Back.easeOut' });
-        this.tweens.add({ targets: this.ovenGlow, alpha: 0.75, duration: 500 });
-        this.tweens.add({ targets: this.ovenGlow, scaleX: 2.9, duration: 400, yoyo: true, repeat: -1, delay: 500 });
+        this.tweens.add({ targets: this.ovenGlow, alpha: this.recipe.cold ? 0.4 : 0.7, duration: 500 });
+        this.tweens.add({ targets: this.ovenGlow, scaleX: 2.1, duration: 400, yoyo: true, repeat: -1, delay: 500 });
         this.bakeTimer();
       },
     });
@@ -410,8 +409,6 @@ export class Game extends Phaser.Scene {
     this.tweens.add({ targets: this.dessert.c, scale: 1, duration: 500, ease: 'Back.easeOut' });
     burst(this, 960, cy - 60, 'sparkle', { count: 22, tints: [0xffffff, 0xffe066, 0xffb3d9], gravity: 0, speed: [200, 600], life: 900, depth: 60 });
 
-    // i barattoli sfocati in primo piano si scostano per non coprire i vassoi
-    this.time.delayedCall(1500, () => this.fg.forEach((f) => this.tweens.add({ targets: f, x: f.x < 960 ? -200 : 2120, duration: 600, ease: 'Cubic.easeInOut' })));
     const un = unlocked(save.state.served);
     this.trays.push(this.tray(70, 400, 470, 460));
     this.trays.push(this.tray(1370, 400, 500, 460));
@@ -542,43 +539,36 @@ export class Game extends Phaser.Scene {
     const served = save.state.served + 1;
     save.update({ served, creations: addCreation(save.state.creations, creation), tutorialDone: true });
 
-    const eatX = 1180;
-    this.customer.enter(1600, () => {
+    const custX = 1600, s = 0.8;
+    this.customer.enter(custX, () => {
       sfx.hello();
       this.customer.jump();
+      // il dolce scivola davanti al cliente, poco più a sinistra del muso
       this.tweens.add({
-        targets: this.dessert.c, x: eatX, duration: 600, ease: 'Cubic.easeInOut',
-        onComplete: () => this.chomp(0, eatX, served),
+        targets: this.dessert.c, x: custX - 250, y: COUNTER_Y + 10 - this.recipe.plateDy * s, scale: s, duration: 600, ease: 'Cubic.easeInOut',
+        onComplete: () => this.time.delayedCall(250, () => this.chomp(0, served)),
       });
     });
   }
 
-  private chomp(n: number, x: number, served: number): void {
-    const d = this.dessert.c;
+  private chomp(n: number, served: number): void {
+    const d = this.dessert;
     if (n >= 3) {
-      d.destroy();
       this.customer.face('happy');
       this.customer.jump();
       sfx.yum();
-      burst(this, 1600, 420, 'heart', { count: 12, speed: [250, 550], scale: [0.9, 0.3], gravity: 300, life: 1300, depth: 70 });
-      const lbl = title3d(this, 1250, 300, t('pasticceria.yum'), 120).setScale(0);
+      burst(this, 1600, 520, 'heart', { count: 12, speed: [250, 550], scale: [0.9, 0.3], gravity: 300, life: 1300, depth: 70 });
+      const lbl = title3d(this, 1200, 300, t('pasticceria.yum'), 120).setScale(0);
       this.tweens.add({ targets: lbl, scale: 1, duration: 350, ease: 'Back.easeOut' });
-      this.time.delayedCall(1800, () => goTo(this, 'pasticceria:Reward', { creation: this.dessert.creation, reward: rewardFor(served), served }));
+      this.time.delayedCall(1800, () => goTo(this, 'pasticceria:Reward', { creation: d.creation, reward: rewardFor(served), served }));
       return;
     }
-    this.customer.face('eat');
-    this.tweens.add({
-      targets: this.customer.img, x: 1500, duration: 220, yoyo: true, ease: 'Quad.easeOut',
-      onYoyo: () => {
-        sfx.chomp();
-        burst(this, x + 80, d.y - 60, 'pa_crumb', { count: 10, tints: [0xffffff, hex(colorHex(this.dessert.creation.c ?? 'vanilla'))], speed: [200, 450], scale: [1.2, 0.4], gravity: 1200, life: 800, depth: 70 });
-        this.tweens.add({ targets: d, scale: d.scale * 0.68, duration: 150, ease: 'Quad.easeOut' });
-      },
-      onComplete: () => {
-        this.customer.face('idle');
-        this.time.delayedCall(260, () => this.chomp(n + 1, x, served));
-      },
-    });
+    const p = d.biteTop();
+    this.customer.biteAt(p.x, p.y, () => {
+      sfx.chomp();
+      burst(this, p.x + 30, p.y + 10, 'pa_crumb', { count: 10, tints: [0xffffff, hex(colorHex(d.creation.c ?? 'vanilla'))], speed: [200, 450], scale: [1.2, 0.4], gravity: 1200, life: 800, depth: 70 });
+      if (n === 2) d.finish(); else d.bite(0.7);
+    }, () => this.time.delayedCall(200, () => this.chomp(n + 1, served)));
   }
 
   // =================================================================

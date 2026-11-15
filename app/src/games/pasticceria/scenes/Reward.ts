@@ -14,7 +14,7 @@ export class Reward extends Phaser.Scene {
   create(data: { creation: Creation; reward: RewardT | null }): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    drawKitchen(this);
+    drawKitchen(this, { fgAside: true });
     muteButton(this);
     const reward = data.reward;
     const mx = reward ? 640 : 960;
