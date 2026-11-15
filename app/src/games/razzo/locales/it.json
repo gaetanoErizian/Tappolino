@@ -1,0 +1,17 @@
+{
+  "razzo.title": "Razzo tra le Stelle",
+  "razzo.planets": "I miei pianeti",
+  "razzo.hangar": "I miei razzi",
+  "razzo.count": "Pianeti visitati: {n} su {tot}",
+  "razzo.newPlanet": "Nuovo pianeta!",
+  "razzo.again": "Che bello tornare qui!",
+  "razzo.newRocket": "Nuovo razzo!",
+  "razzo.planet.luna": "Luna",
+  "razzo.planet.anelli": "Pianeta Anelli",
+  "razzo.planet.bolle": "Pianeta Bolle",
+  "razzo.planet.giungla": "Pianeta Giungla",
+  "razzo.planet.caramella": "Pianeta Caramella",
+  "razzo.planet.ghiaccio": "Pianeta Ghiaccio",
+  "razzo.planet.vulcano": "Pianeta Vulcano",
+  "razzo.planet.arcobaleno": "Pianeta Arcobaleno"
+}

@@ -1,0 +1,17 @@
+{
+  "razzo.title": "Cohete entre Estrellas",
+  "razzo.planets": "Mis planetas",
+  "razzo.hangar": "Mis cohetes",
+  "razzo.count": "Planetas visitados: {n} de {tot}",
+  "razzo.newPlanet": "¡Nuevo planeta!",
+  "razzo.again": "¡Qué bien volver aquí!",
+  "razzo.newRocket": "¡Nuevo cohete!",
+  "razzo.planet.luna": "Luna",
+  "razzo.planet.anelli": "Planeta Anillos",
+  "razzo.planet.bolle": "Planeta Burbujas",
+  "razzo.planet.giungla": "Planeta Selva",
+  "razzo.planet.caramella": "Planeta Caramelo",
+  "razzo.planet.ghiaccio": "Planeta Hielo",
+  "razzo.planet.vulcano": "Planeta Volcán",
+  "razzo.planet.arcobaleno": "Planeta Arcoíris"
+}

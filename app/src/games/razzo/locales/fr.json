@@ -1,0 +1,17 @@
+{
+  "razzo.title": "Fusée dans les Étoiles",
+  "razzo.planets": "Mes planètes",
+  "razzo.hangar": "Mes fusées",
+  "razzo.count": "Planètes visitées : {n} sur {tot}",
+  "razzo.newPlanet": "Nouvelle planète !",
+  "razzo.again": "Quel plaisir de revenir !",
+  "razzo.newRocket": "Nouvelle fusée !",
+  "razzo.planet.luna": "Lune",
+  "razzo.planet.anelli": "Planète Anneaux",
+  "razzo.planet.bolle": "Planète Bulles",
+  "razzo.planet.giungla": "Planète Jungle",
+  "razzo.planet.caramella": "Planète Bonbon",
+  "razzo.planet.ghiaccio": "Planète Glace",
+  "razzo.planet.vulcano": "Planète Volcan",
+  "razzo.planet.arcobaleno": "Planète Arc-en-ciel"
+}

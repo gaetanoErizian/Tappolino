@@ -1,0 +1,17 @@
+{
+  "razzo.title": "Rocket to the Stars",
+  "razzo.planets": "My planets",
+  "razzo.hangar": "My rockets",
+  "razzo.count": "Planets visited: {n} of {tot}",
+  "razzo.newPlanet": "New planet!",
+  "razzo.again": "Nice to be back!",
+  "razzo.newRocket": "New rocket!",
+  "razzo.planet.luna": "Moon",
+  "razzo.planet.anelli": "Ring Planet",
+  "razzo.planet.bolle": "Bubble Planet",
+  "razzo.planet.giungla": "Jungle Planet",
+  "razzo.planet.caramella": "Candy Planet",
+  "razzo.planet.ghiaccio": "Ice Planet",
+  "razzo.planet.vulcano": "Volcano Planet",
+  "razzo.planet.arcobaleno": "Rainbow Planet"
+}
