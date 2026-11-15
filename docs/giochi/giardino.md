@@ -3,8 +3,8 @@
 Branch `game/giardino-delle-fate` · `order` 8 · non gratis (si apre con l'acquisto unico) · colore `#5fbf6a`
 
 ## Stato
-**Completo, in attesa dell'ok di Gaetano per l'unione a `main`.** Test e build web verdi, partita provata nel browser in formato telefono e tablet.
-Pagina di prova del branch: https://claude.ai/artifact/3ipL9YNCJS5G27ZCQpBmaz — il gioco è nella seconda pagina del menu ed è bloccato come nell'app vera: si apre aggiungendo `#prova` all'indirizzo (modalità prova, decisione 25). In locale: `?game=giardino&unlock=1` oppure `#prova`.
+**Approvato da Gaetano e unito a `main`** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono e tablet.
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5 — il gioco è nella seconda pagina del menu ed è bloccato come nell'app vera: si apre aggiungendo `#prova` all'indirizzo (modalità prova, decisione 25). In locale: `?game=giardino&unlock=1` oppure `#prova`.
 
 ## Cosa c'è nel gioco
 - **Gesto**: solo il tocco. Gioco calmo, senza tempo e senza errori, adatto anche ai più piccoli.
@@ -44,3 +44,4 @@ Pagina di prova del branch: https://claude.ai/artifact/3ipL9YNCJS5G27ZCQpBmaz �
 - 15/11/2026 — Modulo completo: menu, aiuola (semina, pioggia, crescita in 3 passi, fiori che cantano, farfalle, fatine), 3 aiuole con paesaggi diversi, album; audio con strumenti veri; test (`giardino.test.ts`, 16 casi).
 - 15/11/2026 — Prova nel browser in formato telefono (844×390) e tablet (1024×768): tocchi veri su terra, nuvola, piantine, fiori, fatine; aiuola completata, passaggio alla seconda e alla terza aiuola, giardino completo con l'ultima fatina, album; catture guardate una per una. Corretto: sole nascosto dietro l'albero; ali delle fatine poco visibili; fatine che coprivano i fiori (ora volano ai lati e in alto); puntini delle aiuole sotto la nuvola (tolti). Scheda store nelle 6 lingue e script delle catture (provato).
 - 15/11/2026 — Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/3ipL9YNCJS5G27ZCQpBmaz. In attesa dell'ok di Gaetano per l'unione a `main`.
+- 15/11/2026 — Ok di Gaetano: `main` invariato dall'apertura del branch (nessun merge necessario), `npm ci`, test e build verdi, menu con i giochi 1–6 e 8; unito a `main` in un solo commit e pagina ufficiale di `main` ripubblicata.
