@@ -193,13 +193,11 @@ export const allAboard = (trip: Pick<Trip, 'wagons'>, seated: readonly number[])
 
 /** Altezza delle rotaie (dove appoggiano le ruote del treno). */
 export const RAIL_Y = 600;
-/** Linea tra binario e marciapiede. */
-export const PLATFORM_Y = 650;
 /** Piedi degli animali che aspettano sul marciapiede. */
 export const WAIT_Y = 990;
 export const ANIMAL_SCALE = 0.86;
 /** Scala degli animali seduti nel vagone. */
-export const SEAT_SCALE = 0.56;
+export const SEAT_SCALE = 0.66;
 
 export const LOCO_W = 470;
 export const SEAT_GAP = 128;

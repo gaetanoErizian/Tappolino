@@ -54,6 +54,10 @@ export class Journey extends Phaser.Scene {
     this.layers.push({ o: rail, v: 1 });
     const meadow = this.add.graphics().setDepth(6);
     meadow.fillGradientStyle(0x86cc6c, 0x86cc6c, 0x5cb04a, 0x5cb04a, 1).fillRect(-2000, RAIL_Y + 78, 5920, 1400);
+    // staccionata e fiori che scorrono nel prato davanti
+    const fence = this.add.tileSprite(960, 800, 5920 / 0.9, 120, 'tr_fence').setOrigin(0.5, 1).setScale(0.9).setDepth(6.5);
+    this.layers.push({ o: fence, v: 1.15 });
+    for (let i = 0; i < 9; i++) this.props.push({ o: this.add.image(i * 380 + 120, 880 + (i % 3) * 30, 'tr_sunflower').setOrigin(0.5, 1).setScale(0.55 + (i % 3) * 0.08).setDepth(6.6), v: 1.2, wrap: 3420 });
     for (let i = 0; i < 8; i++) this.props.push({ o: this.add.image(i * 420, 1000 + (i % 3) * 40, 'tr_bush').setOrigin(0.5, 1).setScale(0.9).setDepth(7), v: 1.3, wrap: 3360 });
     for (let i = 0; i < 3; i++) this.props.push({ o: this.add.image(i * 1100, 1160, 'tr_fg_bush').setOrigin(0.5, 1).setScale(0.9).setDepth(800), v: 2.2, wrap: 3300 });
 

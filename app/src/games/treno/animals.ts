@@ -314,7 +314,7 @@ const ART: Record<AnimalId, Draw> = {
   },
   // ======================= polo
   penguin: (h) => {
-    const p = part(), fur = '#33405f', line = '#1b2238', white = '#ffffff';
+    const p = part(), fur = '#3d5a8c', line = '#1f3358', white = '#ffffff';
     const gw = uid('pw');
     p.defs += `<radialGradient id="${gw}" cx=".42" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e2ecf7"/></radialGradient>`;
     body(p, fur, line, undefined, { feet: '#ff9a2e', cy: 236, rx: 84, ry: 74 });
@@ -323,7 +323,8 @@ const ART: Record<AnimalId, Draw> = {
     p.head += `<path d="M130 112 Q106 84 84 104 Q66 124 82 156 Q100 188 130 186 Q160 188 178 156 Q194 124 176 104 Q154 84 130 112 Z" fill="${white}" opacity=".97"/>`
       + face(h, 132, 30, 160, '#ff9ab0') + beak(h, 150, '#ff9a2e', 16, 20);
     wings(p, fur, line, 238, 82, 20, 50, 22);
-    p.front += `<path d="M100 196 Q130 210 160 196" stroke="#4a8ae0" stroke-width="10" fill="none" stroke-linecap="round"/>`;
+    p.front += `<path d="M92 200 Q130 218 168 200" stroke="#ffc61a" stroke-width="14" fill="none" stroke-linecap="round"/><path d="M156 206 L162 240" stroke="#ffc61a" stroke-width="12" stroke-linecap="round"/>
+      <path d="M100 204 Q130 218 160 204" stroke="#e8453c" stroke-width="3" fill="none" stroke-dasharray="8 8"/>`;
     return p;
   },
   polarbear: (h) => {
@@ -373,23 +374,25 @@ const ART: Record<AnimalId, Draw> = {
     return p;
   },
   puffin: (h) => {
-    const p = part(), fur = '#2f3446', line = '#171a26';
-    body(p, fur, line, undefined, { feet: '#ff7a2e', cy: 238, rx: 82, ry: 72 });
+    const p = part(), fur = '#24242c', line = '#0e0e14';
+    body(p, fur, line, undefined, { feet: '#ff6a2e', cy: 238, rx: 82, ry: 72 });
     const gw = uid('fw');
-    p.defs += `<radialGradient id="${gw}" cx=".42" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6edf5"/></radialGradient>`;
-    p.body += `<ellipse cx="130" cy="252" rx="56" ry="52" fill="url(#${gw})"/>`;
-    head(p, fur, line, 78, 74, 132);
-    p.head += `<ellipse cx="130" cy="136" rx="62" ry="54" fill="url(#${gw})"/>`
-      + face(h, 122, 32, 150, '#ff9ab0')
-      + `<path d="M${130 - 34} 116 L${130 - 50} 110 M${130 + 34} 116 L${130 + 50} 110" stroke="#8a93a8" stroke-width="3" stroke-linecap="round"/>`;
-    // becco a strisce, grande e colorato
+    p.defs += `<radialGradient id="${gw}" cx=".42" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe3ea"/></radialGradient>`;
+    p.body += `<ellipse cx="130" cy="256" rx="54" ry="48" fill="url(#${gw})"/>`;
+    head(p, fur, line, 80, 74, 128);
+    // maschera chiara sulle guance, cappuccio nero sopra
+    p.head += `<path d="M66 128 Q70 92 130 96 Q190 92 194 128 Q192 176 130 184 Q68 176 66 128 Z" fill="url(#${gw})"/>
+      <circle cx="${130 - 32}" cy="120" r="17" fill="none" stroke="#ff6a2e" stroke-width="4"/><circle cx="${130 + 32}" cy="120" r="17" fill="none" stroke="#ff6a2e" stroke-width="4"/>`
+      + face(h, 120, 32, 156, '#ff9ab0');
+    // becco grande a strisce (rosso-arancio, giallo, grigio-blu)
     const gb = uid('pb');
-    p.defs += lightGrad(gb, '#ffb36b', '#ff6a2e', '#d8441a', true);
-    const open = h ? 6 : 0;
-    p.head += `<path d="M106 150 Q130 132 154 150 Q150 ${178 + open} 130 ${190 + open} Q110 ${178 + open} 106 150 Z" fill="url(#${gb})" stroke="#a8361a" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M110 154 Q130 142 150 154" stroke="#ffd23a" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M108 150 Q130 136 152 150" stroke="#7a8296" stroke-width="5" fill="none" stroke-linecap="round"/>
-      ${h ? `<path d="M116 172 Q130 180 144 172" stroke="#7a2a1a" stroke-width="4" fill="none" stroke-linecap="round"/>` : ''}`;
+    p.defs += lightGrad(gb, '#ff9a5a', '#ff4a1e', '#c8301a', true);
+    const open = h ? 10 : 0;
+    p.head += `<path d="M96 146 Q130 124 164 146 Q160 ${184 + open} 130 ${204 + open} Q100 ${184 + open} 96 146 Z" fill="url(#${gb})" stroke="#9a2a12" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M100 152 Q130 134 160 152" stroke="#ffd23a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M98 146 Q130 126 162 146" stroke="#6f7f9a" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M110 176 Q130 166 150 176" stroke="#ffd23a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+      ${h ? `<path d="M114 ${184 + open} Q130 ${192 + open} 146 ${184 + open}" stroke="#6a1a0a" stroke-width="4" fill="none" stroke-linecap="round"/>` : ''}`;
     wings(p, fur, line, 236, 80, 20, 48, 22);
     return p;
   },

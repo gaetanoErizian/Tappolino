@@ -4,7 +4,7 @@ import {
   reached, complete, addDelivered, sanitizeDelivered, destFor, pickAnimals, planFor, makeTrip, accepts, wagonFor, allAboard,
   trainLayout, wagonW, seatX, waitX, wagonAt, stationOf, isAnimalId, isStationId, shuffle, type Trip,
 } from './logic';
-import { gameTextures } from './art';
+import { gameTextures, WHEEL_FRAMES } from './art';
 import { animalTextures } from './animals';
 import { trenoTile } from './tile';
 import entry from './entry';
@@ -71,7 +71,8 @@ describe('treno: grafica', () => {
     for (const s of SHAPE_IDS) expect(keys.has(`tr_shape_${s}`)).toBe(true);
     for (const c of COLOR_IDS) expect(keys.has(`tr_dot_${c}`)).toBe(true);
     for (const s of STATION_IDS) for (const k of [`tr_emb_${s}`, `tr_far_${s}`]) expect(keys.has(k), k).toBe(true);
-    for (const k of ['tr_loco', 'tr_wheel_big', 'tr_wheel', 'tr_wheel_wagon', 'tr_ticket', 'tr_ticket_top', 'tr_plate', 'tr_backrest', 'tr_rail', 'tr_station', 'tr_btn_album', 'tr_puff']) {
+    for (let f = 0; f < WHEEL_FRAMES; f++) for (const w of ['tr_wheel_big', 'tr_wheel', 'tr_wheel_wagon']) expect(keys.has(`${w}_${f}`)).toBe(true);
+    for (const k of ['tr_loco', 'tr_ticket', 'tr_ticket_top', 'tr_plate', 'tr_backrest', 'tr_rail', 'tr_station', 'tr_btn_album', 'tr_puff']) {
       expect(keys.has(k), k).toBe(true);
     }
   });

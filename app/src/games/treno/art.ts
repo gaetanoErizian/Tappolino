@@ -87,20 +87,24 @@ function locoSvg(): string {
   return svgDoc(LOCO.w, LOCO.h, o);
 }
 
-/** Ruota a raggi (piccola: si può ruotare). */
-function wheelSvg(r: number): string {
+/**
+ * Ruota a raggi. Non si ruota (Phaser 4 taglia a triangoli le immagini ruotate): tre fotogrammi con i raggi
+ * spostati di 15° si alternano mentre il treno avanza (8 raggi: il disegno si ripete ogni 45°).
+ */
+export const WHEEL_FRAMES = 3;
+function wheelSvg(r: number, phase = 0): string {
   const g = uid('wh'), gh = uid('wc');
   const s = r * 2 + 8, c = s / 2;
   let spokes = '';
   for (let i = 0; i < 8; i++) {
-    const a = (i * Math.PI) / 4;
+    const a = (i * Math.PI) / 4 + (phase * Math.PI) / 180;
     spokes += `<path d="M${f(c)} ${f(c)} L${f(c + Math.cos(a) * r * 0.72)} ${f(c + Math.sin(a) * r * 0.72)}" stroke="${RED_DARK}" stroke-width="${f(r * 0.12)}" stroke-linecap="round"/>`;
   }
   return svgDoc(s, s, `<defs>${Bl(g, '#4a4058', 0.35)}${Bl(gh, GOLD, 0.5)}</defs>
     <circle cx="${c}" cy="${c}" r="${r}" fill="url(#${g})" stroke="#1f1828" stroke-width="4"/>
     <circle cx="${c}" cy="${c}" r="${f(r * 0.78)}" fill="${RED}" stroke="${RED_DARK}" stroke-width="3"/>
     ${spokes}<circle cx="${c}" cy="${c}" r="${f(r * 0.26)}" fill="url(#${gh})" stroke="#c48a10" stroke-width="2.5"/>
-    <circle cx="${f(c + r * 0.55)}" cy="${f(c)}" r="${f(r * 0.1)}" fill="${GOLD}"/>`);
+    <ellipse cx="${f(c - r * 0.35)}" cy="${f(c - r * 0.45)}" rx="${f(r * 0.3)}" ry="${f(r * 0.12)}" transform="rotate(-35 ${f(c - r * 0.35)} ${f(c - r * 0.45)})" fill="#fff" opacity=".3"/>`);
 }
 
 /** Vagone scoperto: H texture, rotaia in basso; ruote a parte. Coordinate dei pezzi per il gioco. */
@@ -527,9 +531,6 @@ function leafSvg(): string {
 export function gameTextures(): SvgTex[] {
   const list: SvgTex[] = [
     { key: 'tr_loco', w: LOCO.w, h: LOCO.h, svg: locoSvg() },
-    { key: 'tr_wheel_big', w: 108, h: 108, svg: wheelSvg(50) },
-    { key: 'tr_wheel', w: 72, h: 72, svg: wheelSvg(32) },
-    { key: 'tr_wheel_wagon', w: 68, h: 68, svg: wheelSvg(30) },
     { key: 'tr_backrest', w: 116, h: 84, svg: backrestSvg() },
     { key: 'tr_plate', w: 124, h: 124, svg: plateSvg() },
     { key: 'tr_ticket', w: TICKET.w, h: TICKET.h, svg: ticketCard() },
@@ -567,6 +568,14 @@ export function gameTextures(): SvgTex[] {
       { key: `tr_wagon_back_${c}`, w: W, h: WAGON.h, svg: wagonBack(c) },
       { key: `tr_wagon_panel_${c}`, w: W, h: WAGON.h, svg: wagonPanel(c) },
       { key: `tr_wagon_trim_${c}`, w: W, h: WAGON.h, svg: wagonTrim(c) },
+    );
+  }
+  for (let k = 0; k < WHEEL_FRAMES; k++) {
+    const ph = (k * 45) / WHEEL_FRAMES;
+    list.push(
+      { key: `tr_wheel_big_${k}`, w: 108, h: 108, svg: wheelSvg(50, ph) },
+      { key: `tr_wheel_${k}`, w: 72, h: 72, svg: wheelSvg(32, ph) },
+      { key: `tr_wheel_wagon_${k}`, w: 68, h: 68, svg: wheelSvg(30, ph) },
     );
   }
   for (const s of SHAPE_IDS) list.push({ key: `tr_shape_${s}`, w: 100, h: 100, svg: shapeSvg(s) });

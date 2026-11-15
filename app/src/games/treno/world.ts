@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { LOCO, WAGON, TICKET, RAIL, STATION_COLOR } from './art';
+import { LOCO, WAGON, TICKET, RAIL, STATION_COLOR, WHEEL_FRAMES } from './art';
 import { AN } from './animals';
 import {
   COLORS, TRAIN_RED, RAIL_Y, ANIMAL_SCALE, SEAT_SCALE, wagonW, seatX, trainLayout,
@@ -194,7 +194,7 @@ export interface WagonView {
 }
 
 /** Posto a sedere in coordinate del vagone: piedi nascosti dietro la fiancata, testa e spalle sopra il bordo. */
-export const SEAT_FEET = -98;
+export const SEAT_FEET = -122;
 
 /**
  * Treno a pezzi: locomotiva (con le ruote che girano e lo stemma della destinazione) e vagoni scoperti
@@ -204,7 +204,9 @@ export const SEAT_FEET = -98;
 export class TrainView {
   readonly loco: Phaser.GameObjects.Container;
   readonly wagons: WagonView[] = [];
-  private locoWheels: { img: Phaser.GameObjects.Image; r: number }[] = [];
+  private locoWheels: { img: Phaser.GameObjects.Image; r: number; key: string }[] = [];
+  /** quanta strada hanno fatto le ruote (per scegliere il fotogramma dei raggi) */
+  private dist = 0;
   private smoke: Phaser.GameObjects.Particles.ParticleEmitter;
   private bobs: Phaser.Tweens.Tween[] = [];
 
@@ -215,8 +217,9 @@ export class TrainView {
     const body = sc.add.image(0, 0, 'tr_loco').setOrigin(0.5, LOCO.rail / LOCO.h);
     const parts: Phaser.GameObjects.GameObject[] = [body];
     LOCO.wheels.forEach((w, i) => {
-      const img = sc.add.image(w.x - LOCO.w / 2, -w.r, i < 2 ? 'tr_wheel_big' : 'tr_wheel');
-      this.locoWheels.push({ img, r: w.r });
+      const key = i < 2 ? 'tr_wheel_big' : 'tr_wheel';
+      const img = sc.add.image(w.x - LOCO.w / 2, -w.r, `${key}_0`);
+      this.locoWheels.push({ img, r: w.r, key });
       parts.push(img);
     });
     parts.push(sc.add.image(LOCO.plate.x - LOCO.w / 2, LOCO.plate.y - LOCO.rail, `tr_emb_${dest}`).setScale(0.36));
@@ -242,7 +245,7 @@ export class TrainView {
     if (this.kind === 'shape' && spec.shape) symbol = sc.add.image(plate.x, plate.y, `tr_shape_${spec.shape}`).setScale(0.68);
     else if (this.kind === 'color' && spec.color) symbol = sc.add.image(plate.x, plate.y, `tr_dot_${spec.color}`).setScale(0.62);
     else symbol = sc.add.text(plate.x, plate.y + 2, String(c), { fontFamily: FONT, fontSize: '64px', fontStyle: '700', color: '#c8382f', stroke: '#ffffff', strokeThickness: 6 }).setOrigin(0.5);
-    const wheels = [-1, 1].map((s) => sc.add.image(s * (W / 2 - 62), -WAGON.wheelR, 'tr_wheel_wagon'));
+    const wheels = [-1, 1].map((s) => sc.add.image(s * (W / 2 - 62), -WAGON.wheelR, 'tr_wheel_wagon_0'));
     const list: Phaser.GameObjects.GameObject[] = [back, ...backrests, panel, trim, plate, symbol, ...wheels];
     const cont = sc.add.container(x, RAIL_Y, list).setDepth(depth);
     return { spec, c: cont, panel, plate, symbol, backrests, seated: [], wheels, w: W };
@@ -259,9 +262,12 @@ export class TrainView {
 
   /** Fa girare le ruote come se il treno avanzasse di dx (anche restando fermo sullo schermo, nel viaggio). */
   spin(dx: number): void {
-    const turn = (img: Phaser.GameObjects.Image, r: number) => { img.rotation += dx / r; };
-    this.locoWheels.forEach((w) => turn(w.img, w.r));
-    this.wagons.forEach((w) => w.wheels.forEach((img) => turn(img, WAGON.wheelR)));
+    this.dist += dx;
+    // angolo percorso (in gradi) → fotogramma dei raggi: un fotogramma ogni 15°
+    const frame = (r: number) => ((Math.floor((this.dist / r) * (180 / Math.PI) / (45 / WHEEL_FRAMES)) % WHEEL_FRAMES) + WHEEL_FRAMES) % WHEEL_FRAMES;
+    this.locoWheels.forEach((w) => w.img.setTexture(`${w.key}_${frame(w.r)}`));
+    const fw = `tr_wheel_wagon_${frame(WAGON.wheelR)}`;
+    this.wagons.forEach((w) => w.wheels.forEach((img) => { if (img.texture.key !== fw) img.setTexture(fw); }));
   }
 
   /** Porta il treno da qui a toX con un tween (ruote, sbuffi). */
@@ -338,7 +344,7 @@ export class TrainView {
     if (!on) return;
     this.wagons.forEach((w, i) => w.seated.forEach((s, k) => {
       s.img.y = SEAT_FEET;
-      this.bobs.push(this.scene.tweens.add({ targets: s.img, y: SEAT_FEET - 8, duration: 190, yoyo: true, repeat: -1, delay: (i * 3 + k) * 60, ease: 'Sine.easeInOut' }));
+      this.bobs.push(this.scene.tweens.add({ targets: s.img, y: SEAT_FEET - 10, duration: 190, yoyo: true, repeat: -1, delay: (i * 3 + k) * 60, ease: 'Sine.easeInOut' }));
     }));
   }
 
@@ -346,7 +352,7 @@ export class TrainView {
   hitSeated(x: number, y: number): { id: AnimalId; img: Phaser.GameObjects.Image } | null {
     for (const w of this.wagons) for (const s of w.seated) {
       const sx = w.c.x + s.img.x, sy = w.c.y + s.img.y - 200 * SEAT_SCALE;
-      if (Math.abs(x - sx) < 70 && Math.abs(y - sy) < 90) return s;
+      if (Math.abs(x - sx) < 80 && Math.abs(y - sy) < 100) return s;
     }
     return null;
   }
@@ -364,8 +370,8 @@ export class TrainView {
 // =====================================================================
 
 /** Dove sta il biglietto rispetto ai piedi dell'animale (unità della texture). */
-const TICKET_DY = -48;
-const TICKET_SCALE = 0.92;
+const TICKET_DY = -40;
+const TICKET_SCALE = 0.86;
 
 export class Waiter {
   readonly img: Phaser.GameObjects.Image;
@@ -402,7 +408,7 @@ export class Waiter {
     const ty = o.y + TICKET_DY * o.scaleY;
     this.card?.setPosition(o.x, ty).setScale(s).setDepth(d + 0.01).setAlpha(o.alpha);
     this.top?.setPosition(o.x, ty).setScale(s).setDepth(d + 0.03).setAlpha(o.alpha);
-    this.sym?.setPosition(o.x, ty + 4 * s).setScale(0.82 * s).setDepth(d + 0.02).setAlpha(o.alpha);
+    this.sym?.setPosition(o.x, ty + 4 * s).setScale(1.0 * s).setDepth(d + 0.02).setAlpha(o.alpha);
   }
 
   /** Piccolo saltello d'attesa (solo se nessuno lo sta trascinando). */

@@ -3,6 +3,7 @@ import { setupView, button, pin, burst } from '../../../core/ui';
 import { t } from '../../../core/i18n';
 import { muteButton, goTo, title3d } from '../../../core/hud';
 import { FONT } from '../../../core/brand';
+import { urlParam } from '../../../core/platform';
 import { AN } from '../animals';
 import { STATIONS, ANIMAL_IDS, reached, type AnimalId, type StationId } from '../logic';
 import { stationTint } from '../world';
@@ -10,10 +11,12 @@ import { save } from '../save';
 import { sfx, playTrenoMusic } from '../sfx';
 
 /** Colonne delle tre stazioni sulla mappa. */
-const COL_X = [480, 960, 1440];
-const EMB_Y = 330;
+const COL_X = [400, 960, 1520];
+const EMB_Y = 290;
+/** Altezza del binario che unisce le stazioni (passa sotto i nomi). */
+const RAIL_AT = 480;
 /** Posti dei 5 bollini sotto ogni stazione (3 sopra, 2 sotto). */
-const STICK = [[-150, 590], [0, 590], [150, 590], [-75, 800], [75, 800]] as const;
+const STICK = [[-145, 640], [0, 640], [145, 640], [-72, 850], [72, 850]] as const;
 
 interface Sticker { id: AnimalId; img: Phaser.GameObjects.Image; got: boolean; busy: boolean }
 
@@ -29,6 +32,7 @@ export class Album extends Phaser.Scene {
 
   create(): void {
     this.stickers = [];
+    if (urlParam('debug')) Object.assign(window, { __tral: this });
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
     playTrenoMusic();
@@ -43,7 +47,7 @@ export class Album extends Phaser.Scene {
     this.add.image(1700, 120, 'cloud').setScale(0.6).setDepth(0.4);
     this.add.image(250, 90, 'cloud').setScale(0.5).setDepth(0.4);
     const rail = this.add.graphics().setDepth(1);
-    const pts = [new Phaser.Math.Vector2(-200, 470), new Phaser.Math.Vector2(COL_X[0], EMB_Y + 70), new Phaser.Math.Vector2(720, 470), new Phaser.Math.Vector2(COL_X[1], EMB_Y + 70), new Phaser.Math.Vector2(1200, 470), new Phaser.Math.Vector2(COL_X[2], EMB_Y + 70), new Phaser.Math.Vector2(2120, 470)];
+    const pts = [-400, COL_X[0], 680, COL_X[1], 1240, COL_X[2], 2320].map((x, i) => new Phaser.Math.Vector2(x, RAIL_AT + (i % 2 ? 0 : 36)));
     const curve = new Phaser.Curves.Spline(pts);
     const path = curve.getSpacedPoints(160);
     rail.lineStyle(30, 0xb9a68c, 1).strokePoints(path);
@@ -60,7 +64,7 @@ export class Album extends Phaser.Scene {
     STATIONS.forEach((st, c) => this.stationColumn(st.id, c, open.includes(st.id), delivered));
 
     const got = delivered.filter((a) => (ANIMAL_IDS as readonly string[]).includes(a)).length;
-    this.add.text(960, 1010, t('treno.count', { n: got, tot: ANIMAL_IDS.length }), {
+    this.add.text(960, 1020, t('treno.count', { n: got, tot: ANIMAL_IDS.length }), {
       fontFamily: FONT, fontSize: '46px', fontStyle: '700', color: '#ffffff', stroke: '#a8352d', strokeThickness: 9,
     }).setOrigin(0.5).setDepth(900);
 
@@ -80,15 +84,15 @@ export class Album extends Phaser.Scene {
 
   private stationColumn(id: StationId, c: number, open: boolean, delivered: readonly string[]): void {
     const x = COL_X[c];
-    this.add.image(x, EMB_Y + 8, 'shadow').setScale(1.1, 0.45).setDepth(2);
-    const emb = this.add.image(x, EMB_Y - 30, `tr_emb_${id}`).setScale(1.05).setDepth(3);
+    this.add.image(x, EMB_Y + 70, 'shadow').setScale(1.1, 0.45).setDepth(2);
+    const emb = this.add.image(x, EMB_Y, `tr_emb_${id}`).setScale(1.05).setDepth(3);
     if (!open) {
       emb.setTint(0xb0b8c8);
-      this.add.image(x + 56, EMB_Y + 30, 'btn_lock').setScale(0.6).setDepth(4);
+      this.add.image(x + 60, EMB_Y + 52, 'btn_lock').setScale(0.6).setDepth(4);
     } else {
       this.tweens.add({ targets: emb, scale: 1.1, duration: 1300 + c * 200, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     }
-    this.add.text(x, EMB_Y + 92, open ? t(`treno.station.${id}`) : '?', {
+    this.add.text(x, EMB_Y + 122, open ? t(`treno.station.${id}`) : '?', {
       fontFamily: FONT, fontSize: '44px', fontStyle: '700', color: '#ffffff', stroke: open ? '#' + stationTint(id).toString(16).padStart(6, '0') : '#7a849a', strokeThickness: 9,
     }).setOrigin(0.5).setDepth(5);
     const st = STATIONS.find((s) => s.id === id)!;
@@ -115,10 +119,10 @@ export class Album extends Phaser.Scene {
     this.time.delayedCall(900, () => s.img.setTexture(`tr_an_${s.id}`));
     sfx.voice(s.id);
     burst(this, s.img.x, s.img.y - 80, 'heart', { count: 4, speed: [120, 260], scale: [0.6, 0.2], gravity: -120, life: 900, depth: 900 });
-    const name = this.add.text(s.img.x, s.img.y - 170, t(`treno.animal.${s.id}`), {
+    const name = this.add.text(s.img.x, s.img.y + 40, t(`treno.animal.${s.id}`), {
       fontFamily: FONT, fontSize: '40px', fontStyle: '700', color: '#ffffff', stroke: '#a8352d', strokeThickness: 8,
     }).setOrigin(0.5).setDepth(950).setScale(0);
-    this.tweens.add({ targets: name, scale: 1, y: name.y - 20, duration: 300, ease: 'Back.easeOut' });
+    this.tweens.add({ targets: name, scale: 1, y: name.y + 12, duration: 300, ease: 'Back.easeOut' });
     this.tweens.add({ targets: name, alpha: 0, duration: 400, delay: 1300, onComplete: () => name.destroy() });
   }
 

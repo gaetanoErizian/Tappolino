@@ -6,7 +6,7 @@ import { urlParam } from '../../../core/platform';
 import { drawDest, TrainView, happyFace } from '../world';
 import { AN } from '../animals';
 import {
-  ANIMAL_SCALE, WAIT_Y, waitX, addDelivered, reached, isAnimalId, type AnimalId, type Trip,
+  ANIMAL_SCALE, SEAT_SCALE, WAIT_Y, waitX, addDelivered, reached, isAnimalId, type AnimalId, type Trip,
 } from '../logic';
 import { save } from '../save';
 import { sfx, playTrenoMusic } from '../sfx';
@@ -85,7 +85,7 @@ export class Arrive extends Phaser.Scene {
       s.img.destroy();
       const tx = waitX(k, n), ty = WAIT_Y;
       const shadow = this.add.image(tx, ty + 4, 'shadow').setScale(0.9, 0.4).setAlpha(0).setDepth(39);
-      const img = this.add.image(x0, y0, `tr_an_${s.id}`).setOrigin(0.5, AN.ground / AN.h).setScale(0.56).setDepth(40 + k * 0.01);
+      const img = this.add.image(x0, y0, `tr_an_${s.id}`).setOrigin(0.5, AN.ground / AN.h).setScale(SEAT_SCALE).setDepth(40 + k * 0.01);
       happyFace(this, img, s.id, 0);
       sfx.hop();
       const st = { u: 0 }, midY = Math.min(y0, ty) - 220;
@@ -93,7 +93,7 @@ export class Arrive extends Phaser.Scene {
         targets: st, u: 1, duration: 520, ease: 'Sine.easeInOut',
         onUpdate: () => {
           const u = st.u;
-          img.setPosition(x0 + (tx - x0) * u, (1 - u) * (1 - u) * y0 + 2 * (1 - u) * u * midY + u * u * ty).setScale(0.56 + (ANIMAL_SCALE - 0.56) * u);
+          img.setPosition(x0 + (tx - x0) * u, (1 - u) * (1 - u) * y0 + 2 * (1 - u) * u * midY + u * u * ty).setScale(SEAT_SCALE + (ANIMAL_SCALE - SEAT_SCALE) * u);
         },
         onComplete: () => {
           shadow.setAlpha(0.8);
@@ -133,15 +133,15 @@ export class Arrive extends Phaser.Scene {
   /** Prima volta qui: lo stemma della stazione entra nell'album. */
   private newStation(): void {
     sfx.station();
-    const emb = this.add.image(960, 300, `tr_emb_${this.trip.dest}`).setScale(0).setDepth(1600);
-    const glow = this.add.image(960, 300, 'glow').setScale(0).setAlpha(0.8).setBlendMode(Phaser.BlendModes.ADD).setDepth(1599);
+    const emb = this.add.image(960, 330, `tr_emb_${this.trip.dest}`).setScale(0).setDepth(1600);
+    const glow = this.add.image(960, 330, 'glow').setScale(0).setAlpha(0.8).setBlendMode(Phaser.BlendModes.ADD).setDepth(1599);
     this.tweens.add({ targets: emb, scale: 1.4, duration: 500, ease: 'Back.easeOut' });
     this.tweens.add({ targets: glow, scale: 3.4, duration: 500 });
-    const lbl = title3d(this, 960, 120, t('treno.newStation'), 96).setScale(0).setDepth(1601);
+    const lbl = title3d(this, 960, 92, t('treno.newStation'), 92).setScale(0).setDepth(1601);
     this.tweens.add({ targets: lbl, scale: 1, duration: 400, delay: 200, ease: 'Back.easeOut' });
-    const name = title(this, 960, 450, t(`treno.station.${this.trip.dest}`), 70).setScale(0).setDepth(1601);
+    const name = title(this, 960, 190, t(`treno.station.${this.trip.dest}`), 64).setScale(0).setDepth(1601);
     this.tweens.add({ targets: name, scale: 1, duration: 400, delay: 350, ease: 'Back.easeOut' });
-    burst(this, 960, 300, 'sparkle', { count: 24, tints: [0xffffff, 0xffe066], speed: [200, 520], gravity: 0, life: 900, depth: 1602 });
+    burst(this, 960, 330, 'sparkle', { count: 24, tints: [0xffffff, 0xffe066], speed: [200, 520], gravity: 0, life: 900, depth: 1602 });
     this.time.delayedCall(2600, () => {
       // lo stemma vola verso il pulsante dell'album (in basso a sinistra)
       this.tweens.add({ targets: [emb, glow], x: 220, y: 900, scale: 0.4, alpha: 0, duration: 600, ease: 'Quad.easeIn', onComplete: () => { emb.destroy(); glow.destroy(); } });
