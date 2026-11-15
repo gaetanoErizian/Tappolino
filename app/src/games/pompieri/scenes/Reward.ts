@@ -4,7 +4,7 @@ import { t } from '../../../core/i18n';
 import { drawBackdrop, FONT } from '../world';
 import { medalKind, truckById } from '../levels';
 import { save } from '../save';
-import { sfx } from '../sfx';
+import { sfx, playPompieriMusic } from '../sfx';
 import { muteButton, title3d, goTo } from './common';
 
 /** Ricompensa: medaglia del livello e, se sbloccato, un camion nuovo. Solo icone e animazioni. */
@@ -12,6 +12,7 @@ export class Reward extends Phaser.Scene {
   constructor() { super('pompieri:Reward'); }
 
   create(data: { level?: number; unlocked?: string[] }): void {
+    playPompieriMusic();
     const level = data.level ?? Math.max(0, save.state.levelsDone - 1);
     const unlocked = data.unlocked ?? [];
     const newTruck = unlocked.length ? truckById(unlocked[unlocked.length - 1]) : null;

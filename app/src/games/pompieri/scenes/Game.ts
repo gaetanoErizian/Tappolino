@@ -4,7 +4,7 @@ import { t } from '../../../core/i18n';
 import { drawBackdrop, drawBuilding, Truck, GROUND_Y, type Cell } from '../world';
 import { levelCfg, wallColor, newlyUnlocked, pickFreeCell, type LevelCfg } from '../levels';
 import { save } from '../save';
-import { sfx } from '../sfx';
+import { sfx, playPompieriMusic } from '../sfx';
 import { muteButton, title3d, goTo } from './common';
 
 interface Flame {
@@ -47,6 +47,7 @@ export class Game extends Phaser.Scene {
   constructor() { super('pompieri:Game'); }
 
   create(): void {
+    playPompieriMusic();
     this.level = save.state.levelsDone;
     this.cfg = levelCfg(this.level);
     this.flames = [];

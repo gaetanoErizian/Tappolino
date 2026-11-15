@@ -3,6 +3,8 @@ import { levelCfg, LEVEL_COUNT, newlyUnlocked, TRUCKS, medalKind, pickFreeCell, 
 import { mergeDefaults } from '../../core/storage';
 import { LOCALES } from './locales';
 import { DEFAULT_SAVE } from './save';
+import { sound } from '../../core/sound';
+import { PACK, THEME_LOOP, SFX_URLS, SIRENS, registerPompieriSound, sfx } from './sfx';
 
 describe('pompieri: livelli', () => {
   it('difficoltà mai decrescente', () => {
@@ -62,3 +64,19 @@ describe('pompieri: traduzioni', () => {
   }
 });
 
+describe('pompieri: audio (core/sound)', () => {
+  it('pacchetto "pompieri": musica ogg+mp3 con il loop giusto e un file per ogni effetto e sirena', () => {
+    registerPompieriSound();
+    const pack = (sound as unknown as { packs: Map<string, { music?: { ogg: string; mp3: string; loop: number }; sfx: Record<string, string> }> }).packs.get(PACK)!;
+    expect(pack.music?.ogg).toMatch(/theme.*\.ogg/);
+    expect(pack.music?.mp3).toMatch(/theme.*\.mp3/);
+    expect(pack.music?.loop).toBeCloseTo(32 * 4 * 60 / 124, 5);
+    expect(THEME_LOOP).toBeGreaterThan(60);
+    const names = [...Object.keys(sfx).filter((k) => k !== 'siren'), ...SIRENS.map((s) => `siren_${s}`)];
+    for (const name of names) expect(SFX_URLS[name], name).toBeTruthy();
+    expect(Object.keys(SFX_URLS).sort()).toEqual(names.sort());
+  });
+  it('ogni camion ha una sirena con il suo file', () => {
+    for (const t of TRUCKS) expect(SFX_URLS[`siren_${t.siren}`], t.id).toBeTruthy();
+  });
+});

@@ -4,7 +4,7 @@ import { t } from '../../../core/i18n';
 import { drawBackdrop, drawBuilding, Truck, GROUND_Y } from '../world';
 import { wallColor } from '../levels';
 import { save } from '../save';
-import { sfx } from '../sfx';
+import { sfx, playPompieriMusic } from '../sfx';
 import { muteButton, title3d, goTo } from './common';
 import { homeButton } from '../../../core/hud';
 import { backToHub } from '../../../launcher';
@@ -13,6 +13,7 @@ export class Menu extends Phaser.Scene {
   constructor() { super('pompieri:Menu'); }
 
   create(): void {
+    playPompieriMusic();
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
     drawBackdrop(this);

@@ -1,98 +1,65 @@
-import { audio, noteFreq, type Song } from '../../core/audio';
+import { sound } from '../../core/sound';
 import type { SirenKind } from './levels';
+import themeOgg from './audio/theme.ogg?url';
+import themeMp3 from './audio/theme.mp3?url';
 
-/** Effetti sonori sintetizzati del gioco. */
+/**
+ * Musica ed effetti di Pompieri in Azione: file audio preparati offline (scripts/audio/pompieri_music.py
+ * e pompieri_sfx.py), suonati dal lettore comune core/sound (pacchetto "pompieri").
+ * I volumi relativi degli effetti si regolano qui.
+ */
+
+export const PACK = 'pompieri';
+
+/** Durata esatta del loop della musica: deve coincidere con quella stampata da pompieri_music.py. */
+export const THEME_LOOP = 61.935484;
+
+const SFX_FILES = import.meta.glob('./audio/sfx_*.mp3', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+/** nome dell'effetto → URL del file */
+export const SFX_URLS: Record<string, string> = Object.fromEntries(
+  Object.entries(SFX_FILES).map(([p, url]) => [p.replace(/^.*sfx_(.+)\.mp3$/, '$1'), url]),
+);
+
+/** Registra il pacchetto audio (una volta sola, prima del preload del modulo). */
+export function registerPompieriSound(): void {
+  sound.register(PACK, { music: { ogg: themeOgg, mp3: themeMp3, loop: THEME_LOOP }, sfx: SFX_URLS });
+}
+
+/** Avvia (o tiene in corso) la musica del gioco: ogni scena di Pompieri la chiama all'apertura. */
+export function playPompieriMusic(): void {
+  sound.playMusic(PACK);
+}
+
+const p = (name: string, vol: number, jitter = 0.04) => (): void => sound.play(PACK, name, { vol, jitter });
+
+/** Sirene: un suono per camion (levels.ts → TruckDef.siren). */
+export const SIRENS: SirenKind[] = ['hilo', 'wail', 'yelp', 'honk', 'tune', 'space'];
+
 export const sfx = {
-  pop(): void {
-    audio.tone({ freq: 520, to: 880, type: 'sine', dur: 0.09, vol: 0.35 });
-  },
-  spray(): void {
-    audio.noise({ filter: 'bandpass', freq: 2600, to: 900, q: 0.8, dur: 0.38, vol: 0.32, attack: 0.03 });
-  },
-  extinguish(): void {
-    audio.noise({ filter: 'lowpass', freq: 4000, to: 250, dur: 0.55, vol: 0.35, delay: 0.02 });
-    audio.tone({ freq: noteFreq('E6'), type: 'triangle', dur: 0.14, vol: 0.28, delay: 0.08 });
-    audio.tone({ freq: noteFreq('A6'), type: 'triangle', dur: 0.22, vol: 0.28, delay: 0.17 });
-  },
-  flameAppear(): void {
-    audio.tone({ freq: 260, to: 520, type: 'sine', dur: 0.2, vol: 0.18 });
-    audio.noise({ filter: 'lowpass', freq: 900, dur: 0.18, vol: 0.12 });
-  },
-  star(): void {
-    audio.tone({ freq: 1250, to: 1900, type: 'sine', dur: 0.12, vol: 0.18 });
-  },
-  meow(): void {
-    audio.tone({ freq: 620, to: 1000, type: 'triangle', dur: 0.16, vol: 0.32, vibrato: 18, vibratoDepth: 10 });
-    audio.tone({ freq: 1000, to: 560, type: 'triangle', dur: 0.36, vol: 0.3, delay: 0.15, vibrato: 14, vibratoDepth: 14 });
-  },
-  ladder(): void {
-    for (let i = 0; i < 7; i++) audio.tone({ freq: 420 + i * 70, type: 'square', dur: 0.05, vol: 0.07, delay: i * 0.09 });
-  },
-  hearts(): void {
-    ['C6', 'E6', 'G6', 'C7'].forEach((n, i) => audio.tone({ freq: noteFreq(n), type: 'triangle', dur: 0.22, vol: 0.25, delay: i * 0.09 }));
-  },
-  fanfare(): void {
-    const seq: [string, number, number][] = [['C5', 0, 0.16], ['E5', 0.14, 0.16], ['G5', 0.28, 0.16], ['C6', 0.42, 0.5]];
-    seq.forEach(([n, d, len]) => {
-      audio.tone({ freq: noteFreq(n), type: 'square', dur: len, vol: 0.12, delay: d });
-      audio.tone({ freq: noteFreq(n), type: 'triangle', dur: len, vol: 0.25, delay: d });
-    });
-    ['E5', 'G5'].forEach((n) => audio.tone({ freq: noteFreq(n), type: 'triangle', dur: 0.5, vol: 0.16, delay: 0.42 }));
-  },
-  medal(): void {
-    ['G6', 'C7', 'E7'].forEach((n, i) => audio.tone({ freq: noteFreq(n), type: 'sine', dur: 0.5, vol: 0.2, delay: i * 0.07 }));
-  },
-  whoosh(): void {
-    audio.noise({ filter: 'bandpass', freq: 400, to: 2400, q: 1.2, dur: 0.35, vol: 0.2 });
-  },
+  /** tocco (camion bloccato nel garage) */
+  pop: p('pop', 0.8, 0.06),
+  /** getto d'acqua del cannone */
+  spray: p('spray', 0.6, 0.08),
+  /** fiamma spenta: vapore + due note che salgono */
+  extinguish: p('extinguish', 0.75, 0.03),
+  /** una fiammella si accende (morbida, mai paurosa) */
+  flameAppear: p('flameAppear', 0.45, 0.1),
+  /** stellina che entra nella barra */
+  star: p('star', 0.5, 0.05),
+  /** miagolio del gattino */
+  meow: p('meow', 0.65, 0.07),
+  /** la scala si allunga */
+  ladder: p('ladder', 0.8, 0.02),
+  /** gattino salvo */
+  hearts: p('hearts', 0.7, 0),
+  /** livello completato */
+  fanfare: p('fanfare', 0.8, 0),
+  /** medaglia */
+  medal: p('medal', 0.75, 0),
+  /** camion nuovo che entra */
+  whoosh: p('whoosh', 0.5, 0.08),
+  /** sirena del camion */
   siren(kind: SirenKind): void {
-    switch (kind) {
-      case 'hilo':
-        for (let i = 0; i < 4; i++) audio.tone({ freq: i % 2 ? 700 : 940, type: 'triangle', dur: 0.3, vol: 0.28, delay: i * 0.3, attack: 0.02 });
-        break;
-      case 'wail':
-        audio.tone({ freq: 520, to: 1250, type: 'triangle', dur: 0.6, vol: 0.28 });
-        audio.tone({ freq: 1250, to: 520, type: 'triangle', dur: 0.6, vol: 0.28, delay: 0.6 });
-        break;
-      case 'yelp':
-        for (let i = 0; i < 6; i++) audio.tone({ freq: 600, to: 1300, type: 'triangle', dur: 0.18, vol: 0.25, delay: i * 0.19 });
-        break;
-      case 'honk':
-        [0, 0.35].forEach((d) => {
-          audio.tone({ freq: 330, type: 'sawtooth', dur: 0.26, vol: 0.12, delay: d });
-          audio.tone({ freq: 415, type: 'sawtooth', dur: 0.26, vol: 0.12, delay: d });
-        });
-        break;
-      case 'tune':
-        ['C6', 'E6', 'G6', 'E6', 'C6'].forEach((n, i) => audio.tone({ freq: noteFreq(n), type: 'triangle', dur: 0.2, vol: 0.26, delay: i * 0.17 }));
-        break;
-      case 'space':
-        audio.tone({ freq: 300, to: 1500, type: 'sine', dur: 0.9, vol: 0.26, vibrato: 9, vibratoDepth: 40 });
-        audio.tone({ freq: 1500, to: 700, type: 'sine', dur: 0.4, vol: 0.2, delay: 0.85 });
-        break;
-    }
+    sound.play(PACK, `siren_${kind}`, { vol: kind === 'tune' ? 0.7 : 0.55, jitter: 0.01 });
   },
-};
-
-/** Musica allegra in loop, volume basso. */
-export const SONG: Song = {
-  bpm: 112,
-  tracks: [
-    {
-      wave: 'triangle', vol: 0.45,
-      notes: [
-        ['C5', 1], ['E5', 1], ['G5', 1], ['E5', 1], ['F5', 1], ['A5', 1], ['G5', 2],
-        ['E5', 1], ['G5', 1], ['C6', 1], ['G5', 1], ['A5', 1], ['G5', 1], ['E5', 2],
-        ['D5', 1], ['F5', 1], ['A5', 1], ['F5', 1], ['E5', 1], ['G5', 1], ['C6', 2],
-        ['B5', 1], ['G5', 1], ['D5', 1], ['F5', 1], ['E5', 2], ['C5', 1], [null, 1],
-      ],
-    },
-    {
-      wave: 'sine', vol: 0.5,
-      notes: [
-        ['C3', 2], ['G2', 2], ['F2', 2], ['C3', 2], ['C3', 2], ['G2', 2], ['F2', 2], ['C3', 2],
-        ['D3', 2], ['A2', 2], ['C3', 2], ['G2', 2], ['G2', 2], ['B2', 2], ['C3', 2], ['G2', 2],
-      ],
-    },
-  ],
 };
