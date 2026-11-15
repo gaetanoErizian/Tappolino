@@ -99,7 +99,20 @@ function chassisTex(): SvgTex {
 }
 
 /** Ruota da monster truck: gomma scolpita con i tasselli e cerchio con lo stile scelto. */
-function wheelTex(w: (typeof WHEELS)[number]): SvgTex {
+/** Fotogrammi delle ruote: i raggi si ridisegnano sfasati di 10° (cerchi e tasselli si ripetono ogni 60°). */
+export const WHEEL_FRAMES = 6;
+export const WHEEL_STEP = 60 / WHEEL_FRAMES;
+
+/**
+ * Fotogramma dei raggi per una ruota di raggio r che ha percorso dist (copiato da TrainView.spin del Treno,
+ * games/treno/world.ts: da unificare in regia). Positivo = la ruota avanza verso destra.
+ */
+export function wheelFrame(dist: number, r: number): number {
+  return ((Math.floor(((dist / r) * (180 / Math.PI)) / WHEEL_STEP) % WHEEL_FRAMES) + WHEEL_FRAMES) % WHEEL_FRAMES;
+}
+
+function wheelTex(w: (typeof WHEELS)[number], frame: number): SvgTex {
+  const phase = frame * WHEEL_STEP;
   const c = WHEEL_PX / 2, R = TF.R;
   let lugs = '';
   for (let i = 0; i < 18; i++) {
@@ -128,17 +141,17 @@ function wheelTex(w: (typeof WHEELS)[number]): SvgTex {
     }
   }
   return {
-    key: `mt_wheel_${w.id}`, w: WHEEL_PX, h: WHEEL_PX, svg: svgDoc(WHEEL_PX, WHEEL_PX, `<defs>
+    key: `mt_wheel_${w.id}_${frame}`, w: WHEEL_PX, h: WHEEL_PX, svg: svgDoc(WHEEL_PX, WHEEL_PX, `<defs>
       ${ballGrad('ti', '#6a6a78', '#34343e', '#16161c')}${ballGrad('rim', shade(w.rim, 0.55), w.rim, shade(w.rim, -0.35))}
       ${ballGrad('hub', shade(w.hub, 0.5), w.hub, shade(w.hub, -0.4))}</defs>
-      ${lugs}
+      <g transform="rotate(${phase} ${c} ${c})">${lugs}
       <circle cx="${c}" cy="${c}" r="${R - 6}" fill="url(#ti)"/>
       <circle cx="${c}" cy="${c}" r="${R - 18}" fill="none" stroke="#4a4a56" stroke-width="3" stroke-dasharray="7 9"/>
       <circle cx="${c}" cy="${c}" r="${rr + 4}" fill="#202028"/>
       <circle cx="${c}" cy="${c}" r="${rr}" fill="url(#rim)" stroke="${shade(w.rim, -0.45)}" stroke-width="3"/>
       ${rimArt}
       <circle cx="${c}" cy="${c}" r="14" fill="url(#hub)" stroke="${shade(w.hub, -0.5)}" stroke-width="2"/>
-      ${[0, 60, 120, 180, 240, 300].map((a) => `<circle cx="${c}" cy="${c - 20}" r="3" fill="#e8ecf4" transform="rotate(${a} ${c} ${c})"/>`).join('')}`),
+      ${[0, 60, 120, 180, 240, 300].map((a) => `<circle cx="${c}" cy="${c - 20}" r="3" fill="#e8ecf4" transform="rotate(${a} ${c} ${c})"/>`).join('')}</g>`),
   };
 }
 
@@ -627,7 +640,7 @@ const ICON_STICKER = `<path d="${starPath(50, 52, 36)}" fill="#ffffff" stroke="#
 export function gameTextures(): SvgTex[] {
   return [
     bodyTex(), bodyHiTex(), chassisTex(), miniTex(),
-    ...WHEELS.map(wheelTex), wheelShineTex(),
+    ...WHEELS.flatMap((w) => Array.from({ length: WHEEL_FRAMES }, (_, k) => wheelTex(w, k))), wheelShineTex(),
     ...STICKERS.map(stickerTex).filter((x): x is SvgTex => !!x),
     ...garageTextures(),
     ...repairTextures(),

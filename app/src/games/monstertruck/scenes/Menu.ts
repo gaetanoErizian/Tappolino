@@ -72,7 +72,7 @@ export class Menu extends Phaser.Scene {
   update(_t: number, delta: number): void {
     const dt = Math.min(0.05, delta / 1000);
     this.bg.update(dt, 0);
-    if (this.busy) this.truck.spin += 600 * dt;
+    if (this.busy) this.truck.spin(700 * dt);
     this.truck.sync(dt);
   }
 }

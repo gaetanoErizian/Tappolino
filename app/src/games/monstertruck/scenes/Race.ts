@@ -218,7 +218,7 @@ export class Race extends Phaser.Scene {
       tr.frontDy = Phaser.Math.Clamp(g.at(w.fx + cam) - r - w.fy, -36, 36);
     }
     tr.angle += (want - tr.angle) * Math.min(1, dt * (st.air ? 4 : 10));
-    tr.spin += (st.vx * dt) / (TF.R * TS) * 57.3;
+    tr.spin(st.vx * dt);
     tr.floorY = g.at(st.x);
     tr.sync(dt);
     // polvere dalla ruota dietro quando si accelera
@@ -451,7 +451,7 @@ export class Race extends Phaser.Scene {
       if (u.kind === 'color') {
         parts.push(this.add.image(x, y - 4, 'mt_swatch').setTint(hex(colorHex(u.id))), this.add.image(x, y - 4, 'mt_swatch_hi'));
       } else if (u.kind === 'wheel') {
-        parts.push(this.add.image(x, y - 4, `mt_wheel_${u.id}`).setData('s', 0.62));
+        parts.push(this.add.image(x, y - 4, `mt_wheel_${u.id}_0`).setData('s', 0.62));
       } else {
         parts.push(this.add.image(x, y - 4, `mt_stk_${u.id}`).setData('s', 0.7));
       }

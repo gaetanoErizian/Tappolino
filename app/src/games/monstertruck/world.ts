@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { view } from '../../core/ui';
-import { TF, WHEEL_PX } from './art';
+import { TF, wheelFrame, WHEEL_FRAMES } from './art';
+export { wheelFrame } from './art';
 import { colorHex, trackById, type TrackId } from './parts';
 import { GROUND, rng, type Ground } from './track';
 
@@ -18,11 +19,9 @@ const AY = TF.axleY - TF.cy;           // assi sotto il centro della carrozzeria
 
 /*
  * Niente rotazioni in Phaser: con Phaser 4 le immagini ruotate si tagliano a triangoli (app/README.md).
- * Le ruote girano cambiando fotogramma (6 fotogrammi da 10°: cerchi e tasselli si ripetono ogni 60°) e in pista
+ * Le ruote girano cambiando fotogramma (i raggi ridisegnati ogni 10°, come TrainView.spin del Treno) e in pista
  * la carrozzeria si inclina scegliendo tra fotogrammi già inclinati, disegnati una volta su canvas 2D.
  */
-export const WHEEL_STEP = 10;
-export const WHEEL_FRAMES = 6;
 /** Inclinazioni disponibili in pista: da -TILT_MAX a +TILT_MAX gradi, ogni TILT_STEP. */
 export const TILT_MAX = 24;
 export const TILT_STEP = 3;
@@ -32,23 +31,6 @@ const TILT_W = 500, TILT_H = 440;
 function canvasOf(scene: Phaser.Scene, key: string): CanvasImageSource | null {
   if (!scene.textures.exists(key)) return null;
   return scene.textures.get(key).getSourceImage() as CanvasImageSource;
-}
-
-/** Fotogrammi della ruota (ruotata su canvas, una volta sola per tipo di ruota). */
-export function wheelFrames(scene: Phaser.Scene, id: string): void {
-  const src = canvasOf(scene, `mt_wheel_${id}`);
-  if (!src) return;
-  for (let k = 0; k < WHEEL_FRAMES; k++) {
-    const key = `mt_wheel_${id}_${k}`;
-    if (scene.textures.exists(key)) continue;
-    const c = document.createElement('canvas');
-    c.width = c.height = WHEEL_PX;
-    const g = c.getContext('2d')!;
-    g.translate(WHEEL_PX / 2, WHEEL_PX / 2);
-    g.rotate((k * WHEEL_STEP * Math.PI) / 180);
-    g.drawImage(src, -WHEEL_PX / 2, -WHEEL_PX / 2);
-    scene.textures.addCanvas(key, c);
-  }
 }
 
 let tiltLook = '';
@@ -116,8 +98,8 @@ export class TruckView {
   private suspV = 0;
   /** schiacciamento (1 = normale) */
   squash = 1;
-  /** rotazione delle ruote (gradi) */
-  spin = 0;
+  /** strada percorsa dalle ruote (sceglie il fotogramma dei raggi) */
+  private dist = 0;
   /** scostamento delle ruote dalla posizione di riposo (le molle seguono i dossi) */
   rearDy = 0;
   frontDy = 0;
@@ -132,7 +114,6 @@ export class TruckView {
     this.x = x;
     this.y = y;
     this.look = { ...look };
-    wheelFrames(scene, look.wheel);
     if (tilt) tiltFrames(scene, this.look);
     this.shadow = scene.add.image(x, y, 'shadow').setDepth(depth - 2).setAlpha(0.8);
     this.chassis = scene.add.image(x, y, 'mt_chassis').setDepth(depth - 1);
@@ -155,7 +136,6 @@ export class TruckView {
 
   setLook(look: Partial<Look>): void {
     this.look = { ...this.look, ...look };
-    wheelFrames(this.scene, this.look.wheel);
     this.body.setTint(hex(colorHex(this.look.color)));
     const has = this.look.sticker !== 'nessuno' && this.scene.textures.exists(`mt_stk_${this.look.sticker}`);
     if (has) this.sticker.setTexture(`mt_stk_${this.look.sticker}`);
@@ -181,6 +161,9 @@ export class TruckView {
   /** Molla della carrozzeria: un colpo verso il basso (atterraggi, salti in officina). */
   kick(v: number): void { this.suspV += v; }
 
+  /** Fa girare le ruote come se il truck avanzasse di dx (anche restando fermo sullo schermo, in pista). */
+  spin(dx: number): void { this.dist += dx; }
+
   /** Inclinazione davvero disegnata (in pista: quella del fotogramma più vicino; altrove 0). */
   private shownAngle(): number {
     if (!this.tilt) return 0;
@@ -199,7 +182,7 @@ export class TruckView {
     const w = this.wheelRest();
     const ry = w.ry + this.rearDy, fy = w.fy + this.frontDy;
     const flatDrop = (1 - this.rearFlat) * TF.R * s;
-    const fr = ((Math.floor(this.spin / WHEEL_STEP) % WHEEL_FRAMES) + WHEEL_FRAMES) % WHEEL_FRAMES;
+    const fr = wheelFrame(this.dist, TF.R * s);
     const wkey = `mt_wheel_${this.look.wheel}_${fr}`;
     const rsx = s * (1 + (1 - this.rearFlat) * 0.25), rsy = s * this.rearFlat;
     this.rear.setTexture(wkey).setPosition(w.rx, ry + flatDrop * 0.5).setScale(rsx, rsy);

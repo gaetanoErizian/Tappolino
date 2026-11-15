@@ -7,7 +7,7 @@ import { TF } from '../art';
 import {
   COLORS, WHEELS, STICKERS, unlocked, usable, repairsFor, isRepairId, nextTrack, colorHex, type RepairId, type Kind,
 } from '../parts';
-import { TruckView, drawGarage, hex, WHEEL_STEP, WHEEL_FRAMES } from '../world';
+import { TruckView, drawGarage, hex, wheelFrame } from '../world';
 import { save } from '../save';
 import { sfx, playTruckMusic } from '../sfx';
 
@@ -206,15 +206,15 @@ export class Garage extends Phaser.Scene {
       const lw = this.loose!;
       sfx.whoosh();
       this.tweens.add({ targets: this.looseShadow, alpha: 0, duration: 300 });
-      const roll = { x: lw.x, y: lw.y, spin: 0 };
+      const roll = { x: lw.x, y: lw.y };
+      const x0 = lw.x;
       const shine = this.looseShine!;
       const id = tr.look.wheel;
       this.tweens.add({
-        targets: roll, x: w.fx, y: w.fy, spin: 400, duration: 800, ease: 'Cubic.easeInOut',
+        targets: roll, x: w.fx, y: w.fy, duration: 800, ease: 'Cubic.easeInOut',
         onUpdate: () => {
-          // la ruota rotola verso sinistra: i fotogrammi vanno all'indietro
-          const k = ((2 - Math.floor(roll.spin / WHEEL_STEP)) % WHEEL_FRAMES + WHEEL_FRAMES) % WHEEL_FRAMES;
-          lw.setTexture(`mt_wheel_${id}_${k}`).setPosition(roll.x, roll.y);
+          // la ruota rotola verso sinistra: la strada percorsa è negativa
+          lw.setTexture(`mt_wheel_${id}_${wheelFrame(roll.x - x0, TF.R * TS)}`).setPosition(roll.x, roll.y);
           shine.setPosition(roll.x, roll.y);
         },
         onComplete: () => {
@@ -328,7 +328,7 @@ export class Garage extends Phaser.Scene {
         art.push(this.add.image(0, SLOT_Y - 4, 'mt_swatch').setTint(hex(colorHex(id))).setDepth(961));
         art.push(this.add.image(0, SLOT_Y - 4, 'mt_swatch_hi').setDepth(962));
       } else if (cat === 'wheel') {
-        art.push(this.add.image(0, SLOT_Y - 4, `mt_wheel_${id}`).setDepth(961));
+        art.push(this.add.image(0, SLOT_Y - 4, `mt_wheel_${id}_0`).setDepth(961));
       } else {
         art.push(this.add.image(0, SLOT_Y - 4, `mt_stk_${id}`).setDepth(961));
       }
@@ -397,7 +397,8 @@ export class Garage extends Phaser.Scene {
       sfx.clank();
       const w = tr.wheelRest();
       for (const [x, y] of [[w.rx, w.ry], [w.fx, w.fy]]) burst(this, x, y, 'sparkle', { count: 8, tints: [0xffffff, 0xffe066], speed: [120, 300], scale: [0.8, 0], gravity: 0, life: 600, depth: 200 });
-      this.tweens.add({ targets: tr, spin: tr.spin + 360, duration: 500, ease: 'Cubic.easeOut' });
+      const roll = { d: 0 }; let last = 0;
+      this.tweens.add({ targets: roll, d: 600, duration: 500, ease: 'Cubic.easeOut', onUpdate: () => { tr.spin(roll.d - last); last = roll.d; } });
       tr.kick(-150);
     } else {
       save.update({ sticker: slot.id });

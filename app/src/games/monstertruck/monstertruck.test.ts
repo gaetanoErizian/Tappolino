@@ -7,7 +7,7 @@ import {
   buildCourse, courseLength, stepTruck, simulate, starValue, comboRate, rng, flightPath,
   GROUND, PHYS, REACH_Y, type Course, type TruckState,
 } from './track';
-import { gameTextures, TF, WHEEL_PX } from './art';
+import { gameTextures, TF, WHEEL_PX, WHEEL_FRAMES, wheelFrame } from './art';
 import { monstertruckTile } from './tile';
 import entry from './entry';
 import { mergeDefaults } from '../../core/storage';
@@ -210,13 +210,22 @@ describe('monstertruck: grafica', () => {
   });
   it('ogni pezzo, pista e guasto ha le sue texture', () => {
     const keys = new Set(gameTextures().map((t) => t.key));
-    for (const w of WHEELS) expect(keys.has(`mt_wheel_${w.id}`)).toBe(true);
+    for (const w of WHEELS) for (let k = 0; k < WHEEL_FRAMES; k++) expect(keys.has(`mt_wheel_${w.id}_${k}`)).toBe(true);
     for (const s of STICKERS) expect(keys.has(`mt_stk_${s}`)).toBe(true);
     for (const t of TRACK_IDS) for (const k of ['sky', 'far', 'card']) expect(keys.has(`mt_${k}_${t}`)).toBe(true);
     for (const r of REPAIRS) expect(keys.has(`mt_need_${r}`)).toBe(true);
     for (const k of ['mt_body', 'mt_body_hi', 'mt_chassis', 'mt_stands', 'mt_stands_cheer', 'mt_fence', 'mt_box', 'mt_finish', 'mt_btn_go', 'mt_btn_tracks', 'mt_cat_color', 'mt_cat_wheel', 'mt_cat_sticker']) {
       expect(keys.has(k)).toBe(true);
     }
+  });
+  it('le ruote girano a fotogrammi: avanti e indietro, sempre un fotogramma valido', () => {
+    const r = TF.R;
+    expect(wheelFrame(0, r)).toBe(0);
+    const step = (r * Math.PI) / 18;   // 10° di strada
+    expect(wheelFrame(step * 1.01, r)).toBe(1);
+    expect(wheelFrame(step * 6.01, r)).toBe(0);
+    expect(wheelFrame(-step * 0.5, r)).toBe(WHEEL_FRAMES - 1);
+    for (let d = -5000; d < 5000; d += 37) { const f = wheelFrame(d, r); expect(f).toBeGreaterThanOrEqual(0); expect(f).toBeLessThan(WHEEL_FRAMES); }
   });
   it('ruote dentro la loro texture, assi sotto la carrozzeria', () => {
     expect(TF.R * 2 + 8).toBeLessThanOrEqual(WHEEL_PX);
