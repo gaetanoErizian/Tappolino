@@ -1,0 +1,21 @@
+{
+  "giardino.title": "Jardín de las Hadas",
+  "giardino.album": "Flores y hadas",
+  "giardino.count": "Flores en el jardín: {n} de {tot}",
+  "giardino.bedDone": "¡Qué maravilla!",
+  "giardino.gardenDone": "¡El jardín está lleno de magia!",
+  "giardino.flower.daisy": "Margarita",
+  "giardino.flower.tulip": "Tulipán",
+  "giardino.flower.bell": "Campanilla",
+  "giardino.flower.sun": "Girasol",
+  "giardino.flower.rose": "Rosa",
+  "giardino.flower.star": "Flor Estrella",
+  "giardino.flower.moon": "Flor de Luna",
+  "giardino.flower.rainbow": "Flor Arcoíris",
+  "giardino.fairy.dew": "Hada Rocío",
+  "giardino.fairy.petal": "Hada Pétalo",
+  "giardino.fairy.firefly": "Hada Luciérnaga",
+  "giardino.fairy.moss": "Duende Musgo",
+  "giardino.fairy.breeze": "Hada Brisa",
+  "giardino.fairy.twinkle": "Hada Estrellita"
+}
