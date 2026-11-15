@@ -11,7 +11,7 @@ export const hex = (c: string): number => parseInt(c.slice(1), 16);
  * Sfondo 2.5D: parete a righe, finestra con paesaggio nella foschia (piano lontano), mensole (piano medio),
  * lampade con alone, bancone in primo piano, barattoli sfocati ai bordi. Parallasse all'ingresso.
  */
-export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; window?: boolean } = {}): void {
+export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; window?: boolean } = {}): { fg: Phaser.GameObjects.Image[] } {
   const g = scene.add.graphics().setDepth(0);
   g.fillGradientStyle(0xffe6ef, 0xffe6ef, 0xffcadb, 0xffcadb, 1).fillRect(-2000, -1600, 5920, 3200);
   g.fillStyle(0xffffff, 0.32);
@@ -62,6 +62,7 @@ export function drawKitchen(scene: Phaser.Scene, opts: { counter?: boolean; wind
   far.forEach((f) => slide(f, 30));
   mid.forEach((m) => slide(m, 80));
   fg.forEach((f) => slide(f, 240));
+  return { fg };
 }
 
 // ---------------------------------------------------------------------

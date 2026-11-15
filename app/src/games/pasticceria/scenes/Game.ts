@@ -56,6 +56,7 @@ export class Game extends Phaser.Scene {
   private dessert!: Dessert;
   private trays: Phaser.GameObjects.GameObject[] = [];
   private serveBtn: Phaser.GameObjects.Image | null = null;
+  private fg: Phaser.GameObjects.Image[] = [];
 
   constructor() { super('pasticceria:Game'); }
 
@@ -81,7 +82,7 @@ export class Game extends Phaser.Scene {
       void i;
     }));
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    drawKitchen(this);
+    this.fg = drawKitchen(this).fg;
     this.hint = new Hint(this);
     this.drag = new DragManager(this, {
       onDrop: (it, x, y) => this.onDrop(it, x, y),
@@ -409,6 +410,8 @@ export class Game extends Phaser.Scene {
     this.tweens.add({ targets: this.dessert.c, scale: 1, duration: 500, ease: 'Back.easeOut' });
     burst(this, 960, cy - 60, 'sparkle', { count: 22, tints: [0xffffff, 0xffe066, 0xffb3d9], gravity: 0, speed: [200, 600], life: 900, depth: 60 });
 
+    // i barattoli sfocati in primo piano si scostano per non coprire i vassoi
+    this.time.delayedCall(1500, () => this.fg.forEach((f) => this.tweens.add({ targets: f, x: f.x < 960 ? -200 : 2120, duration: 600, ease: 'Cubic.easeInOut' })));
     const un = unlocked(save.state.served);
     this.trays.push(this.tray(70, 400, 470, 460));
     this.trays.push(this.tray(1370, 400, 500, 460));

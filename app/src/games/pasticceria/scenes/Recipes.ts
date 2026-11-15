@@ -28,7 +28,7 @@ export class Recipes extends Phaser.Scene {
       d.c.setScale(s);
       const parts: Phaser.GameObjects.GameObject[] = [card, d.c];
       if (ok) {
-        parts.push(this.add.text(x, y + 166, t(`pasticceria.recipe.${r.id}`), {
+        parts.push(this.add.text(x, y + 124, t(`pasticceria.recipe.${r.id}`), {
           fontFamily: FONT, fontSize: '50px', fontStyle: 'bold', color: '#c2386f',
         }).setOrigin(0.5).setDepth(42));
       } else {
