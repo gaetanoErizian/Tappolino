@@ -4,7 +4,7 @@ Branch `game/scavo-dei-dinosauri` · `order` 3 · gratis · colore `#c9853a`
 
 ## Stato
 **Pronto per l'approvazione di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono.
-Pagina di prova del branch: _vedi sotto, "Pagina di prova"_.
+Pagina di prova del branch (provvisoria): https://claude.ai/artifact/ARZYN7e4xYzfLGHNiWBTwB — il gioco è la terza tessera del menu; per aprirlo direttamente si può usare `?game=dinosauri` solo in locale (le pagine claude.ai non passano i parametri).
 
 ## Cosa c'è nel gioco
 - **Menu**: scavo nel deserto al tramonto (tenda a righe, lanterna, attrezzi, cassa), pulsante gioca, pulsante album. Sul prato c'è l'ultimo dinosauro scoperto, che salta e ruggisce se lo tocchi; la prima volta c'è un uovo che dondola.
