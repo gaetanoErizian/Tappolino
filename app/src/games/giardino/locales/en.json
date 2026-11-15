@@ -1,0 +1,21 @@
+{
+  "giardino.title": "Fairy Garden",
+  "giardino.album": "Flowers and fairies",
+  "giardino.count": "Flowers in the garden: {n} of {tot}",
+  "giardino.bedDone": "How wonderful!",
+  "giardino.gardenDone": "The garden is full of magic!",
+  "giardino.flower.daisy": "Daisy",
+  "giardino.flower.tulip": "Tulip",
+  "giardino.flower.bell": "Bluebell",
+  "giardino.flower.sun": "Sunflower",
+  "giardino.flower.rose": "Rose",
+  "giardino.flower.star": "Star Flower",
+  "giardino.flower.moon": "Moon Flower",
+  "giardino.flower.rainbow": "Rainbow Flower",
+  "giardino.fairy.dew": "Dewdrop Fairy",
+  "giardino.fairy.petal": "Petal Fairy",
+  "giardino.fairy.firefly": "Firefly Fairy",
+  "giardino.fairy.moss": "Moss Elf",
+  "giardino.fairy.breeze": "Breeze Fairy",
+  "giardino.fairy.twinkle": "Twinkle Fairy"
+}

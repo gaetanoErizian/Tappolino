@@ -71,6 +71,9 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Stato e diario di ogni gioco in `docs/giochi/<id>.md`; la tabella di `03-ROADMAP.md` la aggiorna la regia. Questo sostituisce, dal gioco 3, la regola della decisione 13 sul registro in `03-ROADMAP.md`.
     - Durante lo sviluppo in parallelo **il codice comune lo modifica solo la regia**. Le chat scrivono nel proprio modulo ciò che manca e lo segnalano; l'unificazione (per esempio il gesto dello strofinare dei giochi 3 e 4) si fa in regia dopo le unioni. Questo sospende, per i giochi 3–10, il passaggio in `core/` previsto dalla decisione 17.
     - Ogni brief fissa ambientazione, colori e stile musicale, perché le chat non si vedono tra loro e i giochi non devono somigliarsi.
+    - Restano nei moduli finché non servono a un altro gioco (niente spostamenti "per sicurezza"): il nome che compare e sparisce (Cuccioli, Giardino) e la farfalla che vola intorno a un punto (Giardino).
+    - **Personaggio vestibile a strati** (Atelier: ogni capo si posiziona da solo sul corpo): resta nel gioco; candidato a `core/` per una futura app singola (Fase 5) o per un secondo gioco di vestiti.
+    - **Ruote ed eliche**: in Phaser 4 un disegno ruotato dentro un Container può mostrare "triangoli tagliati". Non si ruota l'oggetto: si anima cambiando il disegno dei raggi, come fa il Treno (`games/treno`, `TrainView.spin`). Passa in `core/` quando lo usa un secondo gioco (candidato: Monster Truck).
     - Fatto in regia il 15/11/2026, dopo l'unione del gioco 5: manina del "tieni premuto" spostata in `app/src/core/holdHint.ts` (serve anche al gioco 7).
     - Fatto in regia il 15/11/2026, dopo l'unione dei giochi 3 e 4: gesto dello strofinare unificato in `app/src/core/scratch.ts`.
     - Fatto in regia il 15/11/2026, dopo l'unione della musica nuova di Pompieri: tolta la sintesi in tempo reale da `core/audio.ts` e il campo `song` dei moduli.

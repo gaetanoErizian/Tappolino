@@ -13,9 +13,9 @@ I giochi sono moduli dell'app Tappolino. Fasi e strategia in `05-STRATEGIA-E-ROA
 | 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/razzo.md` |
 | 6 | Cuccioli dal Dottore | femminuccia | trascinamento | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/cuccioli.md` |
 | 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
-| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
-| 9 | Treno degli Animali | maschietto | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
-| 10 | Atelier delle Principesse | femminuccia | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/giardino.md` |
+| 9 | Treno degli Animali | maschietto | trascinamento | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/treno.md` |
+| 10 | Atelier delle Principesse | femminuccia | trascinamento | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/atelier.md` |
 
 ## Schede
 
@@ -50,7 +50,7 @@ Gli animali aspettano in stazione: trascina ognuno nel vagone con la forma o il 
 Vesti il personaggio trascinando abiti, corone, scarpe e accessori; scegli lo sfondo (castello, bosco, festa). Si possono scegliere personaggi diversi, anche principi e cavalieri. Ricompensa: nuovi abiti sbloccati giocando.
 
 ## In sospeso per Gaetano
-- Provare e approvare i giochi 3–10 man mano che le chat consegnano la pagina di prova (prima i giochi 3, 4 e 5).
+- Provare e approvare il gioco 7 (Monster Truck), l'unico ancora in sviluppo.
 - Verifica disponibilità di "Tappolino" (dominio, store, EUIPO).
 - Iscrizione Apple Developer e segreti per la CI nel repository (elenco in `app/README.md`).
 

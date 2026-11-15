@@ -1,0 +1,21 @@
+{
+  "giardino.title": "Feengarten",
+  "giardino.album": "Blumen und Feen",
+  "giardino.count": "Blumen im Garten: {n} von {tot}",
+  "giardino.bedDone": "Wie wunderschön!",
+  "giardino.gardenDone": "Der Garten ist voller Zauber!",
+  "giardino.flower.daisy": "Gänseblümchen",
+  "giardino.flower.tulip": "Tulpe",
+  "giardino.flower.bell": "Glockenblume",
+  "giardino.flower.sun": "Sonnenblume",
+  "giardino.flower.rose": "Rose",
+  "giardino.flower.star": "Sternblume",
+  "giardino.flower.moon": "Mondblume",
+  "giardino.flower.rainbow": "Regenbogenblume",
+  "giardino.fairy.dew": "Tautropfen-Fee",
+  "giardino.fairy.petal": "Blütenfee",
+  "giardino.fairy.firefly": "Glühwürmchen-Fee",
+  "giardino.fairy.moss": "Moos-Wichtel",
+  "giardino.fairy.breeze": "Brise-Fee",
+  "giardino.fairy.twinkle": "Funkel-Fee"
+}
