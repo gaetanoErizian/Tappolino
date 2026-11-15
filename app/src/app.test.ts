@@ -5,7 +5,7 @@ import { noteFreq } from './core/audio';
 import { initI18n, addLocales, setLang, t } from './core/i18n';
 import { APP_STATE_DEFAULTS } from './core/appState';
 import { APP_LOCALES } from './locales';
-import { GAMES } from './games/registry';
+import { GAMES, gameTitles } from './games/registry';
 import { CONFIG } from './config';
 
 describe('acquisto unico e giochi bloccati', () => {
@@ -29,12 +29,26 @@ describe('registro dei giochi', () => {
   it('id unici, titoli tradotti, solo i 3 giochi previsti sono gratis', () => {
     const ids = GAMES.map((g) => g.id);
     expect(new Set(ids).size).toBe(ids.length);
+    expect(ids).toContain('pompieri');
+    expect(ids).toContain('pasticceria');
     const FREE = ['pompieri', 'pasticceria', 'dinosauri'];
+    const titles = gameTitles();
     for (const g of GAMES) {
       expect(g.free).toBe(FREE.includes(g.id));
-      for (const d of Object.values(APP_LOCALES)) expect(d[g.titleKey]).toBeTruthy();
+      expect(g.titleKey).toBe(`games.${g.id}`);
+      for (const l of Object.keys(APP_LOCALES) as (keyof typeof APP_LOCALES)[]) {
+        expect(String(g.titles[l] ?? '').trim().length).toBeGreaterThan(0);
+        expect(titles[l][g.titleKey]).toBe(g.titles[l]);
+      }
       expect(g.tile().key).toBe(`tile_${g.id}`);
+      expect(g.color).toMatch(/^#[0-9a-f]{6}$/i);
     }
+  });
+  it('ordine del menu: per numero del gioco, senza doppioni', () => {
+    const orders = GAMES.map((g) => g.order);
+    expect(new Set(orders).size).toBe(orders.length);
+    expect(orders).toEqual([...orders].sort((a, b) => a - b));
+    expect(GAMES[0].id).toBe('pompieri');
   });
 });
 

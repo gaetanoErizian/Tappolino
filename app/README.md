@@ -47,18 +47,31 @@ store/               schede store (bozza 6 lingue; games/<id>/ per le app singol
 ```
 Build automatiche nella radice del repository: `.github/workflows/app-web.yml`, `app-android.yml`, `app-ios.yml`.
 
-## Aggiungere un gioco (Fase 2 in poi)
+## Aggiungere un gioco
+Un gioco è una cartella. **Non si modifica nessun file condiviso**: così più giochi si sviluppano in parallelo senza conflitti (decisione 23). Brief e regole per le chat dei giochi: `docs/06-CHAT-DEI-GIOCHI.md`.
 
-1. Creare `src/games/<id>/` con:
-   - `index.ts` che esporta di default un `GameModule` (vedi `core/module.ts`): `id`, `textures()`, `locales`, `scenes`, `startScene`, `song` e `init` (deve chiamare `save.load()`, altrimenti i progressi non vengono letti);
-   - scene Phaser con chiavi prefissate `"<id>:"` (es. `super('pasticceria:Game')`), pulsante casa nel menu del gioco che chiama `backToHub(this)` da `src/launcher.ts`;
-   - testi nelle 6 lingue con chiavi prefissate `"<id>."`;
-   - salvataggi in `new Store('tappolino.<id>', DEFAULT)` (solo progressi: lingua, muto e acquisto sono nello stato condiviso);
-   - `tile.ts` con l'illustrazione della tessera (360×280, chiave `tile_<id>`), **senza importare il resto del gioco**;
-   - test `<id>.test.ts`.
-2. In `src/games/registry.ts` aggiungere la voce: `{ id, free, titleKey: 'games.<id>', color, tile, load: () => import('./<id>') }`. `free: true` solo per pompieri, pasticceria, dinosauri.
-3. In `src/locales/*.json` aggiungere il titolo `games.<id>` nelle 6 lingue.
-4. `npm test` controlla da solo: id unici, gratis solo i 3 previsti, titoli presenti in tutte le lingue, tessera con la chiave giusta.
+Tutto ciò che appartiene al gioco:
+
+| Cosa | Dove |
+|---|---|
+| Voce di menu: `id`, `order`, `free`, `color`, `titles` nelle 6 lingue, `tile`, `load` | `src/games/<id>/entry.ts` (esporta di default un `GameEntryDef`) |
+| Illustrazione della tessera (360×280, chiave `tile_<id>`), **senza importare il resto del gioco** | `src/games/<id>/tile.ts` |
+| Modulo: `id`, `textures()`, `locales`, `scenes`, `startScene`, `init` (deve chiamare `save.load()`), `preload` (audio) | `src/games/<id>/index.ts` (esporta di default un `GameModule`) |
+| Scene Phaser con chiavi `"<id>:…"`; pulsante casa che chiama `backToHub(this)` di `src/launcher.ts` | `src/games/<id>/scenes/` |
+| Testi nelle 6 lingue, chiavi `"<id>.…"` | `src/games/<id>/locales/` |
+| Salvataggi: `new Store('tappolino.<id>', DEFAULT)` (solo progressi) | `src/games/<id>/save.ts` |
+| Musica ed effetti (file audio) + crediti | `src/games/<id>/audio/`, `src/games/<id>/CREDITS.md` |
+| Script che genera l'audio | `scripts/audio/<id>_*.py` |
+| Test | `src/games/<id>/<id>.test.ts` |
+| Catture per gli store | `scripts/screenshots/<id>.py` |
+| Scheda store del gioco (per la futura app singola) | `store/games/<id>/` |
+| Stato e diario di sviluppo | `docs/giochi/<id>.md` |
+
+Il menu trova il gioco da solo (`src/games/registry.ts` legge tutti gli `entry.ts`) e lo ordina per `order`. `npm test` controlla: id unici, gratis solo pompieri/pasticceria/dinosauri, titoli in tutte le lingue, tessera con la chiave giusta, ordine senza doppioni.
+
+File che un gioco **non tocca**: `src/core/`, `src/hub/`, `src/games/registry.ts`, `src/locales/`, `src/app.ts`, `src/launcher.ts`, `package.json`, `README.md`, `CREDITS.md`, `scripts/store-screenshots.py`, `docs/` (tranne `docs/giochi/<id>.md`). Se serve qualcosa di nuovo nel codice comune: lo si scrive nel proprio modulo e lo si segnala in regia.
+
+Per l'audio servono FluidSynth e gli strumenti campionati: `apt-get update && apt-get install -y fluidsynth musescore-general-soundfont-lossless` e `pip install mido numpy scipy`.
 
 ## Identità Tappolino (codice comune)
 Tutto ciò che si vede e si sente fuori dai giochi segue il marchio. I giochi lo riusano, non lo ridisegnano.
@@ -67,7 +80,7 @@ Tutto ciò che si vede e si sente fuori dai giochi segue il marchio. I giochi lo
 - **Testi nei giochi** — usare sempre `FONT` (o `title()` / `title3d()` di `core/hud.ts`), mai un carattere scritto a mano.
 - **Loader** — `src/core/loader.ts`: l'unica schermata di caricamento dell'app (scritta, barra con i colori del logo, Tappo che la percorre). Avvio dell'app e apertura di un gioco la usano già. Per un caricamento lungo dentro un gioco: `await runWithLoader([{ weight, run: (report) => … }])`. Un gioco con file pesanti (audio) espone `preload(report)` nel suo modulo: il launcher lo mostra nella barra. Niente loader fatti in casa.
 - **Pannelli** — `src/core/overlay.ts`: cartoncino, pulsanti (`tp-btn`, `go`, `sec`, `warn`), pastiglie (`tp-chips`), interruttore (`tp-switch`), intestazione con Tappo (`cardHeader()`), riga di stato con stellina (`statusLine()`). Area genitori, blocco adulti e offerta li usano già.
-- **Audio** — `src/core/sound.ts`: lettore a campioni comune. Ogni gioco registra un pacchetto con il proprio id (`sound.register(id, { music: { ogg, mp3, loop }, sfx })`), lo carica nel `preload` del modulo (`sound.preload(id, report)`), poi `sound.playMusic(id)` e `sound.play(id, 'nome')`. Il menu usa il pacchetto `hub` (`src/hub/sfx.ts`, file in `src/hub/audio/`, generati da `scripts/audio/hub_audio.py`). All'apertura di un gioco il launcher ferma la musica del menu; al ritorno la riavvia. La sintesi di `core/audio.ts` resta solo per i giochi non ancora convertiti.
+- **Audio** — `src/core/sound.ts`: lettore a campioni comune. Ogni gioco registra un pacchetto con il proprio id (`sound.register(id, { music: { ogg, mp3, loop }, sfx })`), lo carica nel `preload` del modulo (`sound.preload(id, report)`), poi `sound.playMusic(id)` e `sound.play(id, 'nome')`. Il menu usa il pacchetto `hub` (`src/hub/sfx.ts`, file in `src/hub/audio/`, generati da `scripts/audio/hub_audio.py`). All'apertura di un gioco il launcher ferma la musica del menu; al ritorno la riavvia. La vecchia sintesi di `core/audio.ts` non va usata: verrà tolta in regia dopo l'unione della musica nuova di Pompieri.
 
 ## Regole tecniche emerse dal gioco 1
 - Stile 2.5D con gli helper di `core/art.ts`: `lightGrad` (luce dall'alto a sinistra), `ballGrad`, `groundShadow` e texture `shadow`, `shade()`; bordi in una tonalità scura dello stesso colore, mai neri spessi. Pulsanti 3D con `roundButton`. Scenario comune: `cloud`, `sun`.

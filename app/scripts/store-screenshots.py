@@ -9,7 +9,7 @@ Uso:
 Uscita: store/screenshots/<gruppo>/<lingua>/<dispositivo>/*.png
   gruppi: app (menu dei giochi), pompieri (gioco 1), pasticceria (gioco 2). Dispositivi: telefono Play 1920×1080,
   iPhone 6,9" 2868×1320, iPad 13" 2752×2064.
-Per aggiungere un gioco: scrivere una funzione shots_<id>() sul modello di shots_pompieri().
+Per aggiungere un gioco: creare scripts/screenshots/<id>.py con shots(pg, url, lang, d, h) (vedi in fondo a questo file).
 """
 import argparse, json, os, time
 from playwright.sync_api import sync_playwright
@@ -124,6 +124,16 @@ def shots_pasticceria(pg, url, lang, d):
 
 
 GROUPS = {'app': shots_app, 'pompieri': shots_pompieri, 'pasticceria': shots_pasticceria}
+
+# I giochi dal 3 in poi NON modificano questo file: ognuno mette le sue catture in
+# scripts/screenshots/<id>.py con una funzione  shots(pg, url, lang, d, h)  dove h dà gli aiuti
+# comuni: h.shot(pg, percorso), h.load(pg, url, lang, salvataggi), h.run(pg, js).
+import glob, importlib.util, types
+_HELPERS = types.SimpleNamespace(shot=shot, load=load, run=run)
+for _f in sorted(glob.glob(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'screenshots', '*.py'))):
+    _spec = importlib.util.spec_from_file_location('shots_' + os.path.basename(_f)[:-3], _f)
+    _m = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_m)
+    GROUPS[os.path.basename(_f)[:-3]] = (lambda m: lambda pg, url, lang, d: m.shots(pg, url, lang, d, _HELPERS))(_m)
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()

@@ -6,5 +6,5 @@ import fr from './fr.json';
 import de from './de.json';
 import pt from './pt.json';
 
-/** Testi dell'app (menu, area genitori, parental gate, acquisto, titoli dei giochi). */
+/** Testi dell'app (menu, area genitori, parental gate, acquisto). I titoli dei giochi stanno in games/<id>/entry.ts. */
 export const APP_LOCALES: Record<Lang, Dict> = { it, en, es, fr, de, pt };
