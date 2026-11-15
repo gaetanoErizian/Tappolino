@@ -1,0 +1,21 @@
+{
+  "giardino.title": "Le Jardin des Fées",
+  "giardino.album": "Fleurs et fées",
+  "giardino.count": "Fleurs au jardin : {n} sur {tot}",
+  "giardino.bedDone": "Quelle merveille !",
+  "giardino.gardenDone": "Le jardin est plein de magie !",
+  "giardino.flower.daisy": "Marguerite",
+  "giardino.flower.tulip": "Tulipe",
+  "giardino.flower.bell": "Clochette",
+  "giardino.flower.sun": "Tournesol",
+  "giardino.flower.rose": "Rose",
+  "giardino.flower.star": "Fleur Étoile",
+  "giardino.flower.moon": "Fleur de Lune",
+  "giardino.flower.rainbow": "Fleur Arc-en-ciel",
+  "giardino.fairy.dew": "Fée Rosée",
+  "giardino.fairy.petal": "Fée Pétale",
+  "giardino.fairy.firefly": "Fée Luciole",
+  "giardino.fairy.moss": "Lutin Mousse",
+  "giardino.fairy.breeze": "Fée Brise",
+  "giardino.fairy.twinkle": "Fée Étincelle"
+}
