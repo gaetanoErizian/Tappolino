@@ -59,8 +59,13 @@ export class Gallery extends Phaser.Scene {
     });
     // capi nel guardaroba: una stellina e il numero, oppure "completo"
     const n = unlockedItems(save.state.shows).size;
-    const star = this.add.image(1500, 990, 'star').setScale(0.8).setDepth(200);
-    this.add.text(1550, 990, isComplete(save.state.shows) ? t('atelier.complete') : `${n} / ${ITEMS.length}`, {
+    const star = this.add.image(250, 1000, 'star').setScale(0.8).setDepth(200);
+    if (isComplete(save.state.shows)) {
+      // guardaroba completo: la stellina brilla
+      const g = this.add.image(250, 1000, 'glow').setScale(1.6).setTint(0xffe066).setBlendMode(Phaser.BlendModes.ADD).setDepth(199);
+      this.tweens.add({ targets: g, alpha: 0.4, scale: 2, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
+    this.add.text(300, 1000, `${n} / ${ITEMS.length}`, {
       fontFamily: FONT, fontSize: '54px', fontStyle: '700', color: '#ffffff', stroke: '#7a3a52', strokeThickness: 10,
     }).setOrigin(0, 0.5).setDepth(200);
     void star;

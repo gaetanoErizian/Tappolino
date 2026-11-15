@@ -259,7 +259,7 @@ describe('atelier: traduzioni', () => {
         expect(k.startsWith('atelier.')).toBe(true);
         expect(String(v).trim().length).toBeGreaterThan(0);
       }
-      for (const k of ['atelier.title', 'atelier.bravo', 'atelier.new.item', 'atelier.new.char.f', 'atelier.new.char.m', 'atelier.gallery', 'atelier.complete']) expect(d[k]).toBeTruthy();
+      for (const k of ['atelier.title', 'atelier.bravo', 'atelier.new.item', 'atelier.new.char.f', 'atelier.new.char.m', 'atelier.gallery']) expect(d[k]).toBeTruthy();
     });
   }
 });
