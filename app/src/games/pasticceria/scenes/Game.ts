@@ -8,7 +8,8 @@ import {
   addCreation, rewardFor, colorHex, MAX_TOPPINGS, type Recipe, type IngredientId, type ToppingId, type ColorId,
 } from '../recipes';
 import { INGREDIENT_TINT } from '../art';
-import { drawKitchen, Dessert, Customer, DragManager, Hint, previewCreation, COUNTER_Y, hex, type DragItem } from '../world';
+import { drawKitchen, Dessert, Customer, previewCreation, COUNTER_Y, hex } from '../world';
+import { DragManager, Hint, type DragItem } from '../../../core/drag';
 import { save } from '../save';
 import { sfx, playPasticceriaMusic } from '../sfx';
 import { sound } from '../../../core/sound';
