@@ -31,12 +31,33 @@ export function setupView(scene: Phaser.Scene, onResize?: (v: View) => void): vo
   scene.events.once('shutdown', () => scene.scale.off('resize', apply));
 }
 
+/**
+ * Spazio da lasciare libero ai lati per fotocamera e angoli arrotondati, in unità di gioco.
+ * Lo sfondo arriva fino al bordo dello schermo; solo i pulsanti ancorati agli angoli rientrano di questo spazio.
+ * (Nei test automatici lo si può simulare con le variabili CSS --tp-sal e --tp-sar.)
+ */
+let probe: HTMLElement | null = null;
+export function safeSides(scene: Phaser.Scene): { left: number; right: number } {
+  if (typeof document === 'undefined') return { left: 0, right: 0 };
+  if (!probe) {
+    probe = document.createElement('div');
+    probe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;visibility:hidden;pointer-events:none;'
+      + 'padding-left:var(--tp-sal, env(safe-area-inset-left));padding-right:var(--tp-sar, env(safe-area-inset-right))';
+    document.body.appendChild(probe);
+  }
+  const cs = getComputedStyle(probe);
+  const cssW = scene.game.canvas.getBoundingClientRect().width || 1;
+  const k = scene.scale.width / cssW; // unità di gioco per pixel CSS
+  return { left: (parseFloat(cs.paddingLeft) || 0) * k, right: (parseFloat(cs.paddingRight) || 0) * k };
+}
+
 type Corner = 'tl' | 'tr' | 'bl' | 'br';
 /** Mantiene un oggetto ancorato a un angolo dello schermo reale. */
 export function pin(scene: Phaser.Scene, obj: Phaser.GameObjects.Components.Transform, corner: Corner, dx: number, dy: number): void {
   const place = () => {
     const v = view(scene);
-    obj.x = corner[1] === 'l' ? v.left + dx : v.right - dx;
+    const safe = safeSides(scene);
+    obj.x = corner[1] === 'l' ? v.left + safe.left + dx : v.right - safe.right - dx;
     obj.y = corner[0] === 't' ? v.top + dy : v.bottom - dy;
   };
   place();
