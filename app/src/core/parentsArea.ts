@@ -1,4 +1,5 @@
-import { openOverlay, el } from './overlay';
+import { openOverlay, el, cardHeader } from './overlay';
+import { BRAND } from './brand';
 import { parentalGate } from './parentalGate';
 import { t, lang, LANG_NAMES, SUPPORTED, type Lang } from './i18n';
 import { benefits, purchaseBlock } from './unlockOffer';
@@ -21,32 +22,47 @@ export async function openParentsArea(o: ParentsOptions): Promise<void> {
   }
   const { card, close } = openOverlay(o.onClose);
 
-  card.append(el('h2', { textContent: t('parents.title') }), el('p', { textContent: t('parents.intro') }));
+  card.append(cardHeader(t('parents.title')), el('p', { textContent: t('parents.intro') }));
+  const section = (text: string, color: string): HTMLElement => {
+    const h = el('h3', { textContent: text });
+    h.style.setProperty('--dot', color);
+    return h;
+  };
 
   // --- Sblocca tutto ---
-  card.append(el('h3', { textContent: t('parents.unlockTitle') }));
+  card.append(section(t('parents.unlockTitle'), BRAND.green));
   const ul = el('ul', { className: 'tp-list' });
   benefits().forEach((b) => ul.append(el('li', { textContent: b })));
   card.append(ul, purchaseBlock(o.cfg));
 
-  // --- Lingua ---
-  const sel = el('select');
-  SUPPORTED.forEach((l) => sel.append(el('option', { value: l, textContent: LANG_NAMES[l], selected: l === lang() })));
-  sel.addEventListener('change', () => {
-    o.onLangChange(sel.value as Lang);
-    close();
+  // --- Lingua: una pastiglia per lingua ---
+  const chips = el('div', { className: 'tp-chips' });
+  SUPPORTED.forEach((l) => {
+    const b = el('button', { type: 'button', textContent: LANG_NAMES[l] });
+    b.setAttribute('aria-pressed', String(l === lang()));
+    b.addEventListener('click', () => {
+      if (l === lang()) return;
+      o.onLangChange(l);
+      close();
+    });
+    chips.append(b);
   });
-  card.append(el('div', { className: 'tp-row' }, el('span', { textContent: t('parents.language') }), sel));
+  card.append(section(t('parents.language'), BRAND.blue), chips);
 
-  // --- Audio ---
-  const sound = el('button', { className: 'tp-btn sec' });
-  const renderSound = () => { sound.textContent = isMuted() ? '🔇 ' + t('parents.soundOff') : '🔊 ' + t('parents.soundOn'); };
+  // --- Audio: interruttore ---
+  const label = el('span');
+  const sw = el('button', { type: 'button', className: 'tp-switch' });
+  sw.setAttribute('role', 'switch');
+  const renderSound = () => {
+    sw.setAttribute('aria-checked', String(!isMuted()));
+    label.textContent = isMuted() ? t('parents.soundOff') : t('parents.soundOn');
+  };
   renderSound();
-  sound.addEventListener('click', () => { setMuted(!isMuted()); renderSound(); o.onMuteChange?.(); });
-  card.append(sound);
+  sw.addEventListener('click', () => { setMuted(!isMuted()); renderSound(); o.onMuteChange?.(); });
+  card.append(el('div', { className: 'tp-row' }, label, sw));
 
   // --- Azzera progressi (doppia conferma) ---
-  const reset = el('button', { className: 'tp-btn sec', textContent: t('parents.reset') });
+  const reset = el('button', { className: 'tp-btn warn', textContent: t('parents.reset') });
   let armed: ReturnType<typeof setTimeout> | null = null;
   reset.addEventListener('click', () => {
     if (!armed) {

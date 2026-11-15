@@ -11,9 +11,13 @@ export function svgDoc(w: number, h: number, body: string, vbW = w, vbH = h): st
 /**
  * Rasterizza gli SVG su canvas e li registra come texture Phaser.
  * Nessun file immagine esterno: tutta la grafica è generata nel codice (vettoriale, originale).
+ * `onProgress` riceve la quota di texture pronte (0..1), per la barra del loader.
  */
-export async function registerSvgTextures(scene: Phaser.Scene, list: SvgTex[]): Promise<void> {
-  await Promise.all(list.map((tex) => new Promise<void>((resolve) => {
+export async function registerSvgTextures(scene: Phaser.Scene, list: SvgTex[], onProgress?: (p: number) => void): Promise<void> {
+  let ready = 0;
+  const tick = () => { ready++; onProgress?.(ready / list.length); };
+  await Promise.all(list.map((tex) => new Promise<void>((done) => {
+    const resolve = () => { tick(); done(); };
     if (scene.textures.exists(tex.key)) { resolve(); return; }
     const img = new Image();
     const url = URL.createObjectURL(new Blob([tex.svg], { type: 'image/svg+xml' }));

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="340" viewBox="0 0 300 340"><defs>
+    <radialGradient id="mb" cx=".34" cy=".26" r=".85"><stop offset="0" stop-color="#ffc0ab"/><stop offset=".5" stop-color="#ff6b5e"/><stop offset="1" stop-color="#cf3b3b"/></radialGradient>
+    <linearGradient id="mc" x1="0" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#fff6b0"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#f59a00"/></linearGradient>
+    <linearGradient id="ms" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc21f"/><stop offset="1" stop-color="#e88600"/></linearGradient>
+    <radialGradient id="mr" cx=".5" cy=".5" r=".5"><stop offset=".55" stop-color="#36a9f0" stop-opacity="0"/><stop offset=".8" stop-color="#36a9f0" stop-opacity=".55"/><stop offset="1" stop-color="#36a9f0" stop-opacity="0"/></radialGradient>
+  </defs>
+  <!-- onde del tocco -->
+  <ellipse cx="150" cy="306" rx="140" ry="30" fill="url(#mr)"/>
+  <ellipse cx="150" cy="306" rx="96" ry="19" fill="none" stroke="#36a9f0" stroke-width="7" opacity=".75"/>
+  <ellipse cx="150" cy="306" rx="60" ry="11" fill="#1d2440" opacity=".28"/>
+  <g transform="rotate(-6 150 200)" fill="#fff" stroke="#fff" stroke-width="24" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="85" y="92" width="130" height="204" rx="65"/><path d="M86 112 Q88 58 150 54 Q212 58 214 112 Z"/><path d="M80 108 L80 124 L87.8 138 L95.6 124 L103.3 138 L111.1 124 L118.9 138 L126.7 124 L134.4 138 L142.2 124 L150.0 138 L157.8 124 L165.6 138 L173.3 124 L181.1 138 L188.9 124 L196.7 138 L204.4 124 L212.2 138 L220.0 124 L220 108 Z"/>
+    <ellipse cx="124" cy="296" rx="25" ry="13"/><ellipse cx="178" cy="296" rx="25" ry="13"/>
+    <path d="M90 200 Q52 196 40 150" fill="none" stroke-width="42"/><path d="M210 208 Q246 220 250 262" fill="none" stroke-width="42"/>
+  </g>
+  <g transform="rotate(-6 150 200)">
+    <!-- piedi -->
+    <ellipse cx="124" cy="296" rx="25" ry="13" fill="#cf3b3b" stroke="#2b2140" stroke-width="7"/>
+    <ellipse cx="178" cy="296" rx="25" ry="13" fill="#cf3b3b" stroke="#2b2140" stroke-width="7"/>
+    <!-- braccia -->
+    <path d="M90 200 Q52 196 40 150" fill="none" stroke="#2b2140" stroke-width="26" stroke-linecap="round"/>
+    <path d="M90 200 Q52 196 40 150" fill="none" stroke="#ff6b5e" stroke-width="13" stroke-linecap="round"/>
+    <path d="M210 208 Q246 220 250 262" fill="none" stroke="#2b2140" stroke-width="26" stroke-linecap="round"/>
+    <path d="M210 208 Q246 220 250 262" fill="none" stroke="#e85550" stroke-width="13" stroke-linecap="round"/>
+    <!-- corpo: un ditino -->
+    <rect x="85" y="92" width="130" height="204" rx="65" fill="url(#mb)" stroke="#2b2140" stroke-width="8"/>
+    <ellipse cx="118" cy="150" rx="16" ry="40" fill="#fff" opacity=".28" transform="rotate(8 118 150)"/>
+    <!-- pancia-polpastrello con impronta -->
+    <ellipse cx="150" cy="243" rx="41" ry="40" fill="#ffe1d6"/>
+    <path d="M124 250 Q150 208 176 250 M132 259 Q150 230 168 259 M141 266 Q150 251 159 266" fill="none" stroke="#ff9c8c" stroke-width="5.5" stroke-linecap="round"/>
+    <!-- viso -->
+    <ellipse cx="127" cy="166" rx="18" ry="21" fill="#fff" stroke="#2b2140" stroke-width="5"/>
+    <ellipse cx="173" cy="166" rx="18" ry="21" fill="#fff" stroke="#2b2140" stroke-width="5"/>
+    <circle cx="131" cy="169" r="10" fill="#2b2140"/><circle cx="177" cy="169" r="10" fill="#2b2140"/>
+    <circle cx="135" cy="164" r="4" fill="#fff"/><circle cx="181" cy="164" r="4" fill="#fff"/>
+    <ellipse cx="106" cy="194" rx="11" ry="7" fill="#ff8fb0" opacity=".8"/>
+    <ellipse cx="194" cy="194" rx="11" ry="7" fill="#ff8fb0" opacity=".8"/>
+    <path d="M131 194 Q150 220 169 194 Z" fill="#7a1f2b" stroke="#2b2140" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M141 204 Q150 213 159 204 Q150 199 141 204 Z" fill="#ff7a90"/>
+    <!-- cappello a tappo -->
+    <path d="M80 108 L80 124 L87.8 138 L95.6 124 L103.3 138 L111.1 124 L118.9 138 L126.7 124 L134.4 138 L142.2 124 L150.0 138 L157.8 124 L165.6 138 L173.3 124 L181.1 138 L188.9 124 L196.7 138 L204.4 124 L212.2 138 L220.0 124 L220 108 Z" fill="url(#ms)" stroke="#2b2140" stroke-width="8" stroke-linejoin="round"/>
+    <path d="M86 112 Q88 58 150 54 Q212 58 214 112 Z" fill="url(#mc)" stroke="#2b2140" stroke-width="8" stroke-linejoin="round"/>
+    <ellipse cx="120" cy="78" rx="20" ry="8" fill="#fff" opacity=".75" transform="rotate(-28 120 78)"/>
+    <path d="M152.0 69.0 L157.0 79.1 L168.2 80.7 L160.1 88.6 L162.0 99.8 L152.0 94.5 L142.0 99.8 L143.9 88.6 L135.8 80.7 L147.0 79.1 Z" fill="#ff5e9a" stroke="#2b2140" stroke-width="4.5" stroke-linejoin="round"/>
+  </g>
+  <path d="M34 79 Q37.06 92.94 51 96 Q37.06 99.06 34 113 Q30.94 99.06 17 96 Q30.94 92.94 34 79 Z" fill="#ffd23f" stroke="#2b2140" stroke-width="2.72" stroke-linejoin="round"/><path d="M268 119 Q270.34 129.66 281 132 Q270.34 134.34 268 145 Q265.66 134.34 255 132 Q265.66 129.66 268 119 Z" fill="#36a9f0" stroke="#2b2140" stroke-width="2.5" stroke-linejoin="round"/><path d="M252 34 Q253.8 42.2 262 44 Q253.8 45.8 252 54 Q250.2 45.8 242 44 Q250.2 42.2 252 34 Z" fill="#ff5e9a" stroke="#2b2140" stroke-width="2.5" stroke-linejoin="round"/></svg>

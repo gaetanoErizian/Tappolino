@@ -60,6 +60,15 @@ Build automatiche nella radice del repository: `.github/workflows/app-web.yml`, 
 3. In `src/locales/*.json` aggiungere il titolo `games.<id>` nelle 6 lingue.
 4. `npm test` controlla da solo: id unici, gratis solo i 3 previsti, titoli presenti in tutte le lingue, tessera con la chiave giusta.
 
+## Identità Tappolino (codice comune)
+Tutto ciò che si vede e si sente fuori dai giochi segue il marchio. I giochi lo riusano, non lo ridisegnano.
+
+- **Marchio** — `src/core/brand.ts`: colori (`BRAND`, `RAINBOW`), carattere (`FONT`, Fredoka incluso nell'app), logo e mascotte Tappo (`brandTextures()` → texture `brand_logo`, `brand_mark`). I file in `src/core/brand/*.svg` sono generati: per cambiarli si modifica `scripts/make-brand.mjs` e si lancia `npm run brand`, poi `npm run icons` per icona, splash e grafiche store.
+- **Testi nei giochi** — usare sempre `FONT` (o `title()` / `title3d()` di `core/hud.ts`), mai un carattere scritto a mano.
+- **Loader** — `src/core/loader.ts`: l'unica schermata di caricamento dell'app (scritta, barra con i colori del logo, Tappo che la percorre). Avvio dell'app e apertura di un gioco la usano già. Per un caricamento lungo dentro un gioco: `await runWithLoader([{ weight, run: (report) => … }])`. Un gioco con file pesanti (audio) espone `preload(report)` nel suo modulo: il launcher lo mostra nella barra. Niente loader fatti in casa.
+- **Pannelli** — `src/core/overlay.ts`: cartoncino, pulsanti (`tp-btn`, `go`, `sec`, `warn`), pastiglie (`tp-chips`), interruttore (`tp-switch`), intestazione con Tappo (`cardHeader()`), riga di stato con stellina (`statusLine()`). Area genitori, blocco adulti e offerta li usano già.
+- **Audio** — `src/core/sound.ts`: lettore a campioni comune. Ogni gioco registra un pacchetto con il proprio id (`sound.register(id, { music: { ogg, mp3, loop }, sfx })`), lo carica nel `preload` del modulo (`sound.preload(id, report)`), poi `sound.playMusic(id)` e `sound.play(id, 'nome')`. Il menu usa il pacchetto `hub` (`src/hub/sfx.ts`, file in `src/hub/audio/`, generati da `scripts/audio/hub_audio.py`). All'apertura di un gioco il launcher ferma la musica del menu; al ritorno la riavvia. La sintesi di `core/audio.ts` resta solo per i giochi non ancora convertiti.
+
 ## Regole tecniche emerse dal gioco 1
 - Stile 2.5D con gli helper di `core/art.ts`: `lightGrad` (luce dall'alto a sinistra), `ballGrad`, `groundShadow` e texture `shadow`, `shade()`; bordi in una tonalità scura dello stesso colore, mai neri spessi. Pulsanti 3D con `roundButton`. Scenario comune: `cloud`, `sun`.
 - Sfondo a piani con foschia e primo piano sfocato; parallasse all'ingresso della scena. Luci leggere con la texture `glow` in `BlendModes.ADD`.

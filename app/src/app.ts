@@ -10,7 +10,8 @@ import { setUiSound } from './core/ui';
 import { urlParam, isNative } from './core/platform';
 import { removeKeys } from './core/storage';
 import { appState, isUnlocked, setUnlocked, onUnlockChange } from './core/appState';
-import { hubSfx, HUB_SONG } from './hub/sfx';
+import { sound } from './core/sound';
+import { hubSfx, registerHubSound, playHubMusic } from './hub/sfx';
 
 /** Avvio dell'app: stato condiviso, lingua, audio, banner, verifica dell'acquisto unico. */
 export async function startApp(): Promise<void> {
@@ -21,7 +22,9 @@ export async function startApp(): Promise<void> {
   initI18n(APP_LOCALES, urlParam('lang') ?? s.lang);
   audio.install();
   audio.setMuted(s.muted);
-  audio.playSong(HUB_SONG);
+  sound.install();
+  registerHubSound();
+  playHubMusic();
   setUiSound(hubSfx.pop);
   void initAds(CONFIG, isUnlocked());
   onUnlockChange((v) => { if (v) void removeAds(); });

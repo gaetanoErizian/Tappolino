@@ -1,38 +1,39 @@
-import { audio, noteFreq, type Song } from '../core/audio';
+import { sound } from '../core/sound';
+import themeOgg from './audio/theme.ogg?url';
+import themeMp3 from './audio/theme.mp3?url';
 
-/** Suoni del menu dei giochi. */
+/**
+ * Musica e suoni del menu dei giochi: strumenti veri (file audio in ./audio/, generati da
+ * scripts/audio/hub_audio.py), suonati dal lettore comune core/sound.
+ */
+
+/** Durata esatta del loop della musica: deve coincidere con quella stampata da hub_audio.py. */
+export const HUB_LOOP = 35.555556;
+
+const SFX_FILES = import.meta.glob('./audio/sfx_*.mp3', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+
+/** Pacchetto audio del menu (id "hub"). */
+export function registerHubSound(): void {
+  sound.register('hub', {
+    music: { ogg: themeOgg, mp3: themeMp3, loop: HUB_LOOP },
+    sfx: Object.fromEntries(Object.entries(SFX_FILES).map(([p, url]) => [p.replace(/^.*sfx_(.+)\.mp3$/, '$1'), url])),
+  });
+}
+
 export const hubSfx = {
-  pop(): void {
-    audio.tone({ freq: 520, to: 880, type: 'sine', dur: 0.09, vol: 0.35 });
-  },
-  open(): void {
-    ['C5', 'E5', 'G5', 'C6'].forEach((n, i) => audio.tone({ freq: noteFreq(n), type: 'triangle', dur: 0.16, vol: 0.25, delay: i * 0.06 }));
-  },
-  locked(): void {
-    audio.tone({ freq: 330, to: 260, type: 'triangle', dur: 0.14, vol: 0.25 });
-    audio.tone({ freq: 330, to: 260, type: 'triangle', dur: 0.14, vol: 0.2, delay: 0.16 });
-  },
+  /** tocco su un pulsante */
+  pop(): void { sound.play('hub', 'pop', { vol: 0.8, jitter: 0.06 }); },
+  /** apertura di un gioco */
+  open(): void { sound.play('hub', 'open', { jitter: 0 }); },
+  /** gioco bloccato */
+  locked(): void { sound.play('hub', 'locked', { jitter: 0.02 }); },
+  /** caricamento riuscito */
+  ready(): void { sound.play('hub', 'ready', { vol: 0.8, jitter: 0 }); },
+  /** cambio pagina */
+  page(): void { sound.play('hub', 'page', { jitter: 0.03 }); },
 };
 
-/** Musichetta del menu: allegra e leggera, a volume basso. */
-export const HUB_SONG: Song = {
-  bpm: 100,
-  tracks: [
-    {
-      wave: 'triangle', vol: 0.4,
-      notes: [
-        ['G5', 1], ['E5', 0.5], ['G5', 0.5], ['A5', 1], ['G5', 1], ['E5', 1], ['C5', 1], ['D5', 2],
-        ['E5', 1], ['G5', 0.5], ['E5', 0.5], ['D5', 1], ['C5', 1], ['D5', 1], ['E5', 1], ['C5', 2],
-        ['F5', 1], ['A5', 0.5], ['F5', 0.5], ['G5', 1], ['E5', 1], ['F5', 1], ['D5', 1], ['G5', 2],
-        ['E5', 1], ['G5', 1], ['C6', 1], ['B5', 1], ['A5', 1], ['G5', 1], ['C5', 1], [null, 1],
-      ],
-    },
-    {
-      wave: 'sine', vol: 0.45,
-      notes: [
-        ['C3', 2], ['G2', 2], ['A2', 2], ['G2', 2], ['C3', 2], ['G2', 2], ['F2', 2], ['C3', 2],
-        ['F2', 2], ['C3', 2], ['D3', 2], ['G2', 2], ['C3', 2], ['E3', 2], ['F2', 2], ['G2', 2],
-      ],
-    },
-  ],
-};
+/** Avvia (o riprende) la musica del menu. */
+export function playHubMusic(): void {
+  sound.playMusic('hub');
+}
