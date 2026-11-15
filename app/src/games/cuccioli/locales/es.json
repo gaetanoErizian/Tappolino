@@ -1,0 +1,14 @@
+{
+  "cuccioli.title": "Veterinario de Cachorros",
+  "cuccioli.garden": "El jardín de la clínica",
+  "cuccioli.count": "Amigos en el jardín: {n} de {tot}",
+  "cuccioli.new": "¡Un nuevo amigo!",
+  "cuccioli.pet.dog": "Perrito",
+  "cuccioli.pet.cat": "Gatito",
+  "cuccioli.pet.bunny": "Conejito",
+  "cuccioli.pet.bear": "Osito",
+  "cuccioli.pet.fox": "Zorrito",
+  "cuccioli.pet.panda": "Pandita",
+  "cuccioli.pet.pig": "Cerdito",
+  "cuccioli.pet.lamb": "Corderito"
+}

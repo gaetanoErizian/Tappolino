@@ -76,4 +76,10 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Lo realizza la regia in Fase 3, nel codice comune (elenco dei giochi "in arrivo" nella configurazione dell'app, tessera con nastro dedicato, testo nelle 6 lingue).
     - Sulle pagine web di prova tutti i giochi restano apribili.
     - Nella scheda store e nell'offerta di sblocco va detto chiaramente che l'acquisto comprende anche i giochi in arrivo.
+25. **Modalità prova per collaudare i giochi bloccati.**
+    - Cosa fa: apre tutti i giochi senza acquisto e senza toccare lo stato dell'acquisto vero. Quando è attiva, in alto resta l'etichetta "PROVA".
+    - Come si attiva: area genitori → 5 tocchi rapidi sulla riga della versione in fondo (stesso gesto per spegnerla, oppure il pulsante "Disattiva"). Sulle pagine web di prova basta aggiungere `#prova` all'indirizzo. Resta attiva tra un avvio e l'altro.
+    - **Dove esiste**: solo sulle pagine web di prova e nelle build per telefono compilate apposta con `VITE_TESTER=1`. **Nelle build per gli store non esiste**: un codice segreto dentro un'app pubblicata si può sempre estrarre, e diventerebbe uno sblocco gratuito per chiunque.
+    - Per provare l'app pubblicata senza pagare si usano gli strumenti degli store: tester con licenza su Google Play, acquisti di prova gratuiti in TestFlight e in sandbox su Apple, codici promozionali da regalare.
+    - Codice: `app/src/core/appState.ts` (`testerAvailable`, `setTester`), area genitori in `core/parentsArea.ts`.
 

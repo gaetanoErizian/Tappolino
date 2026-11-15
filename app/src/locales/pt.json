@@ -41,5 +41,7 @@
   "unlock.future": "Inclusive os novos que vierem",
   "unlock.noAds": "Sem anúncios",
   "unlock.once": "Um só pagamento, para sempre",
-  "unlock.title": "Desbloqueie “{game}” e todos os outros jogos"
+  "unlock.title": "Desbloqueie “{game}” e todos os outros jogos",
+  "tester.on": "Modo de teste: todos os jogos estão abertos.",
+  "tester.turnOff": "Desativar"
 }

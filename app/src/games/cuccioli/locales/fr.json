@@ -1,0 +1,14 @@
+{
+  "cuccioli.title": "Docteur des Petits Animaux",
+  "cuccioli.garden": "Le jardin de la clinique",
+  "cuccioli.count": "Amis dans le jardin : {n} sur {tot}",
+  "cuccioli.new": "Un nouvel ami !",
+  "cuccioli.pet.dog": "Chiot",
+  "cuccioli.pet.cat": "Chaton",
+  "cuccioli.pet.bunny": "Lapinou",
+  "cuccioli.pet.bear": "Ourson",
+  "cuccioli.pet.fox": "Renardeau",
+  "cuccioli.pet.panda": "Bébé panda",
+  "cuccioli.pet.pig": "Porcelet",
+  "cuccioli.pet.lamb": "Agneau"
+}
