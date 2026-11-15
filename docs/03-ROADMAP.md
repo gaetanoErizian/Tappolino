@@ -13,7 +13,7 @@ I giochi sono moduli dell'app Tappolino. Fasi e strategia in `05-STRATEGIA-E-ROA
 | 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/razzo.md` |
 | 6 | Cuccioli dal Dottore | femminuccia | trascinamento | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/cuccioli.md` |
 | 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
-| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/giardino.md` |
 | 9 | Treno degli Animali | maschietto | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
 | 10 | Atelier delle Principesse | femminuccia | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
 
