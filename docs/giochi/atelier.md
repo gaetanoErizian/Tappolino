@@ -3,8 +3,8 @@
 Branch `game/atelier-delle-principesse` · `order` 10 · non gratis (si apre con l'acquisto unico) · colore `#ee6fa8`
 
 ## Stato
-**Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (16:9 e 20:9), catture guardate una per una. In attesa dell'ok per l'unione a `main`.
-Pagina di prova del branch: https://claude.ai/artifact/Q2fvqewhuS7cvD1ZkXMNhT — Il gioco è a pagamento: sulla pagina si apre con `#prova` in fondo all'indirizzo (decisione 25); in locale `?game=atelier&unlock=1`.
+**Approvato da Gaetano e unito a `main`** (15/11/2026), in un solo commit. Test e build web verdi, partita provata nel browser in formato telefono (16:9 e 20:9), catture guardate una per una.
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5 — il gioco è l'ultima tessera del menu. Il gioco è a pagamento: sulla pagina si apre con `#prova` in fondo all'indirizzo (decisione 25); in locale `?game=atelier&unlock=1`.
 
 ## Cosa c'è nel gioco
 - **Menu**: atelier rosa antico, oro e panna (decori dorati sulla parete, boiserie, tende panna, lampadari con le candele, grande specchio ovale con la cornice d'oro, due manichini vestiti, tappeto rosa, stoffe arrotolate sfocate in primo piano). Pulsante gioca e pulsante galleria; sulla pedana c'è l'ultimo look andato in sfilata (la prima volta Lia), che fa la giravolta se lo tocchi.
@@ -44,3 +44,4 @@ Pagina di prova del branch: https://claude.ai/artifact/Q2fvqewhuS7cvD1ZkXMNhT �
 - 15/11/2026 — Modulo completo: menu, scelta dei 6 personaggi, atelier con 28 capi in 4 categorie, scelta dello sfondo, sfilata con ritratto e sorpresa, galleria; audio con strumenti veri; test (`atelier.test.ts`, 25 casi).
 - 15/11/2026 — Prova nel browser in formato telefono (trascinamenti veri, tocchi, capo tolto, pacchi regalo, scelta e chiusura degli sfondi, tutte e tre le sfilate, galleria piena; catture guardate una per una). Corretto: riccioli di Sami tagliati, borchie dell'elmo sul viso, velo del cappello a cono troppo grande, petali dell'abito da fata troppo sottili, timer dei personaggi che restavano attivi dentro i ritratti distrutti (errore in console), scintille della sfilata sul viso, siepe con il bordo squadrato, contatore della galleria sotto la freccia sui 16:9. Scheda store nelle 6 lingue e script delle catture.
 - 15/11/2026 — Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/Q2fvqewhuS7cvD1ZkXMNhT (il gioco è l'ultima tessera del menu; si apre con `#prova`). In attesa dell'ok di Gaetano per l'unione a `main`.
+- 15/11/2026 — Ok di Gaetano: merge di `main` (arrivati Giardino delle Fate e Treno degli Animali), nessun conflitto, 225 test e build verdi, menu con tutti e 9 i giochi; unito a `main` in un solo commit e pagina ufficiale di `main` ripubblicata.
