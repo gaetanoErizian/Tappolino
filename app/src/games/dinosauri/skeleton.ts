@@ -217,8 +217,10 @@ function skull(pc: Piece, d: Dino, withNeck: boolean): void {
   const hs = HEADS[d.id];
   const r = head.r;
   if (withNeck) {
-    const pts = [neck[0], ...neck.slice(1), { x: head.x - r * 0.5, y: head.y + r * 0.2 }];
-    chain(pc, pts, neckW * 0.2, neckW * 0.16, Math.max(2, Math.round(Math.hypot(pts[pts.length - 1].x - pts[0].x, pts[pts.length - 1].y - pts[0].y) / 34)));
+    // vertebre fitte fino a infilarsi sotto il cranio: il collo deve "attaccare" la testa al corpo
+    const pts = [neck[0], ...neck.slice(1), { x: head.x - r * 0.45, y: head.y + r * 0.3 }];
+    const len = pts.slice(1).reduce((s, q, i) => s + Math.hypot(q.x - pts[i].x, q.y - pts[i].y), 0);
+    chain(pc, pts, neckW * 0.24, neckW * 0.2, Math.max(3, Math.round(len / 24) + 1));
   }
   const sw = OL / r;
   const g = `sk${++gradN}`;

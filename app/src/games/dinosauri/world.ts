@@ -41,7 +41,7 @@ export function drawDesert(scene: Phaser.Scene, opts: { horizon?: number; props?
   const kind = opts.props ?? 'menu';
   if (kind === 'menu') {
     props.push(scene.add.image(1600, hz + 210, 'di_tent').setOrigin(0.5, 0.9).setDepth(5).setScale(1.25));
-    props.push(scene.add.image(1520, hz + 300, 'di_crate').setOrigin(0.5, 0.92).setDepth(6));
+    props.push(scene.add.image(1660, hz + 310, 'di_crate').setOrigin(0.5, 0.92).setDepth(6));
     props.push(scene.add.image(260, hz + 290, 'di_tools').setOrigin(0.5, 0.94).setDepth(6));
     lantern(scene, 1820, hz + 120, 6);
   } else if (kind === 'dig') {
