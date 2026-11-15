@@ -1,5 +1,6 @@
 import { openOverlay, el, cardHeader } from './overlay';
 import { BRAND } from './brand';
+import { testerAvailable, isTester, setTester } from './appState';
 import { parentalGate } from './parentalGate';
 import { t, lang, LANG_NAMES, SUPPORTED, type Lang } from './i18n';
 import { benefits, purchaseBlock } from './unlockOffer';
@@ -80,6 +81,32 @@ export async function openParentsArea(o: ParentsOptions): Promise<void> {
   // --- Privacy ---
   const privacy = el('p', { className: 'tp-small' });
   const link = el('a', { className: 'tp-link', href: o.cfg.privacyUrl, target: '_blank', rel: 'noopener', textContent: t('parents.privacy') });
-  privacy.append(link, el('br'), `${o.cfg.developer} · v${o.cfg.version}`);
+  const version = el('span', { textContent: `${o.cfg.developer} · v${o.cfg.version}` });
+  privacy.append(link, el('br'), version);
   card.append(el('p', { className: 'tp-small', textContent: t('parents.noData') }), privacy);
+
+  // --- Modalità prova (nascosta): 5 tocchi sulla riga della versione. Non esiste nelle build per gli store. ---
+  if (testerAvailable()) {
+    const info = el('div', { className: 'tp-ok' });
+    const render = () => {
+      info.hidden = !isTester();
+      info.textContent = '';
+      if (!isTester()) return;
+      const off = el('button', { type: 'button', className: 'tp-btn sec', textContent: t('tester.turnOff') });
+      off.style.margin = '0';
+      off.style.width = 'auto';
+      off.addEventListener('click', () => { setTester(false); render(); });
+      info.append(el('span', { textContent: t('tester.on') }), off);
+    };
+    let taps = 0;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    version.addEventListener('click', () => {
+      taps++;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => { taps = 0; }, 2500);
+      if (taps >= 5) { taps = 0; setTester(!isTester()); render(); info.scrollIntoView({ block: 'nearest' }); }
+    });
+    render();
+    card.append(info);
+  }
 }
