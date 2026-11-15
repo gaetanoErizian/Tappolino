@@ -3,8 +3,8 @@
 Branch `game/scavo-dei-dinosauri` · `order` 3 · gratis · colore `#c9853a`
 
 ## Stato
-**Pronto per l'approvazione di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono.
-Pagina di prova del branch (provvisoria): https://claude.ai/artifact/ARZYN7e4xYzfLGHNiWBTwB — il gioco è la terza tessera del menu; per aprirlo direttamente si può usare `?game=dinosauri` solo in locale (le pagine claude.ai non passano i parametri).
+**Approvato da Gaetano e unito a `main`** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono.
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5 — il gioco è la terza tessera del menu. In locale si apre direttamente con `?game=dinosauri`.
 
 ## Cosa c'è nel gioco
 - **Menu**: scavo nel deserto al tramonto (tenda a righe, lanterna, attrezzi, cassa), pulsante gioca, pulsante album. Sul prato c'è l'ultimo dinosauro scoperto, che salta e ruggisce se lo tocchi; la prima volta c'è un uovo che dondola.
@@ -28,9 +28,9 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/ARZYN7e4xYz
 ## Per la regia
 - **Gesto dello strofinare** in `app/src/games/dinosauri/scratch.ts`, pronto per l'unificazione con il gioco 4 (decisione 23): `ScratchGrid` (logica pura, testata: quanta superficie è scoperta in tutto o in un rettangolo) e `ScratchLayer` (RenderTexture da cancellare con pennello morbido, ombra opzionale, un tocco senza movimento cancella già un cerchio, `fractionIn`, `eraseAt`, `clearAll`).
 - Usati dal codice comune senza modifiche: `core/drag` (`DragManager`, `Hint`), `core/ui`, `core/hud`, `core/sound`, `core/art`.
-- Piccola nota su `.gitignore`: lo script delle catture (`scripts/screenshots/<id>.py`) crea `app/scripts/screenshots/__pycache__/`, che non è escluso. Suggerito `__pycache__/` nel `.gitignore` di `app/`.
 
 ## Diario
 - 15/11/2026 — Modulo completo: scavo, montaggio, magia, foto, album; audio con strumenti veri; test (`dinosauri.test.ts`).
 - 15/11/2026 — Prova nel browser in formato telefono (partita vera con strofinio, trascinamento e tocchi; catture guardate una per una). Corretto: nei dinosauri senza osso "collo" il cranio montato restava staccato dal corpo (vertebre del collo più fitte); cassa del menu spostata accanto alla tenda. Scheda store nelle 6 lingue e script delle catture.
 - 15/11/2026 — Segnalato da Gaetano: quando il dinosauro ruggisce o salta, la bocca restava ferma mentre il corpo si allungava. Ora corpo, bocca e palpebra si animano insieme dall'appoggio dei piedi, e durante il verso la bocca si apre e "mastica".
+- 15/11/2026 — Ok di Gaetano: merge di `main` nel branch, test e build verdi, unito a `main` in un solo commit.
