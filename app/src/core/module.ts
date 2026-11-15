@@ -29,11 +29,16 @@ export interface GameModule {
   preload?: (report: (p: number) => void) => Promise<void>;
 }
 
+/** Voce di menu di un gioco, come la vede l'app. */
 export interface GameEntry {
   id: string;
   /** true solo per i 3 giochi gratis (decisione 2) */
   free: boolean;
-  /** chiave del titolo nei testi dell'app (es. "games.pompieri") */
+  /** posizione nel menu (numero del gioco nella roadmap: 1, 2, 3…) */
+  order: number;
+  /** titolo del gioco nelle 6 lingue */
+  titles: Record<Lang, string>;
+  /** chiave del titolo nei testi dell'app ("games.<id>"): la calcola il registro, non va scritta in entry.ts */
   titleKey: string;
   /** colore della tessera nel menu */
   color: string;
@@ -41,6 +46,9 @@ export interface GameEntry {
   tile: () => SvgTex;
   load: () => Promise<{ default: GameModule }>;
 }
+
+/** Quello che `games/<id>/entry.ts` esporta di default. */
+export type GameEntryDef = Omit<GameEntry, 'titleKey'>;
 
 /** Un gioco si può aprire se è gratis o se l'acquisto unico è attivo. */
 export function canPlay(entry: Pick<GameEntry, 'free'>, unlocked: boolean): boolean {

@@ -59,9 +59,10 @@ Regole:
 - Unire a `main` appena test e build web passano (decisione 15), in un solo commit e senza screenshot (decisione 14).
 - Prima installazione sui telefoni tramite test interno (Play Console) e TestFlight, appena ci sono segreti e account Apple: serve a collaudare tutta la catena con un solo gioco. **Non è il lancio pubblico** e non blocca la Fase 2.
 
-### Fase 2 — Giochi 2–5 (una chat per gioco, Opus medio)
-Ordine: Pasticceria Magica, Scavo dei Dinosauri, Salone degli Unicorni, Razzo tra le Stelle.
-Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok di Gaetano → unione a `main` → eventuale passaggio di codice riusabile in `core/` su branch dedicato (decisione 17) → nuova build in test interno. La chat del gioco successivo si apre a questo punto.
+### Fase 2 — Giochi 3–10 in parallelo (una chat per gioco, Opus medio)
+Pasticceria (gioco 2) è già su `main`. Gli altri otto si sviluppano insieme, ognuno nella sua chat, con regole e brief in `06-CHAT-DEI-GIOCHI.md` (decisione 23).
+Per ogni gioco: modulo in `app/src/games/<id>/` → pagina web di prova → ok di Gaetano → unione a `main` in un solo commit. Le unioni avvengono una alla volta, nell'ordine in cui i giochi vengono approvati.
+Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prove di Gaetano.
 
 ### Fase 3 — Lancio pubblico v1.0
 - 5 giochi: 3 gratis, 2 bloccati. Prezzo 1,99 €.
@@ -70,6 +71,7 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 - Regole degli store ricontrollate prima dell'invio.
 
 ### Fase 4 — Giochi 6–10 come aggiornamenti
+- Sviluppati già in Fase 2: restano su `main` ma **non visibili** nella v1.0 finché non vengono pubblicati (decisione da prendere in regia prima del lancio: nasconderli dal menu o mostrarli come "in arrivo").
 - Un gioco nuovo ogni 2–3 settimane, annunciato nelle novità della scheda.
 - All'ottavo gioco il prezzo sale a 2,99 €.
 
@@ -92,16 +94,16 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 - Pasticceria: precisione del trascinamento con dita piccole, durata della mescolata.
 - Pompieri: getto d'acqua e tempi di risposta al tocco.
 
-## Come avviare ogni nuova chat di gioco
-> Sviluppa il prossimo gioco della roadmap come modulo dell'app Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, leggi `docs/00-DECISIONI.md` e `docs/05-STRATEGIA-E-ROADMAP.md`, lavora sul branch `game/<nome-gioco>` e fai push a ogni tappa. Segui l'identità Tappolino (`app/README.md`): carattere, loader, pannelli e lettore audio comuni.
+## Come avviare la chat di un gioco
+> Sei la chat del gioco N di Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, clonalo e segui `docs/06-CHAT-DEI-GIOCHI.md`: regole comuni e brief "Gioco N". Sviluppa il gioco completo fino alla pagina web di prova, poi attendi il mio ok prima di unire a `main`.
 
 ## Stato
 | Fase | Stato |
 |---|---|
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
-| Identità Tappolino (decisione 18) | Approvata da Gaetano e unita a `main` (15/11/2026). Pasticceria già adeguata. Resta la musica nuova di Pompieri, nella sua chat (branch `game/pompieri-musica`) |
-| 2 — Giochi 2–5 | In corso. Pasticceria Magica unita a `main` (15/11/2026); trascinamento e manina d'aiuto in `core/drag.ts`. Nessun branch aperto: si può aprire la chat di **Scavo dei Dinosauri**, anche in parallelo alla musica di Pompieri (decisione 20) |
+| Identità Tappolino (decisione 18) | Su `main` (15/11/2026). Pasticceria adeguata; musica nuova di Pompieri pronta sul suo branch. Poi, in regia: togliere la vecchia sintesi da `core/audio.ts` |
+| 2 — Giochi 3–10 in parallelo | Pasticceria su `main`. Registro dei giochi automatico e regole per il lavoro in parallelo su `main` (15/11/2026): le otto chat possono partire. Musica nuova di Pompieri sul branch `game/pompieri-musica`, in attesa dell'ok di Gaetano |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |

@@ -1,7 +1,5 @@
 {
   "app.title": "Tappolino",
-  "games.pasticceria": "Pastelería Mágica",
-  "games.pompieri": "Bomberos en Acción",
   "gate.hold": "Mantén pulsado el botón durante 3 segundos.",
   "gate.question": "¿Cuánto es {a} más {b}?",
   "gate.title": "Solo para padres",

@@ -1,7 +1,8 @@
 import type Phaser from 'phaser';
 import { CONFIG } from './config';
 import { APP_LOCALES } from './locales';
-import { initI18n, setLang } from './core/i18n';
+import { initI18n, addLocales, setLang } from './core/i18n';
+import { gameTitles } from './games/registry';
 import { audio } from './core/audio';
 import { initAds, removeAds } from './core/ads';
 import { checkOwned } from './core/purchase';
@@ -20,6 +21,7 @@ export async function startApp(): Promise<void> {
   // Solo web di test: ?unlock=1 simula l'acquisto.
   if (!isNative() && urlParam('unlock') === '1') setUnlocked(true);
   initI18n(APP_LOCALES, urlParam('lang') ?? s.lang);
+  addLocales(gameTitles());
   audio.install();
   audio.setMuted(s.muted);
   sound.install();

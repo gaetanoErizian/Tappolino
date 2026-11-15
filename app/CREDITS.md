@@ -14,3 +14,5 @@
   - @capacitor-community/admob (solo Android) — MIT
   - @capgo/native-purchases — MPL-2.0
   - Vite, TypeScript, Vitest — MIT / Apache-2.0
+
+I giochi dal 3 in poi tengono i propri crediti (musica, suoni, eventuali risorse) in `src/games/<id>/CREDITS.md`: questo file viene completato in regia prima del lancio.

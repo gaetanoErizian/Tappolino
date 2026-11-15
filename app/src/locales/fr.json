@@ -1,7 +1,5 @@
 {
   "app.title": "Tappolino",
-  "games.pasticceria": "Pâtisserie Magique",
-  "games.pompieri": "Pompiers en Action",
   "gate.hold": "Maintiens le bouton appuyé pendant 3 secondes.",
   "gate.question": "Combien font {a} plus {b} ?",
   "gate.title": "Réservé aux parents",
