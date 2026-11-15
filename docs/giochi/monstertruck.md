@@ -3,8 +3,8 @@
 Branch `game/officina-dei-monster-truck` · `order` 7 · con l'acquisto unico (`free: false`) · colore `#f2a01e`
 
 ## Stato
-**Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (844×390). In attesa dell'ok per l'unione a `main`.
-Pagina di prova del branch: https://claude.ai/artifact/DnCPSMmXCW5AA1UQesFVgk (provvisoria). Il gioco è bloccato come nell'app vera: si apre con `#prova` in fondo all'indirizzo (modalità prova, decisione 25). In locale: `?game=monstertruck&unlock=1`.
+**Approvato da Gaetano e unito a `main`** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (844×390).
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5. Il gioco è bloccato come nell'app vera: si apre con `#prova` in fondo all'indirizzo (modalità prova, decisione 25). In locale: `?game=monstertruck&unlock=1`.
 
 ## Cosa c'è nel gioco
 - **Menu**: arena all'aperto con il pubblico, la barriera di gomme e un trampolino; il truck personalizzato aspetta a motore acceso (toccalo: clacson, salto sul posto e applausi). Pulsanti: in officina, le mie piste, casa.
@@ -41,3 +41,4 @@ Pagina di prova del branch: https://claude.ai/artifact/DnCPSMmXCW5AA1UQesFVgk (p
 - 15/11/2026 — Prova nel browser in formato telefono (844×390, tocchi e pressioni veri con il mouse, catture guardate una per una, tutte le 5 piste). Corretto: immagini ruotate tagliate a triangoli (ruote e carrozzeria ora senza rotazioni Phaser); linee della carrozzeria visibili dentro i passaruota; truck troppo piccolo in officina; vernice troppo scura; manina che restava sul guasto già riparato; stelle dei salti fuori posto per un errore nel profilo dei trampolini; rettilineo finale non sempre libero; pubblico troppo vivace dietro le stelle (ora velato dalla foschia). Scheda store nelle 6 lingue e script delle catture.
 - 15/11/2026 — Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/DnCPSMmXCW5AA1UQesFVgk. In attesa dell'ok di Gaetano per l'unione a `main`.
 - 15/11/2026 — Merge di `main` nel branch (giochi 8, 9, 10 e note della regia): nessun conflitto, 248 test e build verdi, nel menu ci sono tutti e 10 i giochi. Ruote rifatte come il Treno (raggi ridisegnati a fotogrammi, codice copiato nel modulo, da unificare in regia). Manina del "tieni premuto" già da `core/holdHint`. Provato con `#prova`: il gioco si apre, l'etichetta PROVA in basso a sinistra non copre nessun pulsante. Pagina di prova del branch ripubblicata, stesso indirizzo.
+- 15/11/2026 — Ok di Gaetano. `main` già nel branch (nessuna novità dall'ultimo merge); test e build verdi; unito a `main` in un solo commit. Pagina di prova ufficiale di `main` ripubblicata.
