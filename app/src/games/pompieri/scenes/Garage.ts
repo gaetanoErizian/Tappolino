@@ -3,7 +3,7 @@ import { setupView, button, pin, burst } from '../../../core/ui';
 import { drawBackdrop, FONT } from '../world';
 import { TRUCKS, isUnlocked } from '../levels';
 import { save } from '../save';
-import { sfx } from '../sfx';
+import { sfx, playPompieriMusic } from '../sfx';
 import { muteButton, goTo } from './common';
 
 /** Garage: collezione di camion (sbloccati giocando) e contatori medaglie/gattini. */
@@ -11,6 +11,7 @@ export class Garage extends Phaser.Scene {
   constructor() { super('pompieri:Garage'); }
 
   create(): void {
+    playPompieriMusic();
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
     drawBackdrop(this, { street: false });
