@@ -33,3 +33,4 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/ARZYN7e4xYz
 ## Diario
 - 15/11/2026 — Modulo completo: scavo, montaggio, magia, foto, album; audio con strumenti veri; test (`dinosauri.test.ts`).
 - 15/11/2026 — Prova nel browser in formato telefono (partita vera con strofinio, trascinamento e tocchi; catture guardate una per una). Corretto: nei dinosauri senza osso "collo" il cranio montato restava staccato dal corpo (vertebre del collo più fitte); cassa del menu spostata accanto alla tenda. Scheda store nelle 6 lingue e script delle catture.
+- 15/11/2026 — Segnalato da Gaetano: quando il dinosauro ruggisce o salta, la bocca restava ferma mentre il corpo si allungava. Ora corpo, bocca e palpebra si animano insieme dall'appoggio dei piedi, e durante il verso la bocca si apre e "mastica".

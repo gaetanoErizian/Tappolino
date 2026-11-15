@@ -133,6 +133,8 @@ export class DinoView {
   readonly c: Phaser.GameObjects.Container;
   readonly id: DinoId;
   private img: Phaser.GameObjects.Image;
+  /** corpo + faccia, con l'origine ai piedi: si schiaccia e si allunga tutto insieme */
+  private body: Phaser.GameObjects.Container;
   private lid?: Phaser.GameObjects.Image;
   private smile?: Phaser.GameObjects.Image;
   private open?: Phaser.GameObjects.Image;
@@ -152,7 +154,8 @@ export class DinoView {
       this.lid = scene.add.image(ox + fc.eye.x, oy + fc.eye.y, 'di_lid').setScale((fc.eyeR / 28) * 1.08).setTint(hex(dinoById(id).color)).setVisible(false);
       parts.push(this.smile, this.open, this.lid);
     }
-    this.c = scene.add.container(x, y, parts).setDepth(opts.depth ?? 50).setScale(scale);
+    this.body = scene.add.container(0, 0, parts);
+    this.c = scene.add.container(x, y, [this.body]).setDepth(opts.depth ?? 50).setScale(scale);
     if (opts.idle !== false) this.idle();
   }
 
@@ -179,9 +182,17 @@ export class DinoView {
     if (this.open) {
       const s = faceOf(this.id).s;
       this.open.setVisible(true).setScale(s * 0.6);
-      this.scene.tweens.add({ targets: this.open, scale: s, duration: 160, ease: 'Back.easeOut' });
+      // la bocca si spalanca e poi "mastica" il verso, a tempo con il corpo
+      this.scene.tweens.chain({
+        targets: this.open,
+        tweens: [
+          { scale: s, duration: 160, ease: 'Back.easeOut' },
+          { scaleY: s * 0.7, duration: 150, yoyo: true, repeat: 1, ease: 'Sine.easeInOut' },
+        ],
+      });
     }
-    this.scene.tweens.add({ targets: this.img, scaleX: 1.04, scaleY: 1.06, duration: 180, yoyo: true, repeat: 1, ease: 'Sine.easeInOut' });
+    // corpo e faccia insieme, dall'appoggio dei piedi
+    this.scene.tweens.add({ targets: this.body, scaleX: 1.04, scaleY: 1.06, duration: 180, yoyo: true, repeat: 1, ease: 'Sine.easeInOut' });
     this.scene.time.delayedCall(900, () => {
       this.open?.setVisible(false);
       this.smile?.setVisible(true);
@@ -198,7 +209,7 @@ export class DinoView {
       onComplete: () => {
         this.c.y = y;
         sfx.thud();
-        this.scene.tweens.add({ targets: this.img, scaleY: 0.9, scaleX: 1.06, duration: 90, yoyo: true, ease: 'Quad.easeOut' });
+        this.scene.tweens.add({ targets: this.body, scaleY: 0.9, scaleX: 1.06, duration: 90, yoyo: true, ease: 'Quad.easeOut' });
       },
     });
   }
