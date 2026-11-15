@@ -3,10 +3,10 @@ import { setupView, button, pin } from '../../../core/ui';
 import { t } from '../../../core/i18n';
 import { muteButton, goTo } from '../../../core/hud';
 import { RECIPES, unlocked } from '../recipes';
-import { drawKitchen, Dessert, previewCreation, FONT } from '../world';
+import { drawKitchen, Dessert, previewCreation } from '../world';
+import { FONT } from '../../../core/brand';
 import { save } from '../save';
-import { sfx } from '../sfx';
-import { sound } from '../sound';
+import { sfx, playPasticceriaMusic } from '../sfx';
 
 const PREVIEW_SCALE: Record<string, number> = { cupcake: 0.5, cookie: 0.6, cake: 0.5, gelato: 0.48 };
 
@@ -17,7 +17,7 @@ export class Recipes extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    sound.startMusic(this);
+    playPasticceriaMusic();
     drawKitchen(this, { fgAside: true });
     const open = unlocked(save.state.served).recipes;
 
@@ -31,13 +31,13 @@ export class Recipes extends Phaser.Scene {
       const parts: Phaser.GameObjects.GameObject[] = [card, d.c];
       if (ok) {
         parts.push(this.add.text(x, y + 124, t(`pasticceria.recipe.${r.id}`), {
-          fontFamily: FONT, fontSize: '50px', fontStyle: 'bold', color: '#c2386f',
+          fontFamily: FONT, fontSize: '50px', fontStyle: '700', color: '#c2386f',
         }).setOrigin(0.5).setDepth(42));
       } else {
         d.silhouette();
         d.c.setAlpha(0.55);
         parts.push(this.add.text(x, y - 40, '?', {
-          fontFamily: FONT, fontSize: '170px', fontStyle: 'bold', color: '#ffffff', stroke: '#8a6aa8', strokeThickness: 16,
+          fontFamily: FONT, fontSize: '170px', fontStyle: '700', color: '#ffffff', stroke: '#8a6aa8', strokeThickness: 16,
         }).setOrigin(0.5).setDepth(42));
       }
       // ingresso a cascata e leggero dondolio

@@ -6,8 +6,7 @@ import { backToHub } from '../../../launcher';
 import { recipeById, unlocked } from '../recipes';
 import { drawKitchen, Dessert, Customer, previewCreation, COUNTER_Y } from '../world';
 import { save } from '../save';
-import { sfx } from '../sfx';
-import { sound } from '../sound';
+import { sfx, playPasticceriaMusic } from '../sfx';
 
 /** Menu del gioco: gioca, vetrina dei dolci, casa (menu Tappolino). */
 export class Menu extends Phaser.Scene {
@@ -16,7 +15,7 @@ export class Menu extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    sound.startMusic(this);
+    playPasticceriaMusic();
     drawKitchen(this);
 
     const ttl = title3d(this, 960, 140, t('pasticceria.title'), 120);

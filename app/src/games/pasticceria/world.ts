@@ -5,7 +5,6 @@ import { CUST_H, CUST_MOUTH } from './art';
 /** Elementi di scena condivisi: pasticceria a piani, bancone, dolce composto, cliente, trascinamento, manina. */
 
 export const COUNTER_Y = 830;   // piano del bancone
-export const FONT = '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif';
 export const hex = (c: string): number => parseInt(c.slice(1), 16);
 
 /**

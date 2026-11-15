@@ -10,8 +10,8 @@ import {
 import { INGREDIENT_TINT } from '../art';
 import { drawKitchen, Dessert, Customer, DragManager, Hint, previewCreation, COUNTER_Y, hex, type DragItem } from '../world';
 import { save } from '../save';
-import { sfx } from '../sfx';
-import { sound } from '../sound';
+import { sfx, playPasticceriaMusic } from '../sfx';
+import { sound } from '../../../core/sound';
 
 type Step = 'intro' | 'ingredients' | 'mix' | 'bake' | 'decorate' | 'serve';
 
@@ -82,7 +82,7 @@ export class Game extends Phaser.Scene {
       void i;
     }));
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    sound.startMusic(this);
+    playPasticceriaMusic();
     drawKitchen(this, { fgAside: true });
     this.hint = new Hint(this);
     this.drag = new DragManager(this, {
@@ -100,7 +100,7 @@ export class Game extends Phaser.Scene {
     this.input.on('pointerup', () => this.onUp());
     this.time.addEvent({ delay: 500, loop: true, callback: () => this.idleCheck() });
 
-    if (urlParam('debug')) Object.assign(window, { __pa: this, __paSound: sound });
+    if (urlParam('debug')) Object.assign(window, { __pa: this, __sound: sound });
     this.intro();
   }
 

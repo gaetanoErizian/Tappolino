@@ -3,10 +3,10 @@ import { setupView, button, pin, burst } from '../../../core/ui';
 import { t } from '../../../core/i18n';
 import { muteButton, title3d, goTo } from '../../../core/hud';
 import { recipeById, SHOWCASE_MAX } from '../recipes';
-import { drawKitchen, Dessert, FONT } from '../world';
+import { drawKitchen, Dessert } from '../world';
+import { FONT } from '../../../core/brand';
 import { save } from '../save';
-import { sfx } from '../sfx';
-import { sound } from '../sound';
+import { sfx, playPasticceriaMusic } from '../sfx';
 
 const CASE = { x: 380, y: 230, w: 1160, h: 690 };
 const SHELVES = [560, 880];
@@ -19,7 +19,7 @@ export class Showcase extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    sound.startMusic(this);
+    playPasticceriaMusic();
     drawKitchen(this, { counter: false, window: false, fgAside: true });
     title3d(this, 960, 120, t('pasticceria.showcase'), 100);
     this.drawCase();
@@ -45,7 +45,7 @@ export class Showcase extends Phaser.Scene {
       });
     }
     this.add.text(960, 990, t('pasticceria.served', { n: save.state.served }), {
-      fontFamily: FONT, fontSize: '54px', fontStyle: 'bold', color: '#ffffff', stroke: '#c2386f', strokeThickness: 8,
+      fontFamily: FONT, fontSize: '54px', fontStyle: '700', color: '#ffffff', stroke: '#c2386f', strokeThickness: 8,
     }).setOrigin(0.5).setDepth(70);
 
     muteButton(this);

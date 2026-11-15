@@ -6,6 +6,8 @@ import {
 import { mergeDefaults } from '../../core/storage';
 import { LOCALES } from './locales';
 import { DEFAULT_SAVE } from './save';
+import { sound } from '../../core/sound';
+import { PACK, THEME_LOOP, SFX_URLS, registerPasticceriaSound, sfx } from './sfx';
 
 describe('pasticceria: ricette e sblocchi', () => {
   it('4 ricette da 4 ingredienti, solo il gelato va nel freezer', () => {
@@ -105,6 +107,18 @@ describe('pasticceria: vetrina e salvataggi', () => {
     expect(s.creations).toEqual([]);
     expect(s.tutorialDone).toBe(false);
     expect('extra' in s).toBe(false);
+  });
+});
+
+describe('pasticceria: audio (core/sound)', () => {
+  it('pacchetto "pasticceria": musica ogg+mp3 con loop di 80 s e un file per ogni effetto usato', () => {
+    registerPasticceriaSound();
+    const pack = (sound as unknown as { packs: Map<string, { music?: { ogg: string; mp3: string; loop: number }; sfx: Record<string, string> }> }).packs.get(PACK)!;
+    expect(pack.music?.ogg).toMatch(/theme.*\.ogg/);
+    expect(pack.music?.mp3).toMatch(/theme.*\.mp3/);
+    expect(pack.music?.loop).toBe(THEME_LOOP);
+    for (const name of Object.keys(sfx)) expect(SFX_URLS[name], name).toBeTruthy();
+    expect(Object.keys(SFX_URLS).sort()).toEqual(Object.keys(sfx).sort());
   });
 });
 

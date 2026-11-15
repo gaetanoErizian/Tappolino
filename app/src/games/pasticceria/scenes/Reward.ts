@@ -4,8 +4,7 @@ import { t } from '../../../core/i18n';
 import { muteButton, title3d, goTo } from '../../../core/hud';
 import { recipeById, colorHex, type Creation, type Reward as RewardT } from '../recipes';
 import { drawKitchen, Dessert, previewCreation, COUNTER_Y, hex } from '../world';
-import { sfx } from '../sfx';
-import { sound } from '../sound';
+import { sfx, playPasticceriaMusic } from '../sfx';
 import { playTarget } from './Menu';
 
 /** Festa: il dolce appena servito e, se c'è, la sorpresa sbloccata (ricetta, decorazione, glassa). */
@@ -15,7 +14,7 @@ export class Reward extends Phaser.Scene {
   create(data: { creation: Creation; reward: RewardT | null }): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
-    sound.startMusic(this);
+    playPasticceriaMusic();
     drawKitchen(this, { fgAside: true });
     muteButton(this);
     const reward = data.reward;
