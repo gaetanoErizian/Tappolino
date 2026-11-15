@@ -12,6 +12,7 @@ import { urlParam, isNative } from './core/platform';
 import { removeKeys } from './core/storage';
 import { appState, isUnlocked, setUnlocked, onUnlockChange, loadTester, setTester } from './core/appState';
 import { sound } from './core/sound';
+import { installFullscreenButton } from './core/fullscreen';
 import { hubSfx, registerHubSound, playHubMusic } from './hub/sfx';
 
 /** Avvio dell'app: stato condiviso, lingua, audio, banner, verifica dell'acquisto unico. */
@@ -21,6 +22,8 @@ export async function startApp(): Promise<void> {
   // Solo web di test: ?unlock=1 simula l'acquisto.
   if (!isNative() && urlParam('unlock') === '1') setUnlocked(true);
   // Modalità prova (solo web di prova e build con VITE_TESTER=1): resta attiva tra un avvio e l'altro; sul web la accende anche #prova.
+  // Solo pagine web di prova: pulsante per lo schermo intero (dove il browser lo permette).
+  if (!isNative()) installFullscreenButton();
   loadTester();
   if (!isNative() && urlParam('prova') === '1') setTester(true);
   initI18n(APP_LOCALES, urlParam('lang') ?? s.lang);

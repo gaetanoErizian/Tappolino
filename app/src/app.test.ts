@@ -163,3 +163,12 @@ describe('giochi in arrivo: nascosti su iPhone (decisione 26)', () => {
     expect(menuGames(GAMES).length).toBe(GAMES.length);
   });
 });
+
+describe('schermo intero sulle pagine di prova', () => {
+  it('il pulsante compare solo dove il browser offre lo schermo intero', async () => {
+    const { fullscreenSupported } = await import('./core/fullscreen');
+    expect(fullscreenSupported({ fullscreenEnabled: true } as Document)).toBe(true);
+    expect(fullscreenSupported({ webkitFullscreenEnabled: true } as unknown as Document)).toBe(true);
+    expect(fullscreenSupported({ fullscreenEnabled: false } as Document)).toBe(false);
+  });
+});
