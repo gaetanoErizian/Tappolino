@@ -5,6 +5,7 @@ import { urlParam } from '../../../core/platform';
 import { muteButton, title3d, goTo } from '../../../core/hud';
 import { FONT } from '../../../core/brand';
 import { sound } from '../../../core/sound';
+import { isTester } from '../../../core/appState';
 import {
   buildCourse, courseLength, speedFor, stepRocket, bounceFrom, touches,
   ROCKET_X, ROCKET_R, STAR_REACH, BIG_REACH, LANES, type Item, type RocketState,
@@ -158,7 +159,9 @@ export class Flight extends Phaser.Scene {
   }
 
   private placeTrack(top: number): void {
-    for (const o of this.track) o.y = top + 80;
+    // in modalità prova (decisione 25) l'etichetta "PROVA" sta in alto al centro: la strada scende sotto
+    const y = top + (isTester() ? 135 : 80);
+    for (const o of this.track) o.y = y;
   }
 
   private bumpCounter(): void {
