@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { BODY, HEAD } from './art';
-import { PET_HIT, SPOTS, type PetId, type SpotId, type ProblemId } from './logic';
+import { petById, PET_HIT, SPOTS, type PetId, type SpotId, type ProblemId } from './logic';
 import { sfx } from './sfx';
 
 /** Elementi di scena condivisi: ambulatorio a piani, giardino della clinica, cucciolo animato. */
@@ -55,7 +55,7 @@ export function drawClinic(scene: Phaser.Scene, opts: { tableX?: number; tableY?
   scene.tweens.add({ targets: glow, alpha: 0.32, duration: 1800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   // sole che entra dalla finestra
   const sunbeam = scene.add.graphics().setDepth(0.3).setBlendMode(Phaser.BlendModes.ADD);
-  sunbeam.fillStyle(0xfff3c0, 0.12).beginPath().moveTo(640, 560).lineTo(1300, 560).lineTo(1500, 1080).lineTo(760, 1080).closePath().fillPath();
+  sunbeam.fillStyle(0xfff3c0, 0.08).beginPath().moveTo(640, 560).lineTo(1300, 560).lineTo(1500, 1080).lineTo(760, 1080).closePath().fillPath();
 
   const mid = [scene.add.image(tx, ty, 'cu_table').setOrigin(0.5, 40 / 330).setDepth(4)];
   const fg = [
@@ -115,6 +115,7 @@ export function drawGarden(scene: Phaser.Scene): void {
 type Eyes = 'open' | 'closed' | 'happy' | 'sleepy';
 type Mouth = 'smile' | 'open' | 'o' | 'wavy';
 const EYE_KEY: Record<Eyes, string> = { open: 'cu_eye', closed: 'cu_eye_closed', happy: 'cu_eye_happy', sleepy: 'cu_eye_sleepy' };
+const HOP_MS = 560;
 const MOUTH_KEY: Record<Mouth, string> = { smile: 'cu_mouth_smile', open: 'cu_mouth_open', o: 'cu_mouth_o', wavy: 'cu_mouth_wavy' };
 
 /**
@@ -142,13 +143,15 @@ export class PetView {
   private baseX: number;
   busy = false;
   private partying = false;
+  private hopState?: { t: number; h: number; y0: number; onLand?: () => void; landed: boolean };
 
   constructor(private scene: Phaser.Scene, id: PetId, x: number, y: number, readonly s = 1, opts: { depth?: number } = {}) {
     this.id = id;
     this.baseX = x;
     const sc = scene;
     this.shadow = sc.add.image(0, 4, 'shadow').setScale(2.2, 0.55).setAlpha(0.75);
-    this.tail = sc.add.image(118, -86, `cu_${id}_tail`).setOrigin(0.15, 0.85);
+    const bushy = petById(id).tail === 'bushy';
+    this.tail = sc.add.image(bushy ? 150 : 118, bushy ? -70 : -86, `cu_${id}_tail`).setOrigin(0.15, 0.85);
     const body = sc.add.image(0, 0, `cu_${id}_body`).setOrigin(0.5, BODY.ground / BODY.h);
     const pawL = sc.add.image(SPOTS.pawL.x, SPOTS.pawL.y, `cu_${id}_paw`);
     const pawR = sc.add.image(SPOTS.pawR.x, SPOTS.pawR.y, `cu_${id}_paw`).setFlipX(true);
@@ -160,7 +163,8 @@ export class PetView {
     this.blinkTimer = sc.time.addEvent({ delay: 2600, loop: true, callback: () => this.blink() });
     this.wag(false);
     this.breathe();
-    sc.events.once('shutdown', () => this.destroyFx());
+    sc.events.on('update', this.tickHop, this);
+    sc.events.once('shutdown', () => { this.destroyFx(); sc.events.off('update', this.tickHop, this); });
   }
 
   // ------------------------------------------------------------- faccia
@@ -170,8 +174,10 @@ export class PetView {
     this.setMouth(this.active.includes('cold') ? 'wavy' : 'smile');
   }
 
-  setEyes(e: Eyes): void { this.eyeState = e; this.eyes.forEach((o) => o.setTexture(EYE_KEY[e])); }
-  setMouth(m: Mouth): void { this.mouthState = m; this.mouth.setTexture(MOUTH_KEY[m]); }
+  setEyes(e: Eyes): void { this.faceVer++; this.eyeState = e; this.eyes.forEach((o) => o.setTexture(EYE_KEY[e])); }
+  setMouth(m: Mouth): void { this.faceVer++; this.mouthState = m; this.mouth.setTexture(MOUTH_KEY[m]); }
+  /** cresce a ogni cambio di espressione: una risatina torna alla faccia di prima solo se nel frattempo nessuno l'ha cambiata */
+  private faceVer = 0;
 
   private blink(): void {
     if (this.eyeState !== 'open') return;
@@ -193,21 +199,34 @@ export class PetView {
   }
 
   // ------------------------------------------------------------- gesti
-  /** Saltello sul posto con schiacciamento all'atterraggio. */
+  /**
+   * Saltello sul posto con schiacciamento all'atterraggio. Calcolato a ogni fotogramma (niente catene di tween):
+   * un nuovo saltello può partire in qualsiasi momento, anche dal richiamo dell'atterraggio, senza perdere richiami.
+   */
   hop(height = 70, onLand?: () => void): void {
-    const s = this.s, y0 = this.c.y;
-    this.scene.tweens.killTweensOf(this.c);
-    this.c.setScale(s).setY(y0);
-    this.scene.tweens.chain({
-      targets: this.c,
-      tweens: [
-        { scaleY: s * 0.88, scaleX: s * 1.08, duration: 90, ease: 'Quad.easeOut' },
-        { y: y0 - height * s, scaleY: s * 1.08, scaleX: s * 0.94, duration: 200, ease: 'Quad.easeOut' },
-        { y: y0, scaleY: s, scaleX: s, duration: 190, ease: 'Quad.easeIn', onComplete: () => onLand?.() },
-        { scaleY: s * 0.9, scaleX: s * 1.06, duration: 80, yoyo: true },
-      ],
-    });
-    this.scene.tweens.add({ targets: this.shadow, scaleX: 1.6, alpha: 0.4, duration: 290, yoyo: true, delay: 90 });
+    const y0 = this.hopState ? this.hopState.y0 : this.c.y;
+    this.hopState = { t: 0, h: height, y0, onLand, landed: false };
+    this.scene.tweens.add({ targets: this.shadow, scaleX: 1.6, alpha: 0.4, duration: 280, yoyo: true, delay: 90 });
+  }
+
+  private tickHop(_t: number, dt: number): void {
+    const h = this.hopState;
+    if (!h) return;
+    h.t += Math.min(dt, 100);
+    const k = h.t / HOP_MS, s = this.s;
+    const lerp = (a: number, b: number, u: number) => a + (b - a) * Math.max(0, Math.min(1, u));
+    let y = h.y0, sx = s, sy = s;
+    if (k < 0.16) { const u = k / 0.16; sx = lerp(s, s * 1.08, u); sy = lerp(s, s * 0.88, u); }
+    else if (k < 0.52) { const u = (k - 0.16) / 0.36, e = 1 - (1 - u) * (1 - u); y = h.y0 - h.h * s * e; sx = lerp(s * 1.08, s * 0.94, u * 2); sy = lerp(s * 0.88, s * 1.08, u * 2); }
+    else if (k < 0.86) { const u = (k - 0.52) / 0.34; y = h.y0 - h.h * s * (1 - u * u); sx = lerp(s * 0.94, s, u); sy = lerp(s * 1.08, s, u); }
+    else { const u = (k - 0.86) / 0.14, w = Math.sin(Math.PI * Math.min(1, u)); sx = s * (1 + 0.06 * w); sy = s * (1 - 0.1 * w); }
+    this.c.setPosition(this.c.x, y).setScale(sx, sy);
+    if (!h.landed && k >= 0.86) {
+      h.landed = true;
+      h.onLand?.();
+      if (this.hopState !== h) return;
+    }
+    if (k >= 1) { this.c.setScale(s).setY(h.y0); this.hopState = undefined; }
   }
 
   /** Il cucciolo fa le feste: tre saltelli, coda velocissima, occhi felici, bocca aperta. */
@@ -231,9 +250,10 @@ export class PetView {
     if (this.busy) return;
     this.setEyes('happy');
     this.setMouth('open');
+    const ver = this.faceVer;
     sfx.voice(this.id);
     this.hop(60);
-    this.scene.time.delayedCall(700, () => { if (!this.busy && !this.partying) this.restFace(); });
+    this.scene.time.delayedCall(700, () => { if (ver === this.faceVer && !this.partying) this.restFace(); });
   }
 
   /** Arriva saltellando da (fromX) fino al suo posto. */
@@ -245,16 +265,16 @@ export class PetView {
     const step = () => {
       if (i++ >= hops) { onDone?.(); return; }
       sfx.hop();
-      this.scene.tweens.add({ targets: this.c, x: fromX + ((x - fromX) * i) / hops, duration: 380, ease: 'Sine.easeInOut' });
       this.hop(80, step);
+      this.scene.tweens.add({ targets: this.c, x: fromX + ((x - fromX) * i) / hops, duration: 380, ease: 'Sine.easeInOut' });
     };
     step();
   }
 
   /** Esce saltellando verso destra (o sinistra). */
   leave(toX: number, onDone?: () => void): void {
-    this.scene.tweens.add({ targets: this.c, x: toX, duration: 900, ease: 'Quad.easeIn', onComplete: () => onDone?.() });
     this.hop(80, () => this.hop(80));
+    this.scene.tweens.add({ targets: this.c, x: toX, duration: 900, ease: 'Quad.easeIn', onComplete: () => onDone?.() });
   }
 
   // ------------------------------------------------------------- geometria
@@ -298,21 +318,23 @@ export class PetView {
     const pop = (o: Phaser.GameObjects.Image, sx = 1, sy = sx) => { o.setScale(0); sc.tweens.add({ targets: o, scaleX: sx, scaleY: sy, duration: 320, ease: 'Back.easeOut' }); };
     switch (id) {
       case 'dirty': {
-        const m = this.layer('mud', () => sc.add.image(SPOTS.pawL.x, SPOTS.pawL.y - 4, 'cu_mud'));
-        pop(m, 0.85);
+        const m = this.layer('mud', () => sc.add.image(SPOTS.pawL.x, SPOTS.pawL.y - 8, 'cu_mud'));
+        pop(m, 1.1);
+        const m2 = this.layer('mud2', () => sc.add.image(SPOTS.pawL.x + 6, SPOTS.pawL.y - 120, 'cu_mud'));
+        pop(m2, 0.55);
         break;
       }
       case 'thorn': {
         const t = this.layer('thorn', () => sc.add.image(SPOTS.pawR.x + 6, SPOTS.pawR.y - 36, 'cu_thorn').setOrigin(0.5, 0.9));
-        pop(t);
-        this.fx.push(sc.time.addEvent({ delay: 2400, loop: true, callback: () => { if (!this.busy) sc.tweens.add({ targets: t, scaleY: 1.15, duration: 120, yoyo: true }); } }));
+        pop(t, 1.35);
+        this.fx.push(sc.time.addEvent({ delay: 2400, loop: true, callback: () => { if (!this.busy) sc.tweens.add({ targets: t, scaleY: 1.5, duration: 120, yoyo: true }); } }));
         break;
       }
       case 'hungry': {
-        const b = this.layer('thought', () => sc.add.image(250, -560, 'cu_thought'));
-        const ic = this.layer('thoughtIcon', () => sc.add.image(258, -574, 'cu_tool_bottle').setScale(0.55));
-        pop(b);
-        pop(ic, 0.55);
+        const b = this.layer('thought', () => sc.add.image(270, -580, 'cu_thought'));
+        const ic = this.layer('thoughtIcon', () => sc.add.image(280, -596, 'cu_tool_bottle').setScale(0.66));
+        pop(b, 1.2);
+        pop(ic, 0.66);
         sc.tweens.add({ targets: [b, ic], y: '-=10', duration: 1200, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
         this.fx.push(sc.time.addEvent({ delay: 3300, loop: true, callback: () => { if (!this.busy) { sfx.rumble(); this.squish(); } } }));
         break;
@@ -366,7 +388,7 @@ export class PetView {
 
   private reFx(id: ProblemId): void {
     const sc = this.scene;
-    if (id === 'thorn') { const t = this.layers.get('thorn'); if (t) this.fx.push(sc.time.addEvent({ delay: 2400, loop: true, callback: () => { if (!this.busy) sc.tweens.add({ targets: t, scaleY: 1.15, duration: 120, yoyo: true }); } })); }
+    if (id === 'thorn') { const t = this.layers.get('thorn'); if (t) this.fx.push(sc.time.addEvent({ delay: 2400, loop: true, callback: () => { if (!this.busy) sc.tweens.add({ targets: t, scaleY: 1.5, duration: 120, yoyo: true }); } })); }
     if (id === 'hungry') this.fx.push(sc.time.addEvent({ delay: 3300, loop: true, callback: () => { if (!this.busy) { sfx.rumble(); this.squish(); } } }));
     if (id === 'sleepy') {
       this.fx.push(sc.time.addEvent({ delay: 1300, loop: true, callback: () => { if (!this.busy) this.zzz(); } }));
@@ -424,16 +446,15 @@ export class PetView {
 
   private snowflake(): void {
     const x = this.c.x + Phaser.Math.Between(-260, 260) * this.s, y = this.c.y - Phaser.Math.Between(520, 700) * this.s;
-    const f = this.scene.add.image(x, y, 'cu_snow').setScale(0.5 + Math.random() * 0.5).setAlpha(0.95).setDepth(this.c.depth + 4);
+    const f = this.scene.add.image(x, y, 'cu_snow').setScale((0.7 + Math.random() * 0.6) * Math.max(0.6, this.s)).setAlpha(0.95).setDepth(this.c.depth + 4);
     this.scene.tweens.add({ targets: f, y: y + 300, x: x + Phaser.Math.Between(-60, 60), alpha: 0, duration: 2200, ease: 'Sine.easeIn', onComplete: () => f.destroy() });
   }
 
   // ------------------------------------------------------------- cure (animazioni; la scena gestisce lo strumento)
   /** Fango che si scioglie un po' a ogni passata della spugna (k da 0 a 1). */
   cleanMud(k: number): void {
-    const m = this.layers.get('mud');
-    if (m) m.setAlpha(Math.max(0, 1 - k));
-    if (k >= 1) { this.drop('mud', 120); this.calm('dirty'); }
+    for (const key of ['mud', 'mud2']) this.layers.get(key)?.setAlpha(Math.max(0, 1 - k));
+    if (k >= 1) { this.drop('mud', 120); this.drop('mud2', 120); this.calm('dirty'); }
   }
 
   /** La spina vola via; resta la piccola bua rosa (si cura con il cerotto). */

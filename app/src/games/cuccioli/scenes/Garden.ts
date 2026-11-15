@@ -33,7 +33,8 @@ export class Garden extends Phaser.Scene {
     GARDEN_SPOTS.forEach((s, i) => {
       const id = cured[i];
       if (!id) {
-        this.add.image(s.x, s.y, 'cu_cushion').setOrigin(0.5, 0.75).setScale(s.s * 2.2).setDepth(10 + s.y / 100).setAlpha(0.95);
+        this.add.image(s.x, s.y, 'cu_cushion').setOrigin(0.5, 0.75).setScale(s.s * 2.2).setDepth(10 + s.y / 100);
+        this.add.image(s.x, s.y - 34 * s.s * 2.2, 'cu_pawprint').setScale(s.s * 2).setTint(0x4cc3a5).setAlpha(0.45).setDepth(10.01 + s.y / 100);
         return;
       }
       const pv = new PetView(this, id, s.x, s.y, s.s, { depth: 10 + s.y / 100 });

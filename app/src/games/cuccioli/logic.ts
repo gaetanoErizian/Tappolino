@@ -91,6 +91,7 @@ export const PROBLEMS: readonly Problem[] = [
 export const PROBLEM_IDS: readonly ProblemId[] = PROBLEMS.map((p) => p.id);
 export const TOOLS: readonly ToolId[] = ['sponge', 'tweezers', 'plaster', 'bottle', 'blanket', 'tissue', 'scarf'];
 export const problemById = (id: ProblemId): Problem => PROBLEMS.find((p) => p.id === id)!;
+export const isProblemId = (v: unknown): v is ProblemId => typeof v === 'string' && (PROBLEM_IDS as readonly string[]).includes(v);
 
 /**
  * Punti di cura nel cucciolo (origine ai piedi, scala 1). Lo scheletro è comune a tutti i cuccioli:

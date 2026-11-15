@@ -5,7 +5,7 @@ import { muteButton, goTo } from '../../../core/hud';
 import { DragManager, Hint, type DragItem } from '../../../core/drag';
 import { sound } from '../../../core/sound';
 import {
-  nextPet, isPetId, problemsFor, stepsOf, trayTools, ailmentFor, toolNeeded, isCured, onPet, problemById, addCured, trayX,
+  nextPet, isPetId, isProblemId, problemsFor, stepsOf, trayTools, ailmentFor, toolNeeded, isCured, onPet, problemById, addCured, trayX,
   PET_AT, TRAY_Y, type Ailment, type PetId, type ToolId,
 } from '../logic';
 import { drawClinic, PetView } from '../world';
@@ -37,9 +37,11 @@ export class Clinic extends Phaser.Scene {
 
   constructor() { super('cuccioli:Clinic'); }
 
-  create(data: { pet?: string }): void {
+  create(data: { pet?: string; problems?: string[] }): void {
     this.petId = isPetId(data?.pet) ? data.pet : nextPet(save.state.cured, save.state.last);
-    const problems = problemsFor(save.state.visits);
+    // `problems` solo per i test automatici e le catture degli store
+    const forced = Array.isArray(data?.problems) ? data.problems.filter(isProblemId) : [];
+    const problems = forced.length ? forced : problemsFor(save.state.visits);
     this.ailments = problems.map((id) => ({ id, done: 0 }));
     this.badges = [];
     this.tools = [];
@@ -205,7 +207,7 @@ export class Clinic extends Phaser.Scene {
     if (fromTap) sfx.whoosh();
     const sp = this.pet.spot(prob.spot);
     const off: Record<ToolId, [number, number]> = {
-      sponge: [0, -10], tweezers: [6, -110], plaster: [0, -20], bottle: [70, 20], blanket: [0, -60], tissue: [0, 10], scarf: [0, 0],
+      sponge: [0, -10], tweezers: [6, -110], plaster: [0, -20], bottle: [70, 20], blanket: [0, -60], tissue: [0, 40], scarf: [0, 0],
     };
     const [dx, dy] = off[tool];
     this.tweens.add({
@@ -271,6 +273,8 @@ export class Clinic extends Phaser.Scene {
         this.pet.nap(done);
         break;
       case 'tissue':
+        // la scatola resta lì: sul naso va solo il fazzoletto
+        this.tweens.add({ targets: o, alpha: 0, scale: o.scale * 0.7, duration: 180 });
         this.pet.blow(() => this.time.delayedCall(200, done));
         break;
       case 'scarf':

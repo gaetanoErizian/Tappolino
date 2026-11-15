@@ -207,13 +207,13 @@ function faceTextures(): SvgTex[] {
       <ellipse cx="30" cy="38" rx="22" ry="28" fill="url(#${ge})"/><ellipse cx="22" cy="26" rx="8" ry="10" fill="#fff"/><circle cx="37" cy="48" r="4.5" fill="#fff" opacity=".85"/>`) },
     { key: 'cu_eye_closed', w: 60, h: 40, svg: svgDoc(60, 40, `<path d="M8 12 Q30 34 52 12" stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"/>`) },
     { key: 'cu_eye_happy', w: 60, h: 40, svg: svgDoc(60, 40, `<path d="M8 30 Q30 4 52 30" stroke="${INK}" stroke-width="7" fill="none" stroke-linecap="round"/>`) },
-    { key: 'cu_eye_sleepy', w: 60, h: 72, svg: svgDoc(60, 72, `<ellipse cx="30" cy="44" rx="22" ry="17" fill="${INK}"/><circle cx="23" cy="42" r="5" fill="#fff"/>
-      <path d="M6 36 Q30 24 54 36" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round"/>`) },
+    { key: 'cu_eye_sleepy', w: 60, h: 72, svg: svgDoc(60, 72, `<path d="M8 40 Q30 34 52 40 Q50 64 30 64 Q10 64 8 40 Z" fill="${INK}"/><ellipse cx="22" cy="48" rx="5" ry="4" fill="#fff"/>
+      <path d="M10 40 Q30 34 50 40" stroke="${INK}" stroke-width="4" fill="none" stroke-linecap="round"/>`) },
     { key: 'cu_mouth_smile', w: 90, h: 50, svg: svgDoc(90, 50, `<path d="M14 14 Q28 36 45 18 Q62 36 76 14" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`) },
     { key: 'cu_mouth_open', w: 90, h: 70, svg: svgDoc(90, 70, `<path d="M12 12 Q45 22 78 12 Q76 60 45 62 Q14 60 12 12 Z" fill="#7a2a3a" stroke="${INK}" stroke-width="5" stroke-linejoin="round"/>
       <path d="M26 46 Q45 34 64 46 Q60 60 45 60 Q30 60 26 46 Z" fill="#ff7f98"/>`) },
     { key: 'cu_mouth_o', w: 60, h: 64, svg: svgDoc(60, 64, `<ellipse cx="30" cy="32" rx="20" ry="25" fill="#7a2a3a" stroke="${INK}" stroke-width="5"/><ellipse cx="30" cy="46" rx="11" ry="7" fill="#ff7f98"/>`) },
-    { key: 'cu_mouth_wavy', w: 90, h: 40, svg: svgDoc(90, 40, `<path d="M12 20 L24 12 L36 26 L48 12 L60 26 L72 12 L80 20" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`) },
+    { key: 'cu_mouth_wavy', w: 90, h: 40, svg: svgDoc(90, 40, `<path d="M14 20 Q22 12 30 20 Q38 28 46 20 Q54 12 62 20 Q70 28 76 20" stroke="${INK}" stroke-width="5" fill="none" stroke-linecap="round"/>`) },
   ];
 }
 
@@ -230,7 +230,7 @@ function ailmentTextures(): SvgTex[] {
       const x = 30 + r() * 80, y = 30 + r() * 46, rr = 14 + r() * 16;
       o += `<ellipse cx="${f(x)}" cy="${f(y)}" rx="${f(rr)}" ry="${f(rr * 0.8)}" fill="url(#${g})"/>`;
     }
-    o += `<circle cx="18" cy="70" r="8" fill="#8a5a32"/><circle cx="126" cy="40" r="7" fill="#8a5a32"/>${shine(52, 40, 10, 5, -20, 0.6)}${shine(90, 56, 7, 4, -20, 0.5)}`;
+    o += `<circle cx="18" cy="70" r="9" fill="#8a5a32"/><circle cx="126" cy="40" r="8" fill="#8a5a32"/><circle cx="130" cy="78" r="6" fill="#8a5a32"/>${shine(52, 40, 10, 5, -20, 0.6)}${shine(90, 56, 7, 4, -20, 0.5)}`;
     out.push({ key: 'cu_mud', w: 144, h: 100, svg: svgDoc(144, 100, o) });
   }
   { // spina (piccola, verde-marrone, che spunta in alto)
@@ -267,7 +267,7 @@ function ailmentTextures(): SvgTex[] {
       const bx = 24 + Math.cos(a) * 12, by = 24 + Math.sin(a) * 12;
       o += `<path d="M24 24 L${f(x)} ${f(y)} M${f(bx)} ${f(by)} L${f(bx + Math.cos(a + 0.9) * 7)} ${f(by + Math.sin(a + 0.9) * 7)} M${f(bx)} ${f(by)} L${f(bx + Math.cos(a - 0.9) * 7)} ${f(by + Math.sin(a - 0.9) * 7)}"/>`;
     }
-    out.push({ key: 'cu_snow', w: 48, h: 48, svg: svgDoc(48, 48, `<g stroke="#ffffff" stroke-width="4" stroke-linecap="round">${o}</g><g stroke="#8fd3ff" stroke-width="1.5" stroke-linecap="round" opacity=".8">${o}</g>`) });
+    out.push({ key: 'cu_snow', w: 48, h: 48, svg: svgDoc(48, 48, `<g stroke="#4aa6e0" stroke-width="6" stroke-linecap="round">${o}</g><g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round">${o}</g>`) });
   }
   out.push({ key: 'cu_bubble', w: 56, h: 56, svg: svgDoc(56, 56, `<defs><radialGradient id="bu" cx=".5" cy=".5" r=".5"><stop offset=".7" stop-color="#ffffff" stop-opacity=".08"/><stop offset=".92" stop-color="#bfe9ff" stop-opacity=".7"/><stop offset="1" stop-color="#ffc8f0" stop-opacity=".8"/></radialGradient></defs>
     <circle cx="28" cy="28" r="26" fill="url(#bu)"/><ellipse cx="19" cy="17" rx="8" ry="5" transform="rotate(-35 19 17)" fill="#fff" opacity=".9"/>`) });
@@ -514,9 +514,9 @@ function gardenTextures(): SvgTex[] {
     const g = uid('gh'), gt = uid('gt');
     let trees = '';
     for (let i = 0; i < 12; i++) trees += `<circle cx="${80 + i * 180 + (i % 2) * 40}" cy="${220 - (i % 3) * 16}" r="${30 + (i % 3) * 8}" fill="url(#${gt})"/>`;
-    out.push({ key: 'cu_hills', w: 2200, h: 380, svg: svgDoc(2200, 380, `<defs>${lightGrad(g, '#d6f2cc', '#b6e2a8', '#9ccf90', true)}${B(gt, '#a4d896', 0.3)}</defs>
+    out.push({ key: 'cu_hills', w: 2200, h: 380, svg: svgDoc(2200, 380, `<defs>${lightGrad(g, '#e2f6da', '#c6e9ba', '#addba0', true)}${B(gt, '#b8e2ac', 0.3)}</defs>
       <path d="M0 220 Q300 120 640 190 Q980 260 1300 160 Q1700 60 2200 200 V380 H0 Z" fill="url(#${g})"/>${trees}
-      <rect width="2200" height="380" fill="#eaf8ff" opacity=".35"/>`) });
+      <path d="M0 220 Q300 120 640 190 Q980 260 1300 160 Q1700 60 2200 200 V380 H0 Z" fill="#eef9ff" opacity=".3"/>`) });
   }
   { // albero tondo
     const g = uid('gtr'), gk = uid('gtk');
