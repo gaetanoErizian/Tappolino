@@ -2,8 +2,8 @@
 
 File generato da `scripts/make-listing.py`: non modificarlo a mano. I testi fissi sono in `listing.base.json`.
 
-Giochi pubblicati: Pompieri in Azione, Pasticceria Magica, Scavo dei Dinosauri, Salone degli Unicorni, Razzo tra le Stelle.
-Giochi in arrivo (solo scheda Google Play): Cuccioli dal Dottore, Officina dei Monster Truck, Giardino delle Fate, Treno degli Animali, Atelier delle Principesse.
+Giochi pubblicati: Pompieri in Azione, Pasticceria Magica, Scavo dei Dinosauri, Salone degli Unicorni, Razzo tra le Stelle, Cuccioli dal Dottore, Officina dei Monster Truck, Giardino delle Fate, Treno degli Animali, Atelier delle Principesse.
+Giochi in arrivo (solo scheda Google Play): nessuno.
 
 Limiti controllati dallo script: nome 30 · sottotitolo Apple 30 · descrizione breve Google 80 · parole chiave Apple 100 · testo promozionale Apple 170.
 Portoghese in variante brasiliana (pt-BR).
@@ -25,15 +25,15 @@ Giochi semplici per bambini 3-7 anni: tocca, gioca, impara. Niente video.
 
 **Parole chiave (Apple)** (97 car.)
 
-giochi,bambini,piccoli,prescolare,pompieri,dinosauri,unicorni,razzo,torte,educativo,offline,gioco
+giochi,bambini,piccoli,pompieri,dinosauri,unicorni,razzo,treno,principesse,monster truck,cuccioli
 
 **Testo promozionale (Apple)** (137 car.)
 
 Tanti giochi semplici in un'unica app: alcuni gratis, tutti gli altri con un solo acquisto. Niente video, niente annunci a tutto schermo.
 
-**Novità** (48 car.)
+**Novità** (49 car.)
 
-Prima versione di Tappolino: 5 giochi, 3 gratis!
+Prima versione di Tappolino: 10 giochi, 3 gratis!
 
 **Descrizione completa — Google Play**
 
@@ -45,11 +45,14 @@ I GIOCHI
 • Scavo dei Dinosauri — Scava, monta e fai ruggire! (gratis)
 • Salone degli Unicorni — Lava, pettina e fai brillare!
 • Razzo tra le Stelle — Vola tra le stelle e atterra!
-
-IN ARRIVO con i prossimi aggiornamenti: Cuccioli dal Dottore, Officina dei Monster Truck, Giardino delle Fate, Treno degli Animali, Atelier delle Principesse.
+• Cuccioli dal Dottore — Cura e coccola i cuccioli!
+• Officina dei Monster Truck — Ripara, colora e salta!
+• Giardino delle Fate — Semina, innaffia, fai fiorire
+• Treno degli Animali — Colori, forme e numeri!
+• Atelier delle Principesse — Vesti principesse e cavalieri
 
 PER I GENITORI
-• Tre giochi sono gratis. Un solo acquisto sblocca tutti gli altri, anche quelli in arrivo.
+• Tre giochi sono gratis. Un solo acquisto sblocca tutti gli altri, per sempre.
 • Nessun abbonamento, nessuna moneta virtuale.
 • Niente video e niente annunci a tutto schermo: solo un piccolo banner in basso, che sparisce con l'acquisto.
 • Acquisti e impostazioni protetti dall'area genitori.
@@ -66,6 +69,11 @@ I GIOCHI
 • Scavo dei Dinosauri — Scava, monta e fai ruggire! (gratis)
 • Salone degli Unicorni — Lava, pettina e fai brillare!
 • Razzo tra le Stelle — Vola tra le stelle e atterra!
+• Cuccioli dal Dottore — Cura e coccola i cuccioli!
+• Officina dei Monster Truck — Ripara, colora e salta!
+• Giardino delle Fate — Semina, innaffia, fai fiorire
+• Treno degli Animali — Colori, forme e numeri!
+• Atelier delle Principesse — Vesti principesse e cavalieri
 
 PER I GENITORI
 • Tre giochi sono gratis. Un solo acquisto sblocca tutti gli altri, per sempre.
@@ -90,17 +98,17 @@ Simple games, no videos
 
 Simple games for kids aged 3-7: tap, play, learn. No videos, no pop-ups.
 
-**Parole chiave (Apple)** (100 car.)
+**Parole chiave (Apple)** (95 car.)
 
-kids,games,toddler,preschool,firefighter,dinosaur,unicorn,rocket,bakery,educational,offline,learning
+kids,games,toddler,firefighter,dinosaur,unicorn,rocket,train,princess,monster truck,pets,bakery
 
 **Testo promozionale (Apple)** (113 car.)
 
 Lots of simple games in one app: some free, all the others with a single purchase. No videos, no full-screen ads.
 
-**Novità** (52 car.)
+**Novità** (53 car.)
 
-First release of Tappolino: 5 games, 3 of them free!
+First release of Tappolino: 10 games, 3 of them free!
 
 **Descrizione completa — Google Play**
 
@@ -112,11 +120,14 @@ THE GAMES
 • Dinosaur Dig — Dig, build and hear them roar! (free)
 • Unicorn Salon — Wash, brush and make it shine!
 • Rocket to the Stars — Fly, collect stars, land!
-
-COMING SOON in the next updates: Little Pet Doctor, Monster Truck Workshop, Fairy Garden, Animal Train, Princess Atelier.
+• Little Pet Doctor — Care for cute baby animals!
+• Monster Truck Workshop — Fix it, paint it, jump!
+• Fairy Garden — Plant, water, watch it bloom!
+• Animal Train — Colors, shapes and numbers!
+• Princess Atelier — Dress up princes & princesses
 
 FOR PARENTS
-• Three games are free. One single purchase unlocks all the others, including the ones coming soon.
+• Three games are free. One single purchase unlocks all the others, forever.
 • No subscriptions, no virtual currency.
 • No videos and no full-screen ads: just a small banner at the bottom, removed by the purchase.
 • Purchases and settings are behind a parents' area.
@@ -133,6 +144,11 @@ THE GAMES
 • Dinosaur Dig — Dig, build and hear them roar! (free)
 • Unicorn Salon — Wash, brush and make it shine!
 • Rocket to the Stars — Fly, collect stars, land!
+• Little Pet Doctor — Care for cute baby animals!
+• Monster Truck Workshop — Fix it, paint it, jump!
+• Fairy Garden — Plant, water, watch it bloom!
+• Animal Train — Colors, shapes and numbers!
+• Princess Atelier — Dress up princes & princesses
 
 FOR PARENTS
 • Three games are free. One single purchase unlocks all the others, forever.
@@ -157,17 +173,17 @@ Juegos sencillos, sin vídeos
 
 Juegos sencillos para niños de 3 a 7 años: toca, juega, aprende. Sin vídeos.
 
-**Parole chiave (Apple)** (96 car.)
+**Parole chiave (Apple)** (99 car.)
 
-juegos,niños,infantil,preescolar,bomberos,dinosaurios,unicornios,cohete,pasteles,educativo,bebés
+juegos,niños,infantil,bomberos,dinosaurios,unicornios,cohete,tren,princesas,monster truck,cachorros
 
 **Testo promozionale (Apple)** (130 car.)
 
 Muchos juegos sencillos en una sola app: algunos gratis, el resto con una sola compra. Sin vídeos ni anuncios a pantalla completa.
 
-**Novità** (50 car.)
+**Novità** (51 car.)
 
-Primera versión de Tappolino: 5 juegos, ¡3 gratis!
+Primera versión de Tappolino: 10 juegos, ¡3 gratis!
 
 **Descrizione completa — Google Play**
 
@@ -179,11 +195,14 @@ LOS JUEGOS
 • Excavación de Dinosaurios — ¡Excava, monta y oye rugir! (gratis)
 • Salón de Unicornios — ¡Lava, peina y haz que brille!
 • Cohete entre Estrellas — ¡Vuela y aterriza en planetas!
-
-MUY PRONTO en las próximas actualizaciones: Veterinario de Cachorros, Taller de Monster Trucks, Jardín de las Hadas, El Tren de los Animales, Taller de Princesas.
+• Veterinario de Cachorros — ¡Cura y mima a los cachorros!
+• Taller de Monster Trucks — ¡Repara, pinta y salta!
+• Jardín de las Hadas — Siembra, riega y haz florecer
+• El Tren de los Animales — ¡Colores, formas y números!
+• Taller de Princesas — Viste princesas y caballeros
 
 PARA LOS PADRES
-• Tres juegos son gratis. Una sola compra desbloquea todos los demás, también los que llegarán pronto.
+• Tres juegos son gratis. Una sola compra desbloquea todos los demás, para siempre.
 • Sin suscripciones ni monedas virtuales.
 • Sin vídeos ni anuncios a pantalla completa: solo un pequeño banner abajo, que desaparece con la compra.
 • Compras y ajustes protegidos en la zona para padres.
@@ -200,6 +219,11 @@ LOS JUEGOS
 • Excavación de Dinosaurios — ¡Excava, monta y oye rugir! (gratis)
 • Salón de Unicornios — ¡Lava, peina y haz que brille!
 • Cohete entre Estrellas — ¡Vuela y aterriza en planetas!
+• Veterinario de Cachorros — ¡Cura y mima a los cachorros!
+• Taller de Monster Trucks — ¡Repara, pinta y salta!
+• Jardín de las Hadas — Siembra, riega y haz florecer
+• El Tren de los Animales — ¡Colores, formas y números!
+• Taller de Princesas — Viste princesas y caballeros
 
 PARA LOS PADRES
 • Tres juegos son gratis. Una sola compra desbloquea todos los demás, para siempre.
@@ -224,17 +248,17 @@ Jeux simples, sans vidéos
 
 Jeux simples pour enfants de 3 à 7 ans : touche, joue, apprends. Sans vidéos.
 
-**Parole chiave (Apple)** (91 car.)
+**Parole chiave (Apple)** (94 car.)
 
-jeux,enfants,maternelle,pompiers,dinosaures,licornes,fusée,gâteaux,éducatif,hors ligne,bébé
+jeux,enfants,pompiers,dinosaures,licornes,fusée,train,princesses,monster truck,animaux,gâteaux
 
 **Testo promozionale (Apple)** (138 car.)
 
 Plein de jeux simples dans une seule appli : certains gratuits, tous les autres avec un seul achat. Pas de vidéos, pas de pub plein écran.
 
-**Novità** (57 car.)
+**Novità** (58 car.)
 
-Première version de Tappolino : 5 jeux, dont 3 gratuits !
+Première version de Tappolino : 10 jeux, dont 3 gratuits !
 
 **Descrizione completa — Google Play**
 
@@ -246,11 +270,14 @@ LES JEUX
 • Fouille de Dinosaures — Creuse, assemble, fais rugir ! (gratuit)
 • Salon des Licornes — Lave, brosse et fais briller !
 • Fusée dans les Étoiles — Vole, attrape, atterris !
-
-BIENTÔT dans les prochaines mises à jour: Docteur des Petits Animaux, Garage des Monster Trucks, Le Jardin des Fées, Le Train des Animaux, Atelier des Princesses.
+• Docteur des Petits Animaux — Soigne et câline les bébés !
+• Garage des Monster Trucks — Répare, peins et saute !
+• Le Jardin des Fées — Sème, arrose et fais fleurir
+• Le Train des Animaux — Couleurs, formes et nombres !
+• Atelier des Princesses — Habille princesses et princes
 
 POUR LES PARENTS
-• Trois jeux sont gratuits. Un seul achat débloque tous les autres, y compris ceux à venir.
+• Trois jeux sont gratuits. Un seul achat débloque tous les autres, pour toujours.
 • Pas d'abonnement, pas de monnaie virtuelle.
 • Pas de vidéos ni de pub plein écran : juste une petite bannière en bas, supprimée par l'achat.
 • Achats et réglages protégés par l'espace parents.
@@ -267,6 +294,11 @@ LES JEUX
 • Fouille de Dinosaures — Creuse, assemble, fais rugir ! (gratuit)
 • Salon des Licornes — Lave, brosse et fais briller !
 • Fusée dans les Étoiles — Vole, attrape, atterris !
+• Docteur des Petits Animaux — Soigne et câline les bébés !
+• Garage des Monster Trucks — Répare, peins et saute !
+• Le Jardin des Fées — Sème, arrose et fais fleurir
+• Le Train des Animaux — Couleurs, formes et nombres !
+• Atelier des Princesses — Habille princesses et princes
 
 POUR LES PARENTS
 • Trois jeux sont gratuits. Un seul achat débloque tous les autres, pour toujours.
@@ -291,17 +323,17 @@ Einfache Spiele, keine Videos
 
 Einfache Spiele für Kinder von 3–7: tippen, spielen, lernen. Keine Videos.
 
-**Parole chiave (Apple)** (100 car.)
+**Parole chiave (Apple)** (95 car.)
 
-kinder,spiele,kleinkind,kita,feuerwehr,dinosaurier,einhorn,rakete,backen,lernspiel,offline,vorschule
+kinder,spiele,kleinkind,feuerwehr,dinosaurier,einhorn,rakete,zug,prinzessin,monster truck,tiere
 
 **Testo promozionale (Apple)** (128 car.)
 
 Viele einfache Spiele in einer App: einige kostenlos, alle anderen mit einem einzigen Kauf. Keine Videos, keine Vollbildwerbung.
 
-**Novità** (57 car.)
+**Novità** (58 car.)
 
-Erste Version von Tappolino: 5 Spiele, 3 davon kostenlos!
+Erste Version von Tappolino: 10 Spiele, 3 davon kostenlos!
 
 **Descrizione completa — Google Play**
 
@@ -313,11 +345,14 @@ DIE SPIELE
 • Dinosaurier-Ausgrabung — Graben, bauen, brüllen lassen! (kostenlos)
 • Einhorn-Salon — Waschen, bürsten, glitzern!
 • Rakete zu den Sternen — Fliegen, sammeln, landen!
-
-BALD DA mit den nächsten Updates: Tierarzt für Tierbabys, Monster-Truck-Werkstatt, Feengarten, Der Tierzug, Prinzessinnen-Atelier.
+• Tierarzt für Tierbabys — Tierbabys pflegen und kuscheln
+• Monster-Truck-Werkstatt — Reparieren, malen, springen!
+• Feengarten — Säen, gießen, blühen lassen
+• Der Tierzug — Farben, Formen und Zahlen!
+• Prinzessinnen-Atelier — Prinzessinnen & Ritter stylen
 
 FÜR ELTERN
-• Drei Spiele sind kostenlos. Ein einziger Kauf schaltet alle anderen frei, auch die kommenden.
+• Drei Spiele sind kostenlos. Ein einziger Kauf schaltet alle anderen frei, für immer.
 • Kein Abo, keine virtuelle Währung.
 • Keine Videos und keine Vollbildwerbung: nur ein kleines Banner unten, das mit dem Kauf verschwindet.
 • Käufe und Einstellungen im Elternbereich geschützt.
@@ -334,6 +369,11 @@ DIE SPIELE
 • Dinosaurier-Ausgrabung — Graben, bauen, brüllen lassen! (kostenlos)
 • Einhorn-Salon — Waschen, bürsten, glitzern!
 • Rakete zu den Sternen — Fliegen, sammeln, landen!
+• Tierarzt für Tierbabys — Tierbabys pflegen und kuscheln
+• Monster-Truck-Werkstatt — Reparieren, malen, springen!
+• Feengarten — Säen, gießen, blühen lassen
+• Der Tierzug — Farben, Formen und Zahlen!
+• Prinzessinnen-Atelier — Prinzessinnen & Ritter stylen
 
 FÜR ELTERN
 • Drei Spiele sind kostenlos. Ein einziger Kauf schaltet alle anderen frei, für immer.
@@ -358,17 +398,17 @@ Jogos simples, sem vídeos
 
 Jogos simples para crianças de 3 a 7 anos: toque, jogue, aprenda. Sem vídeos.
 
-**Parole chiave (Apple)** (99 car.)
+**Parole chiave (Apple)** (98 car.)
 
-jogos,crianças,infantil,pré-escola,bombeiros,dinossauros,unicórnios,foguete,bolos,educativo,offline
+jogos,crianças,infantil,bombeiros,dinossauros,unicórnios,foguete,trem,princesas,monster truck,pets
 
 **Testo promozionale (Apple)** (125 car.)
 
 Muitos jogos simples num só app: alguns grátis, todos os outros com uma única compra. Sem vídeos, sem anúncios em tela cheia.
 
-**Novità** (48 car.)
+**Novità** (49 car.)
 
-Primeira versão do Tappolino: 5 jogos, 3 grátis!
+Primeira versão do Tappolino: 10 jogos, 3 grátis!
 
 **Descrizione completa — Google Play**
 
@@ -380,11 +420,14 @@ OS JOGOS
 • Escavação de Dinossauros — Cave, monte e ouça o rugido! (grátis)
 • Salão dos Unicórnios — Lave, penteie e faça brilhar!
 • Foguete nas Estrelas — Voe, pegue estrelas, pouse!
-
-EM BREVE nas próximas atualizações: Doutor dos Filhotes, Oficina dos Monster Trucks, Jardim das Fadas, O Trem dos Animais, Ateliê das Princesas.
+• Doutor dos Filhotes — Cuide e mime os filhotes!
+• Oficina dos Monster Trucks — Conserte, pinte e salte!
+• Jardim das Fadas — Plante, regue e veja florir
+• O Trem dos Animais — Cores, formas e números!
+• Ateliê das Princesas — Vista princesas e cavaleiros
 
 PARA OS PAIS
-• Três jogos são grátis. Uma única compra desbloqueia todos os outros, inclusive os que chegam em breve.
+• Três jogos são grátis. Uma única compra desbloqueia todos os outros, para sempre.
 • Sem assinaturas, sem moedas virtuais.
 • Sem vídeos e sem anúncios em tela cheia: só um pequeno banner embaixo, que some com a compra.
 • Compras e ajustes protegidos na área dos pais.
@@ -401,6 +444,11 @@ OS JOGOS
 • Escavação de Dinossauros — Cave, monte e ouça o rugido! (grátis)
 • Salão dos Unicórnios — Lave, penteie e faça brilhar!
 • Foguete nas Estrelas — Voe, pegue estrelas, pouse!
+• Doutor dos Filhotes — Cuide e mime os filhotes!
+• Oficina dos Monster Trucks — Conserte, pinte e salte!
+• Jardim das Fadas — Plante, regue e veja florir
+• O Trem dos Animais — Cores, formas e números!
+• Ateliê das Princesas — Vista princesas e cavaleiros
 
 PARA OS PAIS
 • Três jogos são grátis. Uma única compra desbloqueia todos os outros, para sempre.

@@ -65,20 +65,20 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → pagina web di prova → ok d
 Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prove di Gaetano.
 
 ### Fase 3 — Lancio pubblico v1.0
-- 5 giochi: 3 gratis, 2 bloccati. Prezzo 1,99 €.
+- **10 giochi: 3 gratis, 7 bloccati** (decisione 27). Prezzo di lancio 1,99 € per le prime 4 settimane circa, poi 2,99 €.
 - **Fatto in regia (15/11/2026)**:
-  - giochi 6–10 "in arrivo": su Android tessere con il nastro, su iPhone e iPad nascosti (decisioni 24 e 26);
+  - meccanismo dei giochi "in arrivo" pronto per i giochi futuri (Android: nastro; iPhone e iPad: nascosti; decisioni 24 e 26), non usato al lancio;
   - voce "Crediti e licenze" nell'area genitori (decisione 22);
   - schede store nelle 6 lingue, distinte per Google Play e App Store (`app/store/listing.md`, generate da `scripts/make-listing.py`);
   - catture: menu nelle 6 lingue per i 3 formati; per i giochi c'è il flusso GitHub "App — catture per gli store";
   - regole degli store ricontrollate (`app/store/compliance.md`).
 - **Resta a Gaetano** (serve per inviare): account Apple Developer, AdMob, segreti per le build, pagina privacy online con i dati del titolare, creazione di app e prodotto negli store, prove sui telefoni. Elenco in `app/store/compliance.md` e qui sotto.
 
-### Fase 4 — Giochi 6–10 come aggiornamenti
-- Sviluppati già in Fase 2: nella v1.0 su Android compaiono come tessere **"in arrivo"**, non apribili; su iPhone e iPad non si vedono (decisioni 24 e 26).
-- Per pubblicarne uno: toglierlo da `comingSoon` in `app/src/config.ts`, rigenerare le schede e le catture del menu.
-- Un gioco nuovo ogni 2–3 settimane, annunciato nelle novità della scheda.
-- All'ottavo gioco il prezzo sale a 2,99 €.
+### Fase 4 — Giochi nuovi come aggiornamenti
+- I giochi 6–10 escono già con la v1.0 (decisione 27).
+- Dopo circa 4 settimane dal lancio il prezzo passa da 1,99 € a 2,99 €.
+- Giochi nuovi (11, 12…) scelti guardando i più giocati e i temi più cercati: una chat per gioco, come nella Fase 2, annunciati nelle novità della scheda.
+- Un gioco finito ma non ancora da pubblicare si mette in `comingSoon` (`app/src/config.ts`); per pubblicarlo lo si toglie e si rigenerano schede e catture del menu.
 
 ### Fase 5 — App singole
 - Ricerca sulle parole chiave più cercate negli store nelle 6 lingue + giochi più giocati nel collettore.
@@ -93,11 +93,11 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 5. Keystore Android e certificati Apple caricati come segreti nel repository GitHub (le istruzioni le prepara la chat della Fase 1).
 6. Creazione dell'app e del prodotto `unlock_all` su Play Console e App Store Connect.
 7. Avviare su GitHub il flusso "App — catture per gli store" (Actions → Run workflow) e scaricare i file zip delle catture.
-8. Decidere se lanciare con 5 giochi (come previsto) o con tutti e 10 subito (decisione 26).
+8. Circa 4 settimane dopo il lancio: portare il prezzo a 2,99 € nei due store (decisione 27).
 
 ## Da provare sul telefono alla prima build
 - Banner AdMob, acquisto e ripristino, prima build iOS in CI.
-- Menu: frecce e pallini delle pagine sotto le tessere non coperti dal banner; su iPhone i giochi in arrivo non si vedono, su Android hanno il nastro e non si aprono.
+- Menu: frecce e pallini delle pagine sotto le tessere non coperti dal banner; tre pagine con tutti e 10 i giochi.
 - Giro di musica senza stacchi su iOS (formato mp3, verificato finora solo su Chrome) e volume della musica rispetto agli effetti.
 - Pasticceria: precisione del trascinamento con dita piccole, durata della mescolata.
 - Pompieri: getto d'acqua, tempi di risposta al tocco, volume della musica e delle sirene.
@@ -118,6 +118,6 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
 | Identità Tappolino (decisione 18) | Completa su `main` (15/11/2026): Pasticceria e Pompieri adeguate, vecchia sintesi audio rimossa |
 | 2 — Giochi 3–10 in parallelo | **Chiusa il 15/11/2026: tutti i 10 giochi sono su `main`.** Passati in `core/`: strofinare (`scratch.ts`), manina del tieni premuto (`holdHint.ts`), ruote a fotogrammi (`wheels.ts`) |
-| 3 — Lancio pubblico v1.0 | Parte di sviluppo chiusa il 15/11/2026 (in arrivo, crediti, schede store, regole). Mancano i compiti di Gaetano e le prove sui telefoni: senza quelli non si può inviare agli store |
-| 4 — Giochi 6–10 | Da fare |
+| 3 — Lancio pubblico v1.0 | Parte di sviluppo chiusa il 15/11/2026: lancio con tutti e 10 i giochi (decisione 27), crediti, schede store, regole. Mancano i compiti di Gaetano e le prove sui telefoni: senza quelli non si può inviare agli store |
+| 4 — Giochi nuovi | Da fare dopo il lancio |
 | 5 — App singole | Da fare |

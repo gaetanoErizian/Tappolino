@@ -61,9 +61,12 @@ def shots_app(pg, url, lang, d):
         time.sleep(0.5)
     time.sleep(2.5)
     shot(pg, f'{d}/0-menu-giochi.png')
-    # seconda pagina del menu (se c'è): si tocca la freccia
-    if run(pg, "(() => { const b = window.__game.scene.getScene('Hub').children.list.find(o => o.texture && o.texture.key === 'btn_next'); if (!b) return false; b.emit('pointerdown'); b.emit('pointerup'); return true; })()"):
-        time.sleep(2); shot(pg, f'{d}/0-menu-giochi-2.png')
+    # le altre pagine del menu: si tocca la freccia finché non si torna alla prima
+    for n in range(2, 8):
+        if not run(pg, "(() => { const b = window.__game.scene.getScene('Hub').children.list.find(o => o.texture && o.texture.key === 'btn_next'); if (!b) return false; b.emit('pointerdown'); b.emit('pointerup'); return true; })()"): break
+        time.sleep(2)  # il pulsante risponde dopo la sua piccola animazione
+        if not run(pg, "window.__game.scene.getScene('Hub').page"): break
+        shot(pg, f'{d}/0-menu-giochi-{n}.png')
 
 
 def shots_pompieri(pg, url, lang, d):

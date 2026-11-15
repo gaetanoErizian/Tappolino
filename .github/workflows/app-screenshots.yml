@@ -7,7 +7,7 @@ on:
     inputs:
       groups:
         description: "Gruppi di catture (app = menu; poi gli id dei giochi), separati da virgola"
-        default: "app,pompieri,pasticceria,dinosauri,unicorni,razzo"
+        default: "app,pompieri,pasticceria,dinosauri,unicorni,razzo,cuccioli,monstertruck,giardino,treno,atelier"
       langs:
         description: "Lingue, come elenco JSON"
         default: '["it","en","es","fr","de","pt"]'
@@ -15,7 +15,7 @@ on:
 jobs:
   screenshots:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 300
     strategy:
       fail-fast: false
       matrix:

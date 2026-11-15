@@ -8,7 +8,7 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
 2. **Modello di vendita**
    - **3 giochi gratis** fin dal lancio: Pompieri in Azione, Pasticceria Magica, Scavo dei Dinosauri. Tutti gli altri sono bloccati (lucchetto nel menu).
    - **Un solo acquisto non consumabile** `it.tappolino.app.unlock_all`: sblocca tutti i giochi presenti e futuri e toglie la pubblicità per sempre. Con "Ripristina acquisti".
-   - **Prezzo**: 1,99 € al lancio; sale a 2,99 € quando i giochi sono 8 o più. Chi ha già comprato tiene tutto.
+   - **Prezzo**: 1,99 € come prezzo di lancio, poi 2,99 € (dettagli nella decisione 27). Chi ha già comprato tiene tutto.
    - Nessun altro acquisto, nessuna valuta virtuale, nessun abbonamento.
 3. **Pubblicità**
    - **Android**: banner AdMob nel footer (child-directed, non personalizzato, contenuti "G") per chi non ha acquistato. Mai video, interstitial o annunci bloccanti.
@@ -93,4 +93,8 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - **iPhone e iPad**: il menu mostra solo i giochi pubblicati; la scheda App Store non nomina quelli futuri. Ogni aggiornamento ne aggiunge uno, annunciato nelle novità.
     - Nell'offerta di sblocco, su tutte le piattaforme, il testo è "Anche i giochi nuovi che arrivano con gli aggiornamenti".
     - Elenco dei giochi in arrivo: `comingSoon` in `app/src/config.ts`; regola in `app/src/release.ts`. Sulle pagine web di prova: `#arrivo` mostra il menu come su Android, `#ios` come su iPhone.
-    - **Da decidere da Gaetano**: se pubblicare subito tutti e 10 i giochi (basta svuotare `comingSoon`), rinunciando agli aggiornamenti a cadenza; in quel caso il prezzo di lancio sarebbe 2,99 € (decisione 2: 8 giochi o più).
+    - Al lancio non si applica a nessun gioco (decisione 27): il meccanismo resta per i giochi futuri.
+27. **Lancio con tutti e 10 i giochi** (deciso da Gaetano il 15/11/2026, su consiglio della regia; supera il piano "5 al lancio, 5 con gli aggiornamenti" delle decisioni 24 e 26).
+    - Motivi: scheda store più forte (monster truck, principesse, treno, cuccioli sono temi cercati), acquisto che vale di più (3 gratis + 7 da sbloccare), nessuna tessera che un bambino tocca senza che succeda nulla, nessuna differenza tra Android e iPhone. È un giudizio, non un dato: la ricerca sulle parole chiave resta da fare (Fase 5).
+    - **Prezzo**: 1,99 € come prezzo di lancio per le prime 4 settimane circa, poi 2,99 €. La data esatta dell'aumento la sceglie Gaetano in base ai primi numeri; il cambio si fa a mano nei due store.
+    - `comingSoon` in `app/src/config.ts` è vuoto. Gli aggiornamenti successivi portano giochi nuovi (11, 12…), scelti guardando quali sono i più giocati.

@@ -5,7 +5,7 @@ Verificare sempre le regole aggiornate prima dell'invio: cambiano spesso.
 ## Prodotto in-app (entrambi gli store)
 - **ID prodotto**: `it.tappolino.app.unlock_all` (uguale su Play e App Store)
 - **Tipo**: Google Play → *prodotto a pagamento singolo (one-time)*; Apple → *Non consumabile*
-- **Prezzo**: 1,99 € al lancio, 2,99 € da 8 giochi (decisione 2). Chi ha già comprato tiene tutto.
+- **Prezzo**: 1,99 € come prezzo di lancio per le prime 4 settimane circa, poi 2,99 € (decisione 27). Chi ha già comprato tiene tutto. Il cambio di prezzo si fa a mano nei due store.
 - **Nome**: "Sblocca tutto" / "Unlock everything" (testi `parents.unlockShort` in `src/locales`)
 - **Descrizione**: "Sblocca tutti i giochi, anche quelli futuri, e toglie la pubblicità" (su iOS senza la parte sulla pubblicità).
 - Apple: allegare lo screenshot dell'offerta (dopo il parental gate) per la revisione dell'acquisto.

@@ -56,7 +56,9 @@ def main():
             games_block = [b['games_heading']] + lines
             if store == 'googleplay' and soon:
                 games_block += ['', f"{b['coming']}: " + ', '.join(g['titles'][l] for g in soon) + '.']
-            parents = [b['parents_heading'], '• ' + b[f'p_unlock_{store}'], '• ' + b['p_nosubs'], '• ' + b[f'p_ads_{store}'],
+            # senza giochi in arrivo non si promette nulla: vale il testo "per sempre" anche su Google Play
+            unlock = b['p_unlock_googleplay'] if (store == 'googleplay' and soon) else b['p_unlock_appstore']
+            parents = [b['parents_heading'], '• ' + unlock, '• ' + b['p_nosubs'], '• ' + b[f'p_ads_{store}'],
                        '• ' + b['p_parents'], '• ' + b[f'p_nodata_{store}'], '• ' + b['p_langs']]
             return '\n'.join([b['intro'], ''] + games_block + [''] + parents)
 

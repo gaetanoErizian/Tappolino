@@ -13,8 +13,8 @@ export const CONFIG: AppConfig = {
     androidBannerId: ADMOB_TEST.bannerAndroid,
     testing: true,
   },
-  // v1.0: aperti i giochi 1–5; i giochi 6–10 escono uno alla volta con gli aggiornamenti (decisione 24).
-  comingSoon: ['cuccioli', 'monstertruck', 'giardino', 'treno', 'atelier'],
+  // v1.0: tutti i 10 giochi sono pubblicati (decisione 27). Qui vanno gli id dei giochi futuri già nell'app ma non ancora usciti.
+  comingSoon: [],
   houseBannerOnIOS: false,
   houseAds: [],
 };

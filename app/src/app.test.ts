@@ -125,14 +125,14 @@ describe('giochi in arrivo (decisione 24)', () => {
     expect(comingSoon('treno', ['treno'], false)).toBe(false);
     expect(comingSoon('pompieri', ['treno'], true)).toBe(false);
   });
-  it('l’elenco contiene solo giochi esistenti e a pagamento; al lancio restano aperti i giochi 1–5', () => {
+  it('l’elenco contiene solo giochi esistenti e a pagamento; al lancio sono pubblicati tutti e 10 (decisione 27)', () => {
     for (const id of CONFIG.comingSoon) {
       const g = GAMES.find((x) => x.id === id);
       expect(g, id).toBeTruthy();
       expect(g!.free, id).toBe(false);
     }
     const open = GAMES.filter((g) => !CONFIG.comingSoon.includes(g.id)).map((g) => g.order);
-    expect(open).toEqual([1, 2, 3, 4, 5]);
+    expect(open).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
   it('sul web di prova tutti i giochi restano apribili, salvo #arrivo', async () => {
     const { isComingSoon } = await import('./release');
