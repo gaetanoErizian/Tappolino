@@ -61,7 +61,7 @@ Regole:
 
 ### Fase 2 — Giochi 2–5 (una chat per gioco, Opus medio)
 Ordine: Pasticceria Magica, Scavo dei Dinosauri, Salone degli Unicorni, Razzo tra le Stelle.
-Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok di Gaetano → unione a `main` → nuova build in test interno.
+Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok di Gaetano → unione a `main` → eventuale passaggio di codice riusabile in `core/` su branch dedicato (decisione 17) → nuova build in test interno. La chat del gioco successivo si apre a questo punto.
 
 ### Fase 3 — Lancio pubblico v1.0
 - 5 giochi: 3 gratis, 2 bloccati. Prezzo 1,99 €.
@@ -92,8 +92,8 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 | Fase | Stato |
 |---|---|
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
-| 1 — App contenitore + catena di build | Costruita sul branch `game/pompieri-in-azione` (`app/`, workflow `app-*.yml`). Mancano: rimozione degli screenshot da git, unione a `main` in squash, prima build di prova su Android e iOS (servono segreti e account Apple) |
-| 2 — Giochi 2–5 | Da fare |
+| 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
+| 2 — Giochi 2–5 | In corso. Pasticceria Magica: completa sul branch `game/pasticceria-magica`, in attesa dell'ok di Gaetano; poi unione a `main` e branch `core/drag-e-manina` (decisione 17). Prossimo: Scavo dei Dinosauri |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |

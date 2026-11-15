@@ -48,3 +48,9 @@ Aggiornato: 14/11/2026 (sera) — in caso di conflitto vale questo file, poi `05
     - Il branch che li contiene si unisce a `main` **in un solo commit (squash)** dopo averli rimossi, così non entrano nella storia di `main`.
 15. **Unione a `main` senza aspettare le build sui telefoni.** Un branch si unisce quando test e build web passano e Gaetano ha dato l'ok sul gioco. Le build Android e iOS di prova seguono appena ci sono i segreti e l'account Apple: non devono bloccare i giochi successivi.
 16. **Schede store per singolo gioco** in `app/store/games/<id>/`: servono per le future app singole (Fase 5). La scheda dell'app Tappolino sta in `app/store/`.
+17. **Come si modifica il codice comune (`app/src/core/`, `app/src/hub/`)**
+    - Un branch di gioco (`game/<nome>`) non tocca `core/` né `hub/`: il codice riusabile nasce dentro il modulo del gioco. Fanno eccezione le correzioni di errori, da segnalare in regia.
+    - Il passaggio nel codice comune si fa **subito dopo l'unione del gioco a `main`**, su un branch dedicato `core/<tema>`, dalla stessa chat che ha scritto il codice. Contiene solo lo spostamento: il gioco di origine passa a importare da `core/`, test e build web devono passare, unione a `main` in un solo commit.
+    - **Una modifica al codice comune alla volta**, e solo quando non ci sono altri branch di gioco aperti. Se ce ne sono, decide la regia l'ordine e i branch aperti si riportano sopra `main` dopo l'unione.
+    - La chat del gioco successivo si apre dopo che il branch `core/<tema>` è stato unito.
+    - Prima applicazione: trascinamento e manina d'aiuto per il trascinamento, da Pasticceria Magica (`core/drag-e-manina`), per i giochi 6, 9 e 10.
