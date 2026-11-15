@@ -66,6 +66,7 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 ### Fase 3 — Lancio pubblico v1.0
 - 5 giochi: 3 gratis, 2 bloccati. Prezzo 1,99 €.
 - Schede store nelle 6 lingue con screenshot per tema, privacy policy online, dichiarazioni privacy.
+- Voce "Crediti e licenze" nell'area genitori (decisione 22).
 - Regole degli store ricontrollate prima dell'invio.
 
 ### Fase 4 — Giochi 6–10 come aggiornamenti
@@ -85,16 +86,22 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 5. Keystore Android e certificati Apple caricati come segreti nel repository GitHub (le istruzioni le prepara la chat della Fase 1).
 6. Creazione dell'app e del prodotto `unlock_all` su Play Console e App Store Connect.
 
+## Da provare sul telefono alla prima build
+- Banner AdMob, acquisto e ripristino, prima build iOS in CI.
+- Giro di musica senza stacchi su iOS (formato mp3, verificato finora solo su Chrome) e volume della musica rispetto agli effetti.
+- Pasticceria: precisione del trascinamento con dita piccole, durata della mescolata.
+- Pompieri: getto d'acqua e tempi di risposta al tocco.
+
 ## Come avviare ogni nuova chat di gioco
-> Sviluppa il prossimo gioco della roadmap come modulo dell'app Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, leggi `docs/00-DECISIONI.md` e `docs/05-STRATEGIA-E-ROADMAP.md`, lavora sul branch `game/<nome-gioco>` e fai push a ogni tappa.
+> Sviluppa il prossimo gioco della roadmap come modulo dell'app Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, leggi `docs/00-DECISIONI.md` e `docs/05-STRATEGIA-E-ROADMAP.md`, lavora sul branch `game/<nome-gioco>` e fai push a ogni tappa. Segui l'identità Tappolino (`app/README.md`): carattere, loader, pannelli e lettore audio comuni.
 
 ## Stato
 | Fase | Stato |
 |---|---|
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
-| Identità Tappolino (decisione 18) | Approvata da Gaetano e unita a `main` (15/11/2026). Pagina di prova: https://claude.ai/artifact/P1UK9b4WaXkbJbSb1Tr1ZL. Da fare nelle chat dei giochi: musica nuova di Pompieri; Pasticceria adotta carattere, loader e `core/sound` |
-| 2 — Giochi 2–5 | In corso. Pasticceria Magica: completa sul branch `game/pasticceria-magica`, in attesa dell'ok di Gaetano; poi unione a `main` e branch `core/drag-e-manina` (decisione 17). Prossimo: Scavo dei Dinosauri |
+| Identità Tappolino (decisione 18) | Approvata da Gaetano e unita a `main` (15/11/2026). Pasticceria già adeguata. Resta la musica nuova di Pompieri, nella sua chat (branch `game/pompieri-musica`) |
+| 2 — Giochi 2–5 | In corso. Pasticceria Magica unita a `main` (15/11/2026); trascinamento e manina d'aiuto in `core/drag.ts`. Nessun branch aperto: si può aprire la chat di **Scavo dei Dinosauri**, anche in parallelo alla musica di Pompieri (decisione 20) |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |
