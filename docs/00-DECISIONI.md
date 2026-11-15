@@ -72,3 +72,8 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Durante lo sviluppo in parallelo **il codice comune lo modifica solo la regia**. Le chat scrivono nel proprio modulo ciò che manca e lo segnalano; l'unificazione (per esempio il gesto dello strofinare dei giochi 3 e 4) si fa in regia dopo le unioni. Questo sospende, per i giochi 3–10, il passaggio in `core/` previsto dalla decisione 17.
     - Ogni brief fissa ambientazione, colori e stile musicale, perché le chat non si vedono tra loro e i giochi non devono somigliarsi.
     - Da fare in regia dopo l'unione della musica nuova di Pompieri: togliere la sintesi da `core/audio.ts` e il campo `song` dei moduli.
+24. **Giochi non ancora pubblicati: "in arrivo".** Al lancio (v1.0, giochi 1–5) i giochi 6–10 compaiono nel menu come tessere "in arrivo": si vedono ma non si aprono e non si possono comprare singolarmente. Ogni aggiornamento ne apre uno.
+    - Lo realizza la regia in Fase 3, nel codice comune (elenco dei giochi "in arrivo" nella configurazione dell'app, tessera con nastro dedicato, testo nelle 6 lingue).
+    - Sulle pagine web di prova tutti i giochi restano apribili.
+    - Nella scheda store e nell'offerta di sblocco va detto chiaramente che l'acquisto comprende anche i giochi in arrivo.
+

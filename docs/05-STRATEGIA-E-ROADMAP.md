@@ -68,10 +68,11 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 - 5 giochi: 3 gratis, 2 bloccati. Prezzo 1,99 €.
 - Schede store nelle 6 lingue con screenshot per tema, privacy policy online, dichiarazioni privacy.
 - Voce "Crediti e licenze" nell'area genitori (decisione 22).
+- Tessere "in arrivo" per i giochi 6–10 (decisione 24).
 - Regole degli store ricontrollate prima dell'invio.
 
 ### Fase 4 — Giochi 6–10 come aggiornamenti
-- Sviluppati già in Fase 2: restano su `main` ma **non visibili** nella v1.0 finché non vengono pubblicati (decisione da prendere in regia prima del lancio: nasconderli dal menu o mostrarli come "in arrivo").
+- Sviluppati già in Fase 2: nella v1.0 compaiono nel menu come tessere **"in arrivo"**, non apribili (decisione 24).
 - Un gioco nuovo ogni 2–3 settimane, annunciato nelle novità della scheda.
 - All'ottavo gioco il prezzo sale a 2,99 €.
 
