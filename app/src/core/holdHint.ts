@@ -1,9 +1,11 @@
 import Phaser from 'phaser';
 
 /**
- * Manina del gesto "tieni premuto" (non c'è ancora in core/: candidata per la regia, serve anche al gioco 7).
- * La mano scende, resta premuta mentre un anello si allarga, poi si solleva; accanto al razzo lampeggiano
- * due frecce verso l'alto (tenere premuto = salire). Nessun testo.
+ * Manina del gesto "TIENI PREMUTO", comune a tutti i giochi (nata nel gioco 5, spostata in regia: decisione 23).
+ * La mano scende, resta premuta mentre un anello si allarga, poi si solleva. Nessun testo.
+ * Facoltative: due frecce verso l'alto sopra un punto (es. il razzo: tenere premuto = salire), accese mentre
+ * la mano è premuta. Chi non le vuole chiama `show(x, y)` e non usa `arrowsAt`.
+ * Serve la texture `hand` (creata dalle texture comuni). Per trascinare e toccare: `core/drag` (Hint) e `core/ui`.
  */
 export class HoldHint {
   private hand: Phaser.GameObjects.Image;
@@ -22,8 +24,8 @@ export class HoldHint {
 
   get visible(): boolean { return this.hand.visible; }
 
-  /** Mostra la manina in (x, y) e le frecce sopra il punto (ax, ay) (il razzo). */
-  show(x: number, y: number, ax: number, ay: number): void {
+  /** Mostra la manina in (x, y); con (ax, ay) anche le frecce sopra quel punto. */
+  show(x: number, y: number, ax?: number, ay?: number): void {
     this.hide();
     const run = () => {
       this.hand.setPosition(x + 10, y + 50).setVisible(true).setAlpha(0).setScale(1);
@@ -49,10 +51,10 @@ export class HoldHint {
     };
     run();
     this.timer = this.scene.time.addEvent({ delay: 2700, loop: true, callback: run });
-    this.arrowsAt(ax, ay);
+    if (ax !== undefined && ay !== undefined) this.arrowsAt(ax, ay);
   }
 
-  /** Aggiorna la posizione delle frecce (il razzo si muove). */
+  /** Aggiorna la posizione delle frecce (il bersaglio si muove). */
   arrowsAt(ax: number, ay: number): void {
     const g = this.arrows;
     g.clear().setVisible(this.hand.visible);

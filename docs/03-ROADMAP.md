@@ -10,7 +10,7 @@ I giochi sono moduli dell'app Tappolino. Fasi e strategia in `05-STRATEGIA-E-ROA
 | 2 | Pasticceria Magica | femminuccia | trascinamento | gratis | Unito a `main` il 15/11/2026 (web); build Android/iOS di prova quando ci sono segreti e account Apple |
 | 3 | Scavo dei Dinosauri | maschietto | strofinare | gratis | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/dinosauri.md` |
 | 4 | Salone degli Unicorni | femminuccia | strofinare / tocco | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/unicorni.md` |
-| 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/razzo.md` |
 | 6 | Cuccioli dal Dottore | femminuccia | trascinamento | bloccato | Su `main` dal 15/11/2026 (approvato da Gaetano); diario in `giochi/cuccioli.md` |
 | 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
 | 8 | Giardino delle Fate | femminuccia | tocco | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |

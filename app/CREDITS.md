@@ -18,5 +18,6 @@
 - **Musica e suoni di Scavo dei Dinosauri**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/dinosauri_*.py`. Dettagli in `src/games/dinosauri/CREDITS.md`.
 - **Musica e suoni di Salone degli Unicorni**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/unicorni_*.py`. Dettagli in `src/games/unicorni/CREDITS.md`.
 - **Musica e suoni di Cuccioli dal Dottore**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/cuccioli_*.py`. Dettagli in `src/games/cuccioli/CREDITS.md`.
+- **Musica e suoni di Razzo tra le Stelle**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/razzo_*.py`. Dettagli in `src/games/razzo/CREDITS.md`.
 
 I giochi dal 3 in poi tengono i propri crediti (musica, suoni, eventuali risorse) in `src/games/<id>/CREDITS.md`: questo file viene completato in regia prima del lancio.

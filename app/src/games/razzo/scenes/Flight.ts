@@ -11,7 +11,7 @@ import {
 } from '../course';
 import { nextPlanet, addVisited, newRockets, planetById, isPlanetId, usableRocket, PLANET_IDS, type Planet, type RocketId } from '../planets';
 import { SpaceBg, RocketView, PlanetView, hex } from '../world';
-import { HoldHint } from '../holdHint';
+import { HoldHint } from '../../../core/holdHint';
 import { save } from '../save';
 import { sfx, playRazzoMusic } from '../sfx';
 
