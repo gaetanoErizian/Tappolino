@@ -107,7 +107,7 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
 | Identità Tappolino (decisione 18) | Completa su `main` (15/11/2026): Pasticceria e Pompieri adeguate, vecchia sintesi audio rimossa |
-| 2 — Giochi 3–10 in parallelo | In corso dal 15/11/2026. Su `main`: giochi 3 (Dinosauri), 4 (Unicorni), 5 (Razzo), 6 (Cuccioli), 8 (Giardino): **i 5 giochi del lancio ci sono tutti**. In sviluppo: 7, 9, 10. In `core/` (15/11/2026): strofinare (`scratch.ts`) e manina del tieni premuto (`holdHint.ts`) |
+| 2 — Giochi 3–10 in parallelo | In corso dal 15/11/2026. Su `main`: giochi 3 (Dinosauri), 4 (Unicorni), 5 (Razzo), 6 (Cuccioli), 8 (Giardino), 9 (Treno), 10 (Atelier): **9 giochi su 10, i 5 del lancio ci sono tutti**. In sviluppo: solo il 7 (Monster Truck). In `core/` (15/11/2026): strofinare (`scratch.ts`) e manina del tieni premuto (`holdHint.ts`) |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |
