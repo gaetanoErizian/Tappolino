@@ -15,6 +15,7 @@ export class Hangar extends Phaser.Scene {
   private bg!: SpaceBg;
   private views: Array<{ id: RocketId; r: RocketView; x: number; y: number; open: boolean; busy: boolean }> = [];
   private halo!: Phaser.GameObjects.Image;
+  private marker!: Phaser.GameObjects.Image;
 
   constructor() { super('razzo:Hangar'); }
 
@@ -28,8 +29,10 @@ export class Hangar extends Phaser.Scene {
 
     const open = rocketsUnlocked(save.state.trips);
     const chosen = usableRocket(save.state.rocket, save.state.trips);
-    this.halo = this.add.image(0, 0, 'glow').setTint(0xffe066).setBlendMode(Phaser.BlendModes.ADD).setScale(2.6, 3.4).setAlpha(0.6).setDepth(25);
-    this.tweens.add({ targets: this.halo, alpha: 0.35, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    // razzo scelto: luce sulla rampa e stella che saltella sopra la punta
+    this.halo = this.add.image(0, 0, 'glow').setTint(0xffe066).setScale(2.4, 0.9).setAlpha(0.9).setDepth(21);
+    this.tweens.add({ targets: this.halo, alpha: 0.55, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.marker = this.add.image(0, 0, 'star').setScale(0.75).setDepth(45);
 
     ROCKETS.forEach((ro, i) => {
       const x = 960 + ((i % 3) - 1) * 480, padY = 560 + Math.floor(i / 3) * 360;
@@ -45,7 +48,7 @@ export class Hangar extends Phaser.Scene {
       }
       r.sync(0);
       this.views.push({ id: ro.id, r, x, y, open: isOpen, busy: false });
-      if (ro.id === chosen) this.halo.setPosition(x, y);
+      if (ro.id === chosen) this.mark(x, y, padY);
     });
 
     muteButton(this);
@@ -75,13 +78,20 @@ export class Hangar extends Phaser.Scene {
     v.busy = true;
     save.update({ rocket: v.id });
     sfx.select();
-    this.halo.setPosition(v.x, v.y);
+    this.mark(v.x, v.y, v.y + 10 + (150 - 30) * RS);
     burst(this, v.x, v.y - 60, 'sparkle', { count: 12, tints: [0xffffff, 0xffe066], speed: [150, 400], scale: [0.9, 0], gravity: 0, life: 800 });
     v.r.thrust(1);
     this.tweens.add({
       targets: v.r, y: v.y - 120, duration: 380, yoyo: true, ease: 'Quad.easeOut',
       onComplete: () => { v.r.y = v.y; v.r.thrust(0); v.busy = false; sfx.land(); },
     });
+  }
+
+  private mark(x: number, y: number, padY: number): void {
+    this.halo.setPosition(x, padY - 14);
+    this.tweens.killTweensOf(this.marker);
+    this.marker.setPosition(x, y - 150).setScale(0.75);
+    this.tweens.add({ targets: this.marker, y: y - 172, duration: 500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }
 
   update(_t: number, delta: number): void {

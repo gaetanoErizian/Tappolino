@@ -52,6 +52,11 @@ export class SpaceBg {
     this.decor.forEach((d) => slide(d, 120));
   }
 
+  /** All'arrivo: i pianetini lontani e le scie spariscono, la scena resta tutta per il pianeta. */
+  calm(): void {
+    this.scene.tweens.add({ targets: [...this.decor, ...this.dust], alpha: 0, duration: 600 });
+  }
+
   update(dt: number, speed: number): void {
     this.t += dt;
     const drift = 14 + speed;

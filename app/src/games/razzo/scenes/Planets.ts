@@ -46,7 +46,7 @@ export class Planets extends Phaser.Scene {
       this.tweens.add({ targets: pv.img, scale: S, duration: 380, delay: 100 + i * 70, ease: 'Back.easeOut', onComplete: () => { if (has) pv.startIdle(); } });
       if (has) {
         this.add.text(x, y + 118, t(`razzo.planet.${p.id}`), {
-          fontFamily: FONT, fontSize: '32px', fontStyle: '700', color: '#ffffff', stroke: '#2a2a8a', strokeThickness: 7,
+          fontFamily: FONT, fontSize: '36px', fontStyle: '700', color: '#ffffff', stroke: '#2a2a8a', strokeThickness: 8,
         }).setOrigin(0.5).setDepth(33);
         views.push(pv);
       } else {

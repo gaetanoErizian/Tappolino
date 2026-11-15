@@ -180,7 +180,7 @@ export class Flight extends Phaser.Scene {
     const flying = this.phase === 'fly';
     let holding = flying && this.holding.size > 0;
     if (flying && this.autoPilot) holding = this.autoHold();
-    this.trackHolding(holding, dt);
+    this.trackHolding(holding, delta / 1000);
 
     if (flying) {
       stepRocket(this.st, holding, dt);
@@ -209,11 +209,11 @@ export class Flight extends Phaser.Scene {
     this.rocket.sync(dt);
   }
 
-  /** Prima pressione: suono di spinta; il tutorial si chiude quando il bambino ha tenuto e lasciato. */
-  private trackHolding(holding: boolean, dt: number): void {
+  /** Prima pressione: suono di spinta; il tutorial si chiude quando il bambino ha tenuto (tempo vero) e lasciato. */
+  private trackHolding(holding: boolean, realDt: number): void {
     if (holding) {
       this.lastTouch = this.time.now;
-      this.held += dt;
+      this.held += realDt;
       if (!this.wasHolding && this.time.now - this.lastLift > 260) { sfx.lift(); this.lastLift = this.time.now; }
       if (this.hint.visible) this.hint.hide();
     } else if (this.wasHolding) {
@@ -359,6 +359,7 @@ export class Flight extends Phaser.Scene {
     this.hint.hide();
     this.rocket.setAlpha(1);
     this.tweens.add({ targets: this.track, alpha: 0, duration: 400 });
+    this.bg.calm();
 
     const px = 1400, py = 800, ps = 1.35;
     const pv = new PlanetView(this, this.dest.id, px + 1300, py, ps, 30);

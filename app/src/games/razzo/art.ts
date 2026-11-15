@@ -153,13 +153,13 @@ function surface(p: Planet | 'casa'): { inside: string; back?: string; front?: s
       };
     case 'vulcano':
       return {
-        inside: `<path d="M110 300 Q170 280 200 320 T300 350 T420 330 T520 350" stroke="#ffd23f" stroke-width="14" fill="none" stroke-linecap="round" opacity=".9"/>
-          <path d="M110 300 Q170 280 200 320 T300 350 T420 330 T520 350" stroke="#fff3b0" stroke-width="5" fill="none" stroke-linecap="round"/>
-          <path d="M140 400 Q220 380 260 410" stroke="#ffb84a" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/>
-          ${[[175, 140], [420, 120]].map(([x, y]) => `<path d="M${x - 50} ${y + 40} L${x - 18} ${y - 20} Q${x} ${y - 30} ${x + 18} ${y - 20} L${x + 50} ${y + 40} Z" fill="#a8401e"/>
-            <path d="M${x - 40} ${y + 40} L${x - 14} ${y - 14} Q${x - 6} ${y - 20} ${x} ${y - 20} L${x - 12} ${y + 40} Z" fill="#d86a3a"/>
-            <ellipse cx="${x}" cy="${y - 21}" rx="18" ry="6" fill="#ffd23f"/>`).join('')}`,
-        front: [[175, 72, 22], [196, 52, 16], [420, 52, 20], [438, 34, 14]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#e8e0f0" opacity=".9"/><circle cx="${x - r * 0.3}" cy="${y - r * 0.3}" r="${r * 0.45}" fill="#fff"/>`).join(''),
+        inside: `<path d="M100 150 Q170 120 220 150 T340 140 T500 150" stroke="#ffd23f" stroke-width="14" fill="none" stroke-linecap="round" opacity=".9"/>
+          <path d="M100 150 Q170 120 220 150 T340 140 T500 150" stroke="#fff3b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M150 100 Q230 80 280 100" stroke="#ffb84a" stroke-width="10" fill="none" stroke-linecap="round" opacity=".8"/>
+          ${[[232, 396, 44], [372, 400, 40]].map(([x, y, w]) => `<path d="M${x - w} ${y + 40} L${x - w * 0.34} ${y - 30} Q${x} ${y - 42} ${x + w * 0.34} ${y - 30} L${x + w} ${y + 40} Z" fill="#c4562a" stroke="#7a2a12" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M${x - w * 0.78} ${y + 40} L${x - w * 0.3} ${y - 24} Q${x - w * 0.12} ${y - 30} ${x} ${y - 30} L${x - w * 0.22} ${y + 40} Z" fill="#ffb06a"/>
+            <path d="M${x - w * 0.34} ${y - 30} Q${x} ${y - 42} ${x + w * 0.34} ${y - 30} Q${x + w * 0.1} ${y - 6} ${x - w * 0.06} ${y + 4} Q${x - w * 0.1} ${y - 14} ${x - w * 0.34} ${y - 30} Z" fill="#ffd23f"/>
+            <ellipse cx="${x}" cy="${y - 31}" rx="${w * 0.36}" ry="8" fill="#fff3b0"/>`).join('')}`,
       };
     case 'arcobaleno': {
       const cols = ['#ff5a5f', '#ff9f3a', '#ffd23f', '#6cc24a', '#36a9f0', '#8a5cf0'];
@@ -363,9 +363,12 @@ function padTex(): SvgTex {
   };
 }
 
-const ICON_PLANET = `<circle cx="50" cy="50" r="23" fill="#ffffff" stroke="#6a44c4" stroke-width="4"/>
-  <path d="M10 60 Q50 74 90 40" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
-  <circle cx="42" cy="44" r="5" fill="#d9ccff"/><circle cx="58" cy="58" r="4" fill="#d9ccff"/>`;
+const ICON_PLANET = `<g transform="rotate(-18 50 52)">
+  <path d="M8 52 A42 13 0 0 1 92 52" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="50" cy="52" r="24" fill="#ffffff" stroke="#6a44c4" stroke-width="4"/>
+  <circle cx="42" cy="44" r="5" fill="#d9ccff"/><circle cx="58" cy="60" r="4" fill="#d9ccff"/>
+  <path d="M8 52 A42 13 0 0 0 92 52" fill="none" stroke="#6a44c4" stroke-width="11" stroke-linecap="round"/>
+  <path d="M8 52 A42 13 0 0 0 92 52" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/></g>`;
 const ICON_ROCKET = `<path d="M30 70 Q30 40 62 22 Q80 14 84 16 Q86 20 78 38 Q60 70 30 70 Z" fill="#ffffff"/>
   <circle cx="64" cy="36" r="7" fill="#ff8a3d"/>
   <path d="M34 54 L18 54 L30 42 Z M46 66 L46 82 L58 70 Z" fill="#ffffff"/>
