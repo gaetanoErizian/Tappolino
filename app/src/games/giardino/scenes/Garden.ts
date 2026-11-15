@@ -271,13 +271,6 @@ export class Garden extends Phaser.Scene {
       this.slots.push(s);
       this.refreshSlot(i, false);
     });
-    // aiuole: tre puntini sotto
-    if (bedsOpen(this.garden) > 1 || this.bed > 0) {
-      for (let b = 0; b < BEDS; b++) {
-        const d = this.add.circle(960 + (b - 1) * 34, top + 122, b === this.bed ? 10 : 7, 0xffffff, b < bedsOpen(this.garden) ? 0.95 : 0.4).setDepth(900);
-        if (b === this.bed) d.setStrokeStyle(4, 0x4f9e3a);
-      }
-    }
   }
 
   private refreshSlot(i: number, anim: boolean): void {

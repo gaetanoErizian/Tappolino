@@ -10,6 +10,9 @@ import { sfx } from './sfx';
 
 export const hex = (c: string): number => parseInt(c.slice(1), 16);
 
+/** Il sole del mattino, in alto a sinistra (da lì viene la luce). */
+export const SUN = { x: 420, y: 120 };
+
 /** Linea dell'orizzonte (cielo → prato). */
 export const HORIZON = 600;
 
@@ -32,12 +35,12 @@ export interface Firefly { img: Phaser.GameObjects.Image }
 export function drawMeadow(scene: Phaser.Scene, bed: number): Firefly[] {
   const sky = scene.add.graphics().setDepth(0);
   sky.fillGradientStyle(0x8fd0ff, 0x8fd0ff, 0xfff1d8, 0xfff1d8, 1).fillRect(-2000, -1600, 5920, 1600 + HORIZON + 40);
-  const sun = scene.add.image(300, 150, 'sun').setScale(0.75).setDepth(0.4);
-  scene.tweens.add({ targets: sun, scale: 0.8, duration: 2800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+  const sun = scene.add.image(SUN.x, SUN.y, 'sun').setScale(0.7).setDepth(0.4);
+  scene.tweens.add({ targets: sun, scale: 0.75, duration: 2800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   const rays = scene.add.graphics().setDepth(0.45).setBlendMode(Phaser.BlendModes.ADD);
   rays.fillStyle(0xfff6c8, 0.07);
   for (const [a, b] of [[0.35, 0.5], [0.62, 0.72], [0.9, 1.02]]) {
-    rays.beginPath().moveTo(300, 150).lineTo(300 + Math.cos(a) * 2400, 150 + Math.sin(a) * 2400).lineTo(300 + Math.cos(b) * 2400, 150 + Math.sin(b) * 2400).closePath().fillPath();
+    rays.beginPath().moveTo(SUN.x, SUN.y).lineTo(SUN.x + Math.cos(a) * 2400, SUN.y + Math.sin(a) * 2400).lineTo(SUN.x + Math.cos(b) * 2400, SUN.y + Math.sin(b) * 2400).closePath().fillPath();
   }
   const clouds = [
     scene.add.image(1500, 110, 'cloud').setScale(0.5).setAlpha(0.85).setDepth(0.5),
@@ -66,7 +69,7 @@ export function drawMeadow(scene: Phaser.Scene, bed: number): Firefly[] {
 
   const mid: Phaser.GameObjects.Image[] = [];
   if (bed === 0) {
-    mid.push(scene.add.image(120, 730, 'gi_tree').setOrigin(0.5, 1).setScale(0.95).setDepth(4));
+    mid.push(scene.add.image(70, 730, 'gi_tree').setOrigin(0.5, 1).setScale(0.95).setDepth(4));
     mid.push(scene.add.image(1800, 760, 'gi_bush').setOrigin(0.5, 1).setDepth(4));
   } else if (bed === 1) {
     mid.push(scene.add.image(1790, 770, 'gi_pond').setOrigin(0.5, 1).setDepth(4));
@@ -404,9 +407,9 @@ export class Butterfly {
 // Fatine
 // =====================================================================
 
-/** Posti dove si fermano a volare le fatine (tra le file dei fiori, fuori dalla pioggia). */
+/** Posti dove volano le fatine: ai lati dell'aiuola e in alto, sopra i fiori (così non coprono i vasi). */
 export const FAIRY_SPOTS = [
-  { x: 1690, y: 470 }, { x: 260, y: 470 }, { x: 800, y: 520 }, { x: 1120, y: 500 }, { x: 470, y: 600 }, { x: 1460, y: 590 },
+  { x: 1700, y: 460 }, { x: 240, y: 470 }, { x: 760, y: 300 }, { x: 1190, y: 290 }, { x: 110, y: 690 }, { x: 1810, y: 680 },
 ];
 
 export class FairyView {
@@ -477,8 +480,8 @@ export class FairyView {
   /** Ogni tanto cambia posto, restando vicino alla sua casa. */
   roam(): void {
     if (this.busy) return;
-    const x = Phaser.Math.Clamp(this.spot.x + Phaser.Math.Between(-160, 160), 160, 1760);
-    const y = Phaser.Math.Clamp(this.spot.y + Phaser.Math.Between(-60, 60), 420, 640);
+    const x = Phaser.Math.Clamp(this.spot.x + Phaser.Math.Between(-120, 120), 90, 1830);
+    const y = Phaser.Math.Clamp(this.spot.y + Phaser.Math.Between(-50, 50), 260, 720);
     this.flyTo(x, y, 1800);
   }
 }

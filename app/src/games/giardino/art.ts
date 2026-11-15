@@ -365,15 +365,15 @@ function butterfly(fl: FlowerDef): SvgTex {
   };
 }
 
-/** Ala di fatina (destra), chiara e trasparente: si colora con il tint della fatina. */
+/** Ala di fatina (destra), chiara e trasparente con il bordo marcato: si colora con il tint della fatina. */
 function wing(): SvgTex {
   const g = uid('wg');
   return {
-    key: 'gi_wing', w: 150, h: 150, svg: svgDoc(150, 150, `<defs><radialGradient id="${g}" cx=".2" cy=".5" r=".9"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#ffffff" stop-opacity=".45"/></radialGradient></defs>
-      <path d="M8 74 Q40 4 110 10 Q150 18 136 56 Q124 84 8 80 Z" fill="url(#${g})" stroke="#ffffff" stroke-width="3"/>
-      <path d="M8 82 Q90 86 112 116 Q118 144 84 142 Q40 134 8 88 Z" fill="url(#${g})" stroke="#ffffff" stroke-width="3"/>
-      <path d="M12 76 Q60 40 116 28 M12 80 Q70 70 126 58 M12 86 Q60 104 92 132" stroke="#ffffff" stroke-width="2.5" fill="none" opacity=".9"/>
-      <circle cx="100" cy="34" r="6" fill="#fff"/><circle cx="90" cy="122" r="5" fill="#fff"/>`),
+    key: 'gi_wing', w: 150, h: 150, svg: svgDoc(150, 150, `<defs><radialGradient id="${g}" cx=".2" cy=".5" r=".9"><stop offset="0" stop-color="#ffffff" stop-opacity="1"/><stop offset="1" stop-color="#e8eefc" stop-opacity=".7"/></radialGradient></defs>
+      <path d="M8 74 Q40 4 110 10 Q150 18 136 56 Q124 84 8 80 Z" fill="url(#${g})" stroke="#8a9cc8" stroke-width="4"/>
+      <path d="M8 82 Q90 86 112 116 Q118 144 84 142 Q40 134 8 88 Z" fill="url(#${g})" stroke="#8a9cc8" stroke-width="4"/>
+      <path d="M12 76 Q60 40 116 28 M12 80 Q70 70 126 58 M12 86 Q60 104 92 132" stroke="#a8b8e0" stroke-width="2.5" fill="none" opacity=".9"/>
+      <ellipse cx="70" cy="34" rx="22" ry="8" fill="#fff" transform="rotate(-15 70 34)"/><circle cx="100" cy="34" r="6" fill="#fff"/><circle cx="90" cy="122" r="5" fill="#fff"/>`),
   };
 }
 
