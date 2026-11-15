@@ -1,0 +1,49 @@
+name: App — catture per gli store
+
+# Le catture non stanno in git (decisione 14): questo flusso le rigenera e le lascia scaricabili come file zip,
+# uno per lingua. Si avvia a mano da GitHub: Actions → "App — catture per gli store" → Run workflow.
+on:
+  workflow_dispatch:
+    inputs:
+      groups:
+        description: "Gruppi di catture (app = menu; poi gli id dei giochi), separati da virgola"
+        default: "app,pompieri,pasticceria,dinosauri,unicorni,razzo"
+      langs:
+        description: "Lingue, come elenco JSON"
+        default: '["it","en","es","fr","de","pt"]'
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        lang: ${{ fromJSON(inputs.langs) }}
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - run: npm ci
+      - run: npm run build
+      - run: pip install playwright && python -m playwright install --with-deps chromium
+      - name: Avvia l'app in locale
+        run: |
+          npx vite preview --port 4175 --strictPort > preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://localhost:4175/ > /dev/null && break; sleep 1; done
+      - name: Catture
+        run: python scripts/store-screenshots.py --langs "${{ matrix.lang }}" --groups "${{ inputs.groups }}"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: catture-${{ matrix.lang }}
+          path: app/store/screenshots
+          if-no-files-found: error

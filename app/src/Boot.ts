@@ -1,3 +1,4 @@
+import { isComingSoon } from './release';
 import Phaser from 'phaser';
 import { registerSvgTextures } from './core/textures';
 import { commonTextures } from './core/art';
@@ -25,7 +26,7 @@ export class Boot extends Phaser.Scene {
     ]).then(() => {
       // Web di test: ?game=<id> apre direttamente un gioco.
       const direct = gameById(urlParam('game') ?? '');
-      if (direct) void launchGame(this, direct);
+      if (direct && !isComingSoon(direct.id)) void launchGame(this, direct);
       else this.scene.start('Hub');
     });
   }

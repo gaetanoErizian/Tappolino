@@ -117,3 +117,49 @@ describe('modalità prova', () => {
     }
   });
 });
+
+describe('giochi in arrivo (decisione 24)', () => {
+  it('la regola vale solo se attiva e solo per i giochi in elenco', async () => {
+    const { comingSoon } = await import('./core/module');
+    expect(comingSoon('treno', ['treno'], true)).toBe(true);
+    expect(comingSoon('treno', ['treno'], false)).toBe(false);
+    expect(comingSoon('pompieri', ['treno'], true)).toBe(false);
+  });
+  it('l’elenco contiene solo giochi esistenti e a pagamento; al lancio restano aperti i giochi 1–5', () => {
+    for (const id of CONFIG.comingSoon) {
+      const g = GAMES.find((x) => x.id === id);
+      expect(g, id).toBeTruthy();
+      expect(g!.free, id).toBe(false);
+    }
+    const open = GAMES.filter((g) => !CONFIG.comingSoon.includes(g.id)).map((g) => g.order);
+    expect(open).toEqual([1, 2, 3, 4, 5]);
+  });
+  it('sul web di prova tutti i giochi restano apribili, salvo #arrivo', async () => {
+    const { isComingSoon } = await import('./release');
+    expect(isComingSoon('treno')).toBe(false);
+  });
+});
+
+describe('crediti e licenze (decisione 22)', () => {
+  it('su iOS non compare il plugin degli annunci, che lì non è nell’app', async () => {
+    const { libraryCredits } = await import('./core/credits');
+    expect(libraryCredits('ios').some((c) => /admob/i.test(c.name))).toBe(false);
+    expect(libraryCredits('android').some((c) => /admob/i.test(c.name))).toBe(true);
+    expect(libraryCredits('ios').some((c) => /Phaser/.test(c.name))).toBe(true);
+  });
+  it('i testi dei crediti esistono in tutte le lingue', () => {
+    for (const l of Object.keys(APP_LOCALES) as (keyof typeof APP_LOCALES)[]) {
+      for (const k of ['hub.comingSoon', 'credits.open', 'credits.original', 'credits.font', 'credits.instruments', 'credits.libraries', 'credits.texts']) {
+        expect(APP_LOCALES[l][k], `${l} ${k}`).toBeTruthy();
+      }
+    }
+  });
+});
+
+describe('giochi in arrivo: nascosti su iPhone (decisione 26)', () => {
+  it('sul web di prova il menu mostra tutti i giochi', async () => {
+    const { menuGames, comingSoonHidden } = await import('./release');
+    expect(comingSoonHidden()).toBe(false);
+    expect(menuGames(GAMES).length).toBe(GAMES.length);
+  });
+});

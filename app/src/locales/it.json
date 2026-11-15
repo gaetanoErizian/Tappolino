@@ -17,9 +17,9 @@
     "otto",
     "nove"
   ],
-  "parents.intro": "Niente video né pubblicità a tutto schermo, nessun dato raccolto. Alcuni giochi sono gratis; con un solo acquisto si sbloccano tutti.",
+  "parents.intro": "Niente video né pubblicità a tutto schermo, nessun account. Alcuni giochi sono gratis; con un solo acquisto si sbloccano tutti.",
   "parents.language": "Lingua",
-  "parents.noData": "Il gioco funziona offline e non raccoglie dati personali.",
+  "parents.noData": "Il gioco funziona offline e non chiede account né dati personali.",
   "parents.nothingToRestore": "Nessun acquisto da ripristinare.",
   "parents.onlyInApp": "L'acquisto è disponibile nell'app per Android e iPhone.",
   "parents.privacy": "Informativa sulla privacy",
@@ -38,10 +38,17 @@
   "parents.unlocked": "Tutti i giochi sono sbloccati. Grazie!",
   "parents.wait": "Un momento…",
   "unlock.allGames": "Tutti i giochi di Tappolino",
-  "unlock.future": "Anche quelli nuovi che arriveranno",
+  "unlock.future": "Anche i giochi nuovi che arrivano con gli aggiornamenti",
   "unlock.noAds": "Niente più pubblicità",
   "unlock.once": "Un solo pagamento, per sempre",
   "unlock.title": "Sblocca «{game}» e tutti gli altri giochi",
   "tester.on": "Modalità prova: tutti i giochi sono aperti.",
-  "tester.turnOff": "Disattiva"
+  "tester.turnOff": "Disattiva",
+  "hub.comingSoon": "In arrivo",
+  "credits.open": "Crediti e licenze",
+  "credits.original": "Disegni, personaggi, musica e suoni sono originali, creati per Tappolino.",
+  "credits.font": "Carattere",
+  "credits.instruments": "Strumenti musicali campionati",
+  "credits.libraries": "Librerie software",
+  "credits.texts": "Testi delle licenze"
 }

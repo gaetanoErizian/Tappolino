@@ -29,3 +29,19 @@ Verificare sempre le regole aggiornate prima dell'invio: cambiano spesso.
 - **Classificazione età**: 4+.
 - **URL privacy**: obbligatorio (pagina `privacy-policy.html` pubblicata online).
 - **Note per la revisione**: "Kids app. No ads and no third-party SDKs on iOS. Some games are free; one non-consumable IAP unlocks all games. Locked games, the IAP, restore and external links are behind a parental gate (hold 3 s + spelled-out sum)."
+
+## Controllo delle regole del 15/11/2026 (Fase 3)
+Fatto con ricerche sul web, non leggendo per intero i testi ufficiali: **prima dell'invio rileggere le pagine originali** (App Store Review Guidelines 1.3, 2.1, 5.1.4; Norme per le famiglie di Google Play).
+
+- **Apple, Kids Category (1.3 e 5.1.4)**: niente link verso l'esterno né occasioni di acquisto se non dietro un parental gate; niente pubblicità o analytics di terzi. L'app è a posto: su iOS non c'è alcun SDK pubblicitario, e acquisto, ripristino, privacy e crediti stanno dietro il parental gate. Nel pannello dei crediti gli indirizzi sono testo, non link.
+- **Apple, completezza dell'app (2.1)**: le app con contenuti "coming soon" o segnaposto vengono respinte, e anche le descrizioni che promettono funzioni future. Per questo su iPhone e iPad i giochi non ancora pubblicati **non si vedono** (decisione 26) e la scheda App Store non li nomina. Le catture per l'App Store si fanno con il menu in versione iPhone.
+- **Google Play, Norme per le famiglie**: per gli annunci ai bambini si possono usare solo le versioni degli SDK pubblicitari autocertificate per le famiglie. AdMob lo è, ma **la versione esatta dell'SDK Google Mobile Ads inclusa dal plugin va controllata nell'elenco di Google al momento della build Android**. Restano obbligatori: richieste marcate come rivolte ai bambini, contenuti "G", nessun permesso `AD_ID`, un solo banner per schermata, mai annunci che interrompono il gioco.
+- **Google Play, offerte di acquisto**: devono distinguersi dal contenuto dell'app e non provocare tocchi involontari. I giochi bloccati hanno il lucchetto e il tocco passa dal parental gate; i giochi "in arrivo" non portano mai all'offerta.
+- **Dichiarazioni sui dati**: la scheda Google Play e i testi dell'app non dicono più "nessun dato raccolto", perché su Android il banner AdMob tratta dati del dispositivo. La scheda App Store può dirlo: lì non c'è alcun SDK di terzi.
+
+## Cosa manca prima dell'invio (compiti di Gaetano)
+- Sostituire i segnaposto in `privacy-policy.html` (titolare, indirizzo, email) e pubblicarla; mettere l'indirizzo vero in `src/config.ts → privacyUrl`.
+- ID reale dell'unità banner AdMob in `src/config.ts` e `testing: false`.
+- Catture: flusso GitHub "App — catture per gli store" (un file zip per lingua).
+- Per ogni aggiornamento che pubblica un gioco "in arrivo": toglierlo da `comingSoon` in `src/config.ts`, rilanciare `python scripts/make-listing.py` e rifare le catture del menu.
+

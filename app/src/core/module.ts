@@ -47,6 +47,11 @@ export interface GameEntry {
 /** Quello che `games/<id>/entry.ts` esporta di default. */
 export type GameEntryDef = Omit<GameEntry, 'titleKey'>;
 
+/** Un gioco è "in arrivo" se è nell'elenco della configurazione e la regola è attiva (vedi src/release.ts). */
+export function comingSoon(id: string, list: readonly string[], active: boolean): boolean {
+  return active && list.includes(id);
+}
+
 /** Un gioco si può aprire se è gratis o se l'acquisto unico è attivo. */
 export function canPlay(entry: Pick<GameEntry, 'free'>, unlocked: boolean): boolean {
   return entry.free || unlocked;

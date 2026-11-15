@@ -26,6 +26,11 @@ export interface AppConfig {
    * Banner della casa su iOS (altri nostri giochi). Nel collettore Tappolino è spento:
    * resta disponibile per le future app singole.
    */
+  /**
+   * Giochi "in arrivo" (decisione 24): id dei giochi già nell'app ma non ancora pubblicati.
+   * Per pubblicarne uno con un aggiornamento: toglierlo da questo elenco.
+   */
+  comingSoon: string[];
   houseBannerOnIOS: boolean;
   houseAds: HouseAd[];
 }

@@ -17,9 +17,9 @@
     "acht",
     "neun"
   ],
-  "parents.intro": "Keine Videos, keine Vollbildwerbung, keine Datenerfassung. Einige Spiele sind kostenlos; ein einziger Kauf schaltet alle frei.",
+  "parents.intro": "Keine Videos, keine Vollbildwerbung, kein Konto. Einige Spiele sind kostenlos; ein einziger Kauf schaltet alle frei.",
   "parents.language": "Sprache",
-  "parents.noData": "Das Spiel funktioniert offline und erfasst keine persönlichen Daten.",
+  "parents.noData": "Das Spiel funktioniert offline und fragt weder nach einem Konto noch nach persönlichen Daten.",
   "parents.nothingToRestore": "Keine Käufe zum Wiederherstellen.",
   "parents.onlyInApp": "Der Kauf ist in der App für Android und iPhone verfügbar.",
   "parents.privacy": "Datenschutzerklärung",
@@ -38,10 +38,17 @@
   "parents.unlocked": "Alle Spiele sind freigeschaltet. Danke!",
   "parents.wait": "Einen Moment…",
   "unlock.allGames": "Alle Tappolino-Spiele",
-  "unlock.future": "Auch neue, die noch kommen",
+  "unlock.future": "Neue Spiele aus Updates sind inklusive",
   "unlock.noAds": "Keine Werbung mehr",
   "unlock.once": "Einmal bezahlen, für immer",
   "unlock.title": "Schalte „{game}“ und alle anderen Spiele frei",
   "tester.on": "Testmodus: Alle Spiele sind geöffnet.",
-  "tester.turnOff": "Ausschalten"
+  "tester.turnOff": "Ausschalten",
+  "hub.comingSoon": "Bald da",
+  "credits.open": "Mitwirkende und Lizenzen",
+  "credits.original": "Grafik, Figuren, Musik und Töne sind Originale, eigens für Tappolino erstellt.",
+  "credits.font": "Schrift",
+  "credits.instruments": "Gesampelte Instrumente",
+  "credits.libraries": "Software-Bibliotheken",
+  "credits.texts": "Lizenztexte"
 }

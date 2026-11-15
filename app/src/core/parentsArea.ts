@@ -6,6 +6,7 @@ import { t, lang, LANG_NAMES, SUPPORTED, type Lang } from './i18n';
 import { benefits, purchaseBlock } from './unlockOffer';
 import { isMuted, setMuted } from './appState';
 import type { AppConfig } from './config';
+import { openCredits } from './credits';
 
 export interface ParentsOptions {
   cfg: AppConfig;
@@ -77,6 +78,11 @@ export async function openParentsArea(o: ParentsOptions): Promise<void> {
     close();
   });
   card.append(reset);
+
+  // --- Crediti e licenze (decisione 22) ---
+  const credits = el('button', { type: 'button', className: 'tp-btn sec', textContent: t('credits.open') });
+  credits.addEventListener('click', () => openCredits());
+  card.append(credits);
 
   // --- Privacy ---
   const privacy = el('p', { className: 'tp-small' });

@@ -24,4 +24,6 @@
 - **Musica e suoni di Atelier delle Principesse**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/atelier_*.py`. Dettagli in `src/games/atelier/CREDITS.md`.
 - **Musica e suoni di Officina dei Monster Truck**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/monstertruck_*.py`. Dettagli in `src/games/monstertruck/CREDITS.md`.
 
-I giochi dal 3 in poi tengono i propri crediti (musica, suoni, eventuali risorse) in `src/games/<id>/CREDITS.md`: questo file viene completato in regia prima del lancio.
+I giochi dal 3 in poi tengono il dettaglio dei propri crediti in `src/games/<id>/CREDITS.md`.
+
+**Nell'app**: l'area genitori ha la voce "Crediti e licenze" (`src/core/credits.ts`, decisione 22) con carattere, strumenti campionati, librerie e testi delle licenze. Se cambia un carattere, una libreria o una fonte di suoni, vanno aggiornati insieme questo file e quel pannello.

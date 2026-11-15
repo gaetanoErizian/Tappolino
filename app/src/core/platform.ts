@@ -12,7 +12,7 @@ export const isNative = (): boolean => platform() !== 'web';
 
 /**
  * Parametri URL (solo web di test: ?banner=1, ?lang=en, ?reset=1, ?lock=1, ?unlock=1, ?game=<id>).
- * Dove la query string non arriva (pagina pubblicata su claude.ai) vale anche l'hash: #lock, #unlock, #reset.
+ * Dove la query string non arriva (pagina pubblicata su claude.ai) vale anche l'hash: #lock, #unlock, #reset, #prova, #arrivo, #ios.
  */
 export function urlParam(name: string): string | null {
   try {

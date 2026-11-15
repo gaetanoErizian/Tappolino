@@ -7,6 +7,7 @@ import { openUnlockOffer } from './core/unlockOffer';
 import { goTo } from './core/hud';
 import { urlParam } from './core/platform';
 import { CONFIG } from './config';
+import { isComingSoon } from './release';
 import { sound } from './core/sound';
 import { runWithLoader, withTimeout, type LoadStep } from './core/loader';
 import { hubSfx, playHubMusic } from './hub/sfx';
@@ -18,6 +19,8 @@ const loaded = new Map<string, GameModule>();
 export const isForcedLocked = (): boolean => urlParam('lock') === '1';
 
 export async function launchGame(scene: Phaser.Scene, entry: GameEntry): Promise<void> {
+  // Un gioco "in arrivo" non si apre e non porta all'offerta (decisione 24).
+  if (isComingSoon(entry.id)) return;
   if (!canPlay(entry, isUnlocked()) || isForcedLocked()) {
     // Un gioco bloccato non si avvia mai: parental gate, poi l'offerta di sblocco.
     scene.scene.pause();

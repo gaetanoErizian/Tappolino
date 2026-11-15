@@ -7,7 +7,8 @@ Uso:
   python scripts/store-screenshots.py --langs it,en [--url http://localhost:4175/] [--chrome /usr/bin/google-chrome]
 
 Uscita: store/screenshots/<gruppo>/<lingua>/<dispositivo>/*.png
-  gruppi: app (menu dei giochi), pompieri (gioco 1), pasticceria (gioco 2). Dispositivi: telefono Play 1920×1080,
+  gruppi: app (menu dei giochi: su Android con i nastri "In arrivo", su iPhone/iPad solo i giochi pubblicati),
+  pompieri (gioco 1), pasticceria (gioco 2), e uno per ogni file in scripts/screenshots/. Dispositivi: telefono Play 1920×1080,
   iPhone 6,9" 2868×1320, iPad 13" 2752×2064.
 Per aggiungere un gioco: creare scripts/screenshots/<id>.py con shots(pg, url, lang, d, h) (vedi in fondo a questo file).
 """
@@ -16,6 +17,9 @@ from playwright.sync_api import sync_playwright
 
 DEV = {'phone-1920x1080': (960, 540, 2), 'iphone69-2868x1320': (956, 440, 3), 'ipad13-2752x2064': (1376, 1032, 2)}
 OUT = os.path.join(os.path.dirname(__file__), '..', 'store', 'screenshots')
+# Il menu va catturato come lo vedrà chi scarica l'app (decisione 26): su Android con i nastri "In arrivo",
+# su iPhone e iPad senza i giochi non ancora pubblicati. Lo imposta il ciclo principale per ogni dispositivo.
+MENU = {'q': ''}
 
 
 def shot(pg, path):
@@ -31,7 +35,7 @@ def load(pg, url, lang, saves=None):
     pg.goto(f'{url}?debug=1&reset=1&lang={lang}'); time.sleep(3)
     for key, value in (saves or {}).items():
         pg.evaluate(f"localStorage.setItem('CapacitorStorage.{key}', JSON.stringify({json.dumps(value)}))")
-    pg.goto(f'{url}?debug=1&lang={lang}'); time.sleep(4)
+    pg.goto(f'{url}?debug=1&lang={lang}{MENU["q"]}'); time.sleep(4)
 
 
 def run(pg, js):
@@ -52,7 +56,14 @@ def start_game(pg, scene):
 
 def shots_app(pg, url, lang, d):
     load(pg, url, lang)
+    for _ in range(60):
+        if run(pg, "document.getElementById('tp-loader').hidden && !!window.__game && window.__game.scene.isActive('Hub')"): break
+        time.sleep(0.5)
+    time.sleep(2.5)
     shot(pg, f'{d}/0-menu-giochi.png')
+    # seconda pagina del menu (se c'è): si tocca la freccia
+    if run(pg, "(() => { const b = window.__game.scene.getScene('Hub').children.list.find(o => o.texture && o.texture.key === 'btn_next'); if (!b) return false; b.emit('pointerdown'); b.emit('pointerup'); return true; })()"):
+        time.sleep(2); shot(pg, f'{d}/0-menu-giochi-2.png')
 
 
 def shots_pompieri(pg, url, lang, d):
@@ -151,6 +162,7 @@ if __name__ == '__main__':
             for lang in a.langs.split(','):
                 for dev in a.devices.split(','):
                     w, h, dpr = DEV[dev]
+                    MENU['q'] = '&arrivo=1' if dev.startswith('phone') else '&ios=1'
                     pg = b.new_page(viewport={'width': w, 'height': h}, device_scale_factor=dpr)
                     GROUPS[group](pg, a.url, lang, os.path.join(OUT, group, lang, dev))
                     pg.close()

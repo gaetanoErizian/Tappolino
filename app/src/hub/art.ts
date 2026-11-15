@@ -55,6 +55,20 @@ function lockBadge(): string {
     <ellipse cx="50" cy="80" rx="16" ry="7" fill="#fff" opacity=".7"/>`);
 }
 
+/** Nastro "In arrivo" (il testo, tradotto, lo scrive il menu sopra). Dritto: in Phaser niente immagini ruotate. */
+function soonRibbon(): string {
+  return svgDoc(440, 100, `<defs>
+    <linearGradient id="rb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8ac0"/><stop offset=".5" stop-color="#f0569c"/><stop offset="1" stop-color="#c93a80"/></linearGradient>
+    <linearGradient id="rt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b8306f"/><stop offset="1" stop-color="#8a1f52"/></linearGradient>${blur('rs', 4)}</defs>
+    <rect x="26" y="26" width="388" height="62" rx="10" fill="#1d2440" opacity=".3" filter="url(#rs)"/>
+    <path d="M4 26 H56 V84 H4 L22 55 Z" fill="url(#rt)" stroke="#2b2140" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M436 26 H384 V84 H436 L418 55 Z" fill="url(#rt)" stroke="#2b2140" stroke-width="4" stroke-linejoin="round"/>
+    <rect x="30" y="10" width="380" height="66" rx="14" fill="url(#rb)" stroke="#2b2140" stroke-width="5"/>
+    <path d="M48 22 H392" stroke="#fff" stroke-opacity=".55" stroke-width="7" stroke-linecap="round"/>
+    <path d="M52 43 l4 9 10 1 -8 7 3 10 -9 -6 -9 6 3 -10 -8 -7 10 -1 z" fill="#ffe066" stroke="#2b2140" stroke-width="2.5" stroke-linejoin="round" transform="translate(4 -12) scale(.8)"/>
+    <path d="M52 43 l4 9 10 1 -8 7 3 10 -9 -6 -9 6 3 -10 -8 -7 10 -1 z" fill="#ffe066" stroke="#2b2140" stroke-width="2.5" stroke-linejoin="round" transform="translate(352 -12) scale(.8)"/>`);
+}
+
 export function hubTextures(): SvgTex[] {
   return [
     { key: 'hub_hills_far', w: 1600, h: 320, svg: hillsFar() },
@@ -62,6 +76,7 @@ export function hubTextures(): SvgTex[] {
     { key: 'hub_grass_fg', w: 400, h: 200, svg: grassFg() },
     { key: 'hub_card', w: 440, h: 420, svg: card() },
     { key: 'hub_lock', w: 150, h: 160, svg: lockBadge() },
+    { key: 'hub_soon', w: 440, h: 100, svg: soonRibbon() },
   ];
 }
 

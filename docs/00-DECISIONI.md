@@ -65,7 +65,7 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
 19. **Come si porta un branch sopra `main`**: con un *merge* di `main` nel branch, mai con rebase e push forzato (nell'ambiente delle chat il push forzato non è permesso). L'unione finale a `main` resta in un solo commit (squash), quindi il risultato è identico.
 20. **Lavori in parallelo**: due chat possono lavorare insieme solo se nessuna tocca `core/` o `hub/` e ognuna resta nel proprio modulo (`games/<id>/`, i propri script audio, la propria scheda store). Chi unisce per secondo fa prima il merge di `main` nel proprio branch e risolve i piccoli conflitti sui file condivisi (`games/registry.ts`, testi dell'app, `README.md`, `CREDITS.md`, `docs/03-ROADMAP.md`).
 21. **Pagina di prova ufficiale di `main`**: https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5. Chi unisce a `main` la ripubblica; le pagine di prova dei singoli branch sono provvisorie.
-22. **Crediti e licenze nell'app**: prima del lancio pubblico l'area genitori deve avere una voce "Crediti e licenze" (carattere Fredoka, strumenti campionati, librerie), allineata ad `app/CREDITS.md`. Da fare in Fase 3.
+22. **Crediti e licenze nell'app**: l'area genitori ha la voce "Crediti e licenze" (carattere Fredoka, strumenti campionati, librerie, testi delle licenze), allineata ad `app/CREDITS.md`. Fatto il 15/11/2026 (`app/src/core/credits.ts`).
 23. **Giochi 3–10 sviluppati in parallelo**, uno per chat, uniti a `main` uno alla volta quando Gaetano li approva. Regole e brief di ogni gioco in `06-CHAT-DEI-GIOCHI.md`.
     - Un gioco è una cartella: il menu lo trova da solo (`games/<id>/entry.ts`), senza modificare file condivisi. Le chat dei giochi non toccano `core/`, `hub/`, registro, testi dell'app, README, crediti, né gli altri documenti.
     - Stato e diario di ogni gioco in `docs/giochi/<id>.md`; la tabella di `03-ROADMAP.md` la aggiorna la regia. Questo sostituisce, dal gioco 3, la regola della decisione 13 sul registro in `03-ROADMAP.md`.
@@ -78,7 +78,7 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Fatto in regia il 15/11/2026, dopo l'unione dei giochi 3 e 4: gesto dello strofinare unificato in `app/src/core/scratch.ts`.
     - Fatto in regia il 15/11/2026, dopo l'unione della musica nuova di Pompieri: tolta la sintesi in tempo reale da `core/audio.ts` e il campo `song` dei moduli.
 24. **Giochi non ancora pubblicati: "in arrivo".** Al lancio (v1.0, giochi 1–5) i giochi 6–10 compaiono nel menu come tessere "in arrivo": si vedono ma non si aprono e non si possono comprare singolarmente. Ogni aggiornamento ne apre uno.
-    - Lo realizza la regia in Fase 3, nel codice comune (elenco dei giochi "in arrivo" nella configurazione dell'app, tessera con nastro dedicato, testo nelle 6 lingue).
+    - Realizzato in regia il 15/11/2026 (elenco `comingSoon` nella configurazione, tessera con nastro, testo nelle 6 lingue). **Su iPhone e iPad vale la decisione 26.**
     - Sulle pagine web di prova tutti i giochi restano apribili.
     - Nella scheda store e nell'offerta di sblocco va detto chiaramente che l'acquisto comprende anche i giochi in arrivo.
 25. **Modalità prova per collaudare i giochi bloccati.**
@@ -87,4 +87,10 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - **Dove esiste**: solo sulle pagine web di prova e nelle build per telefono compilate apposta con `VITE_TESTER=1`. **Nelle build per gli store non esiste**: un codice segreto dentro un'app pubblicata si può sempre estrarre, e diventerebbe uno sblocco gratuito per chiunque.
     - Per provare l'app pubblicata senza pagare si usano gli strumenti degli store: tester con licenza su Google Play, acquisti di prova gratuiti in TestFlight e in sandbox su Apple, codici promozionali da regalare.
     - Codice: `app/src/core/appState.ts` (`testerAvailable`, `setTester`), area genitori in `core/parentsArea.ts`.
-
+26. **Giochi "in arrivo": su iPhone e iPad non si mostrano** (corregge la decisione 24, dopo il controllo delle regole del 15/11/2026).
+    - Motivo: Apple respinge le app con contenuti "coming soon" o segnaposto (linea guida 2.1, completezza dell'app) e le descrizioni che promettono funzioni future.
+    - **Android**: resta la decisione 24, tessere con il nastro "In arrivo" e giochi elencati nella scheda Google Play.
+    - **iPhone e iPad**: il menu mostra solo i giochi pubblicati; la scheda App Store non nomina quelli futuri. Ogni aggiornamento ne aggiunge uno, annunciato nelle novità.
+    - Nell'offerta di sblocco, su tutte le piattaforme, il testo è "Anche i giochi nuovi che arrivano con gli aggiornamenti".
+    - Elenco dei giochi in arrivo: `comingSoon` in `app/src/config.ts`; regola in `app/src/release.ts`. Sulle pagine web di prova: `#arrivo` mostra il menu come su Android, `#ios` come su iPhone.
+    - **Da decidere da Gaetano**: se pubblicare subito tutti e 10 i giochi (basta svuotare `comingSoon`), rinunciando agli aggiornamenti a cadenza; in quel caso il prezzo di lancio sarebbe 2,99 € (decisione 2: 8 giochi o più).

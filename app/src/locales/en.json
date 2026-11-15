@@ -17,9 +17,9 @@
     "eight",
     "nine"
   ],
-  "parents.intro": "No videos or full-screen ads, no data collected. Some games are free; one single purchase unlocks them all.",
+  "parents.intro": "No videos or full-screen ads, no accounts. Some games are free; one single purchase unlocks them all.",
   "parents.language": "Language",
-  "parents.noData": "The game works offline and collects no personal data.",
+  "parents.noData": "The game works offline and never asks for an account or personal details.",
   "parents.nothingToRestore": "No purchases to restore.",
   "parents.onlyInApp": "The purchase is available in the Android and iPhone app.",
   "parents.privacy": "Privacy policy",
@@ -38,10 +38,17 @@
   "parents.unlocked": "All games are unlocked. Thank you!",
   "parents.wait": "One moment…",
   "unlock.allGames": "Every Tappolino game",
-  "unlock.future": "Including new ones as they arrive",
+  "unlock.future": "New games added in updates are included",
   "unlock.noAds": "No more ads",
   "unlock.once": "One payment, forever",
   "unlock.title": "Unlock “{game}” and all the other games",
   "tester.on": "Test mode: all games are open.",
-  "tester.turnOff": "Turn off"
+  "tester.turnOff": "Turn off",
+  "hub.comingSoon": "Coming soon",
+  "credits.open": "Credits and licenses",
+  "credits.original": "Artwork, characters, music and sounds are original, made for Tappolino.",
+  "credits.font": "Font",
+  "credits.instruments": "Sampled instruments",
+  "credits.libraries": "Software libraries",
+  "credits.texts": "License texts"
 }

@@ -17,9 +17,9 @@
     "oito",
     "nove"
   ],
-  "parents.intro": "Sem vídeos nem anúncios em tela cheia, sem coleta de dados. Alguns jogos são grátis; uma única compra desbloqueia todos.",
+  "parents.intro": "Sem vídeos nem anúncios em tela cheia, sem contas. Alguns jogos são grátis; com uma única compra todos são desbloqueados.",
   "parents.language": "Idioma",
-  "parents.noData": "O jogo funciona offline e não coleta dados pessoais.",
+  "parents.noData": "O jogo funciona offline e não pede conta nem dados pessoais.",
   "parents.nothingToRestore": "Nenhuma compra para restaurar.",
   "parents.onlyInApp": "A compra está disponível no app para Android e iPhone.",
   "parents.privacy": "Política de privacidade",
@@ -38,10 +38,17 @@
   "parents.unlocked": "Todos os jogos estão desbloqueados. Obrigado!",
   "parents.wait": "Um momento…",
   "unlock.allGames": "Todos os jogos do Tappolino",
-  "unlock.future": "Inclusive os novos que vierem",
+  "unlock.future": "Inclui os jogos novos que chegarem nas atualizações",
   "unlock.noAds": "Sem anúncios",
   "unlock.once": "Um só pagamento, para sempre",
   "unlock.title": "Desbloqueie “{game}” e todos os outros jogos",
   "tester.on": "Modo de teste: todos os jogos estão abertos.",
-  "tester.turnOff": "Desativar"
+  "tester.turnOff": "Desativar",
+  "hub.comingSoon": "Em breve",
+  "credits.open": "Créditos e licenças",
+  "credits.original": "Os desenhos, personagens, músicas e sons são originais, criados para o Tappolino.",
+  "credits.font": "Fonte",
+  "credits.instruments": "Instrumentos sampleados",
+  "credits.libraries": "Bibliotecas de software",
+  "credits.texts": "Textos das licenças"
 }
