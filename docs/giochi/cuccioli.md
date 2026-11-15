@@ -4,7 +4,7 @@ Branch `game/cuccioli-dal-dottore` · `order` 6 · non gratis (si apre con l'acq
 
 ## Stato
 **Completo sul branch, in attesa dell'ok di Gaetano** per l'unione a `main`. Test (`npm test`) e build (`npm run build`) verdi; partita provata nel browser in formato telefono con trascinamenti veri, tocchi e catture guardate una per una.
-Pagina di prova del branch (provvisoria): PAGINA_DI_PROVA — il gioco è la quarta tessera del menu (finché non arrivano i giochi 4 e 5). In locale: `?game=cuccioli&unlock=1`.
+Pagina di prova del branch (provvisoria): https://claude.ai/artifact/JTpk8EtAaaos4aQcDe62wk — il gioco è la quarta tessera del menu (finché non arrivano i giochi 4 e 5). In locale: `?game=cuccioli&unlock=1`.
 
 ## Cosa c'è nel gioco
 - **Menu**: ambulatorio luminoso verde acqua e crema, finestra sul giardino, mensola con barattoli, quadretto con impronta e cuore, lampada. Pulsante gioca e pulsante giardino; sul lettino c'è l'ultimo cucciolo curato (la prima volta il primo paziente), che salta e fa il suo verso se lo tocchi.
@@ -42,3 +42,4 @@ Pagina di prova del branch (provvisoria): PAGINA_DI_PROVA — il gioco è la qua
 ## Diario
 - 15/11/2026 — Modulo completo: menu, visita con 6 guai e 7 strumenti, festa, giardino-collezione con 8 cuccioli; audio con strumenti veri; test (`cuccioli.test.ts`, 25 casi).
 - 15/11/2026 — Prova nel browser in formato telefono (trascinamenti veri, tocchi, strumento sbagliato, manina, tutte le cure, giardino; catture guardate una per una). Corretto: cucciolo che a volte non arrivava sul lettino (saltello riscritto a fotogrammi); occhi assonnati e bocca dei brividi che sembravano imbronciati; fiocchi di neve poco visibili; scatola dei fazzoletti che finiva sul muso; foschia delle colline in giardino con un bordo netto; coda della volpina. Scheda store nelle 6 lingue e script delle catture.
+- 15/11/2026 — Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/JTpk8EtAaaos4aQcDe62wk. In attesa dell'ok di Gaetano per l'unione a `main`.
