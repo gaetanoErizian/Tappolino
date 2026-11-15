@@ -22,5 +22,6 @@
 - **Musica e suoni di Giardino delle Fate**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/giardino_*.py`. Dettagli in `src/games/giardino/CREDITS.md`.
 - **Musica e suoni di Treno degli Animali**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/treno_*.py`. Dettagli in `src/games/treno/CREDITS.md`.
 - **Musica e suoni di Atelier delle Principesse**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/atelier_*.py`. Dettagli in `src/games/atelier/CREDITS.md`.
+- **Musica e suoni di Officina dei Monster Truck**: composizione ed effetti originali per Tappolino, con strumenti campionati (MuseScore General, MIT); script in `scripts/audio/monstertruck_*.py`. Dettagli in `src/games/monstertruck/CREDITS.md`.
 
 I giochi dal 3 in poi tengono i propri crediti (musica, suoni, eventuali risorse) in `src/games/<id>/CREDITS.md`: questo file viene completato in regia prima del lancio.

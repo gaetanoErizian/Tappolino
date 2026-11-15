@@ -1,3 +1,4 @@
+import { wheelFrame } from '../../core/wheels';
 import Phaser from 'phaser';
 import { LOCO, WAGON, TICKET, RAIL, STATION_COLOR, WHEEL_FRAMES } from './art';
 import { AN } from './animals';
@@ -264,7 +265,7 @@ export class TrainView {
   spin(dx: number): void {
     this.dist += dx;
     // angolo percorso (in gradi) → fotogramma dei raggi: un fotogramma ogni 15°
-    const frame = (r: number) => ((Math.floor((this.dist / r) * (180 / Math.PI) / (45 / WHEEL_FRAMES)) % WHEEL_FRAMES) + WHEEL_FRAMES) % WHEEL_FRAMES;
+    const frame = (r: number) => wheelFrame(this.dist, r, WHEEL_FRAMES, 45);
     this.locoWheels.forEach((w) => w.img.setTexture(`${w.key}_${frame(w.r)}`));
     const fw = `tr_wheel_wagon_${frame(WAGON.wheelR)}`;
     this.wagons.forEach((w) => w.wheels.forEach((img) => { if (img.texture.key !== fw) img.setTexture(fw); }));

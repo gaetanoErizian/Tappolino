@@ -1,3 +1,4 @@
+import { wheelFrame as coreWheelFrame } from '../../core/wheels';
 import { svgDoc, type SvgTex } from '../../core/textures';
 import { lightGrad, ballGrad, blur, starPath, shade, roundButton } from '../../core/art';
 import { WHEELS, STICKERS, TRACKS, REPAIRS, type Track, type RepairId } from './parts';
@@ -103,12 +104,9 @@ function chassisTex(): SvgTex {
 export const WHEEL_FRAMES = 6;
 export const WHEEL_STEP = 60 / WHEEL_FRAMES;
 
-/**
- * Fotogramma dei raggi per una ruota di raggio r che ha percorso dist (copiato da TrainView.spin del Treno,
- * games/treno/world.ts: da unificare in regia). Positivo = la ruota avanza verso destra.
- */
+/** Fotogramma dei raggi per una ruota di raggio r che ha percorso dist (calcolo comune in core/wheels). */
 export function wheelFrame(dist: number, r: number): number {
-  return ((Math.floor(((dist / r) * (180 / Math.PI)) / WHEEL_STEP) % WHEEL_FRAMES) + WHEEL_FRAMES) % WHEEL_FRAMES;
+  return coreWheelFrame(dist, r, WHEEL_FRAMES, 60);
 }
 
 function wheelTex(w: (typeof WHEELS)[number], frame: number): SvgTex {

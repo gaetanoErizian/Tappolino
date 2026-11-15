@@ -110,7 +110,11 @@ export class HintHand {
   }
 }
 
-/** Esplosione di particelle colorate (feedback a ogni azione). */
+/**
+ * Esplosione di particelle colorate (feedback a ogni azione).
+ * Le particelle non ruotano: nel browser di prova Phaser 4 taglia a triangoli le immagini ruotate (scintille grandi
+ * come schegge), e le catture per gli store si fanno proprio lì.
+ */
 export function burst(scene: Phaser.Scene, x: number, y: number, key: string, opts: {
   count?: number; tints?: number[]; speed?: [number, number]; scale?: [number, number]; life?: number; gravity?: number; depth?: number;
 } = {}): void {
@@ -120,7 +124,6 @@ export function burst(scene: Phaser.Scene, x: number, y: number, key: string, op
     scale: { start: opts.scale?.[0] ?? 0.8, end: opts.scale?.[1] ?? 0 },
     lifespan: opts.life ?? 700,
     gravityY: opts.gravity ?? 600,
-    rotate: { min: 0, max: 360 },
     tint: opts.tints ?? [0xffffff],
     emitting: false,
   }).setDepth(opts.depth ?? 1500);

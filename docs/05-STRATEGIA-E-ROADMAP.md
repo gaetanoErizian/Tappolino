@@ -97,6 +97,8 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 - Dinosauri e Unicorni: fluidità dello strofinare su un telefono economico; Unicorni: durata delle tappe.
 - Razzo: fluidità del viaggio su un telefono economico, volume del "boing", eventuale breve attesa alla prima apertura di mappa dei pianeti e hangar.
 - Giardino: volume della pioggia e delle note dei fiori rispetto alla musica; fluidità con un'aiuola piena e tutte le fatine su un telefono economico.
+- Monster Truck: se l'inclinazione a scatti di 3° sembra fluida, fluidità su un telefono economico, riga delle scelte in officina non coperta dal banner Android.
+- Rotazioni: su un telefono vero, controllare se le immagini ruotate si vedono intere (nel browser di prova Phaser 4 le taglia a triangoli; i giochi le evitano).
 - Tempi tra un'animazione e l'altra su un telefono lento (segnalato dall'Atelier): nel browser di prova senza scheda grafica (8–12 fotogrammi al secondo) le attese programmate si allungano. Con le impostazioni attuali Phaser scarta solo i fotogrammi più lunghi di 200 ms, quindi a 30 fotogrammi stabili non dovrebbe succedere: da confermare su un telefono economico; se succede, si corregge in un punto solo, nella configurazione comune.
 
 ## Come avviare la chat di un gioco
@@ -108,7 +110,7 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
 | Identità Tappolino (decisione 18) | Completa su `main` (15/11/2026): Pasticceria e Pompieri adeguate, vecchia sintesi audio rimossa |
-| 2 — Giochi 3–10 in parallelo | In corso dal 15/11/2026. Su `main`: giochi 3 (Dinosauri), 4 (Unicorni), 5 (Razzo), 6 (Cuccioli), 8 (Giardino), 9 (Treno), 10 (Atelier): **9 giochi su 10, i 5 del lancio ci sono tutti**. In sviluppo: solo il 7 (Monster Truck). In `core/` (15/11/2026): strofinare (`scratch.ts`) e manina del tieni premuto (`holdHint.ts`) |
+| 2 — Giochi 3–10 in parallelo | **Chiusa il 15/11/2026: tutti i 10 giochi sono su `main`.** Passati in `core/`: strofinare (`scratch.ts`), manina del tieni premuto (`holdHint.ts`), ruote a fotogrammi (`wheels.ts`) |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |
