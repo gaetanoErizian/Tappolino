@@ -1,8 +1,8 @@
 import type { GameModule } from '../../core/module';
 import { gameTextures } from './art';
 import { LOCALES } from './locales';
-import { SONG } from './sfx';
 import { save } from './save';
+import { sound } from './sound';
 import { Menu } from './scenes/Menu';
 import { Recipes } from './scenes/Recipes';
 import { Game } from './scenes/Game';
@@ -16,9 +16,8 @@ const pasticceria: GameModule = {
   locales: LOCALES,
   scenes: [Menu, Recipes, Game, Reward, Showcase],
   startScene: 'pasticceria:Menu',
-  song: SONG,
-  // Carica i progressi salvati (dolci serviti, vetrina) prima di mostrare il gioco.
-  init: async () => { await save.load(); },
+  // Carica i progressi salvati (dolci serviti, vetrina) e prepara l'audio campionato (musica ed effetti).
+  init: async () => { await save.load(); sound.install(); },
 };
 
 export default pasticceria;

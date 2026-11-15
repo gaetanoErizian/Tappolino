@@ -68,6 +68,7 @@ Build automatiche nella radice del repository: `.github/workflows/app-web.yml`, 
 - Tocchi: un listener di scena e ricerca del bersaglio più vicino con raggio ampio (~175 unità).
 - Trascinamento (gioco 2, `games/pasticceria/world.ts`): `DragManager` prende l'oggetto più vicino al dito, un tocco senza movimento vale come azione semplice (per i più piccoli), se il rilascio è fuori bersaglio l'oggetto torna a posto. `Hint` mostra la manina per tocco, trascinamento e movimento circolare. Candidati a passare in `core/` con i prossimi giochi a trascinamento (6, 9, 10).
 - Parti da colorare (impasto, glassa): disegnate in scala di grigi e colorate con `setTint`; i riflessi bianchi in una texture separata sopra, altrimenti il tint li spegne.
+- Audio di Pasticceria Magica: musica con strumenti veri (file `.ogg`/`.mp3`, loop esatto) ed effetti preparati offline, generati dagli script in `scripts/audio/` (FluidSynth + MuseScore General, MIT; crediti in `src/games/pasticceria/audio/CREDITS.md`). Player in `games/pasticceria/sound.ts` (muto sincronizzato con `core/audio`, musica che si ferma tornando al menu): candidato a passare in `core/` se la regia estende l'audio campionato agli altri giochi.
 - Test automatici nel browser: con `?debug=1` la scena di gioco di Pasticceria è in `window.__pa` e `autoStep()` esegue il passo corrente (usato da `scripts/store-screenshots.py`).
 
 ## Prima della pubblicazione (compiti di Gaetano, docs/05)

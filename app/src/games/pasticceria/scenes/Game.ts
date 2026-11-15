@@ -11,6 +11,7 @@ import { INGREDIENT_TINT } from '../art';
 import { drawKitchen, Dessert, Customer, DragManager, Hint, previewCreation, COUNTER_Y, hex, type DragItem } from '../world';
 import { save } from '../save';
 import { sfx } from '../sfx';
+import { sound } from '../sound';
 
 type Step = 'intro' | 'ingredients' | 'mix' | 'bake' | 'decorate' | 'serve';
 
@@ -81,6 +82,7 @@ export class Game extends Phaser.Scene {
       void i;
     }));
     this.cameras.main.fadeIn(250, 143, 211, 255);
+    sound.startMusic(this);
     drawKitchen(this, { fgAside: true });
     this.hint = new Hint(this);
     this.drag = new DragManager(this, {
@@ -98,7 +100,7 @@ export class Game extends Phaser.Scene {
     this.input.on('pointerup', () => this.onUp());
     this.time.addEvent({ delay: 500, loop: true, callback: () => this.idleCheck() });
 
-    if (urlParam('debug')) (window as unknown as { __pa: Game }).__pa = this;
+    if (urlParam('debug')) Object.assign(window, { __pa: this, __paSound: sound });
     this.intro();
   }
 
@@ -301,6 +303,7 @@ export class Game extends Phaser.Scene {
   private startBake(): void {
     this.step = 'bake';
     this.badgeActive(2);
+    sfx.whoosh();
     this.tweens.add({
       targets: this.bowlParts, x: '-=1300', duration: 600, ease: 'Back.easeIn',
       onComplete: () => this.bowlParts.forEach((o) => o.destroy()),
@@ -363,7 +366,7 @@ export class Game extends Phaser.Scene {
       onUpdate: () => {
         arc.clear().fillStyle(this.recipe.cold ? 0x8fe3ff : 0xffb347, 1).slice(tx, ty, 54, -Math.PI / 2, -Math.PI / 2 + st.k * Math.PI * 2, false).fillPath();
         const n = Math.floor(st.k * 12);
-        if (n > ticks) { ticks = n; sfx.tick(); if (n % 3 === 0) (this.recipe.cold ? sfx.freeze : sfx.bubble)(); }
+        if (n > ticks) { ticks = n; sfx.tick(); if (n % 4 === 2) (this.recipe.cold ? sfx.freeze : sfx.bubble)(); }
         if (st.k > 0.55 && this.mold.texture.key.endsWith('_raw')) this.mold.setTexture(`pa_mold_${this.recipe.id}_done`);
       },
       onComplete: () => {
@@ -400,6 +403,7 @@ export class Game extends Phaser.Scene {
   private startDecorate(): void {
     this.step = 'decorate';
     this.badgeActive(3);
+    sfx.whoosh();
     this.tweens.add({ targets: [this.oven, this.door, this.ovenGlow], x: '+=1200', duration: 600, ease: 'Cubic.easeIn' });
     this.tweens.add({ targets: this.mold, scale: 1.3, alpha: 0, duration: 350, onComplete: () => this.mold.destroy() });
     const cy = COUNTER_Y + 10 - this.recipe.plateDy;

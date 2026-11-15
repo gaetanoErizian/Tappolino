@@ -6,6 +6,7 @@ import { RECIPES, unlocked } from '../recipes';
 import { drawKitchen, Dessert, previewCreation, FONT } from '../world';
 import { save } from '../save';
 import { sfx } from '../sfx';
+import { sound } from '../sound';
 
 const PREVIEW_SCALE: Record<string, number> = { cupcake: 0.5, cookie: 0.6, cake: 0.5, gelato: 0.48 };
 
@@ -16,6 +17,7 @@ export class Recipes extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
+    sound.startMusic(this);
     drawKitchen(this, { fgAside: true });
     const open = unlocked(save.state.served).recipes;
 

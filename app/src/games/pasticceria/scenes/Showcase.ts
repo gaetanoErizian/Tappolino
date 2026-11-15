@@ -6,6 +6,7 @@ import { recipeById, SHOWCASE_MAX } from '../recipes';
 import { drawKitchen, Dessert, FONT } from '../world';
 import { save } from '../save';
 import { sfx } from '../sfx';
+import { sound } from '../sound';
 
 const CASE = { x: 380, y: 230, w: 1160, h: 690 };
 const SHELVES = [560, 880];
@@ -18,6 +19,7 @@ export class Showcase extends Phaser.Scene {
   create(): void {
     setupView(this);
     this.cameras.main.fadeIn(250, 143, 211, 255);
+    sound.startMusic(this);
     drawKitchen(this, { counter: false, window: false, fgAside: true });
     title3d(this, 960, 120, t('pasticceria.showcase'), 100);
     this.drawCase();
