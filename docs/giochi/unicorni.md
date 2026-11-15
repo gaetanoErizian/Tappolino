@@ -4,7 +4,7 @@ Branch `game/salone-degli-unicorni` · `order` 4 · a pagamento (compreso nello 
 
 ## Stato
 **Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita vera provata nel browser in formato telefono (strofinio con il mouse, tocchi su barattoli e accessori, foto, album), catture guardate una per una.
-Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifact/JpZ9uo7z17RiHYshCJM5Ar — il gioco è la quarta tessera del menu; essendo a pagamento si apre aggiungendo `#unlock` all'indirizzo (simula l'acquisto), altrimenti compare il blocco per i genitori. In locale: `?game=unicorni&unlock=1` (il gioco è bloccato senza l'acquisto).
+Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifact/JpZ9uo7z17RiHYshCJM5Ar — il gioco è la quarta tessera del menu; essendo a pagamento si apre con la modalità prova, aggiungendo `#prova` all'indirizzo (decisione 25). In locale: `?game=unicorni&unlock=1` oppure `#prova`.
 
 ## Cosa c'è nel gioco
 - **Menu**: salone tra le nuvole (cielo lilla e rosa, arcobaleno nella foschia, tende turchesi, specchio con le lucine, lampade a stella, pavimento di nuvole). Pulsante gioca e pulsante album. Sulla pedana c'è l'ultimo unicorno fotografato, con il suo look; se lo tocchi salta e fa un nitrito magico.
@@ -45,5 +45,6 @@ Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifa
 
 ## Diario
 - 15/11/2026 — Modulo completo: 5 tappe (schiuma, risciacquo, spazzola, colore, accessori), foto ricordo, album, 13 sorprese; grafica a strati in SVG; audio con strumenti veri; test.
+- 15/11/2026 — Merge di `main` nel branch (modalità prova, decisione 25), nessun conflitto; test (112) e build verdi; il gioco si apre dal menu con `#prova`. Pagina di prova ripubblicata.
 - 15/11/2026 — Pagina di prova del branch pubblicata: https://claude.ai/artifact/JpZ9uo7z17RiHYshCJM5Ar. In attesa dell'ok di Gaetano per l'unione a `main`.
 - 15/11/2026 — Prova nel browser in formato telefono con partita vera. Corretti: criniera arcobaleno che usciva tutta rosa (gradiente ruotato insieme a ogni ciocca), riflessi della criniera visibili sopra quella arruffata, nodi della criniera che sembravano lettere, macchie di fango che sembravano sassi, adesivi che finivano sulla coda o sotto il ciondolo della collana, barattoli troppo piccoli, salto ripetuto che lasciava l'unicorno sospeso. Scheda store nelle 6 lingue e script delle catture.
