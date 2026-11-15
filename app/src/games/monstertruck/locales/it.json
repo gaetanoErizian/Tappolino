@@ -1,0 +1,13 @@
+{
+  "monstertruck.title": "Officina dei Monster Truck",
+  "monstertruck.tracks": "Le mie piste",
+  "monstertruck.count": "Piste: {n} su {tot}",
+  "monstertruck.finish": "Traguardo!",
+  "monstertruck.newPart": "Nuovo pezzo!",
+  "monstertruck.newTrack": "Nuova pista!",
+  "monstertruck.track.arena": "Arena del Sole",
+  "monstertruck.track.dune": "Dune di Sabbia",
+  "monstertruck.track.cantiere": "Cantiere",
+  "monstertruck.track.canyon": "Canyon Rosso",
+  "monstertruck.track.notte": "Arena di Notte"
+}

@@ -1,0 +1,13 @@
+{
+  "monstertruck.title": "Monster Truck Workshop",
+  "monstertruck.tracks": "My tracks",
+  "monstertruck.count": "Tracks: {n} of {tot}",
+  "monstertruck.finish": "Finish!",
+  "monstertruck.newPart": "New part!",
+  "monstertruck.newTrack": "New track!",
+  "monstertruck.track.arena": "Sunny Arena",
+  "monstertruck.track.dune": "Sand Dunes",
+  "monstertruck.track.cantiere": "Building Site",
+  "monstertruck.track.canyon": "Red Canyon",
+  "monstertruck.track.notte": "Night Arena"
+}
