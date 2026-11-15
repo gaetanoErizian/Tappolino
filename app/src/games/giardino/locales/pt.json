@@ -1,0 +1,21 @@
+{
+  "giardino.title": "Jardim das Fadas",
+  "giardino.album": "Flores e fadas",
+  "giardino.count": "Flores no jardim: {n} de {tot}",
+  "giardino.bedDone": "Que maravilha!",
+  "giardino.gardenDone": "O jardim está cheio de magia!",
+  "giardino.flower.daisy": "Margarida",
+  "giardino.flower.tulip": "Tulipa",
+  "giardino.flower.bell": "Campainha",
+  "giardino.flower.sun": "Girassol",
+  "giardino.flower.rose": "Rosa",
+  "giardino.flower.star": "Flor Estrela",
+  "giardino.flower.moon": "Flor da Lua",
+  "giardino.flower.rainbow": "Flor Arco-íris",
+  "giardino.fairy.dew": "Fada Orvalho",
+  "giardino.fairy.petal": "Fada Pétala",
+  "giardino.fairy.firefly": "Fada Vaga-lume",
+  "giardino.fairy.moss": "Duende Musgo",
+  "giardino.fairy.breeze": "Fada Brisa",
+  "giardino.fairy.twinkle": "Fada Estrelinha"
+}

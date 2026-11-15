@@ -1,0 +1,21 @@
+{
+  "giardino.title": "Giardino delle Fate",
+  "giardino.album": "Fiori e fatine",
+  "giardino.count": "Fiori nel giardino: {n} su {tot}",
+  "giardino.bedDone": "Che meraviglia!",
+  "giardino.gardenDone": "Il giardino è pieno di magia!",
+  "giardino.flower.daisy": "Margherita",
+  "giardino.flower.tulip": "Tulipano",
+  "giardino.flower.bell": "Campanula",
+  "giardino.flower.sun": "Girasole",
+  "giardino.flower.rose": "Rosa",
+  "giardino.flower.star": "Fiore Stella",
+  "giardino.flower.moon": "Fiore di Luna",
+  "giardino.flower.rainbow": "Fiore Arcobaleno",
+  "giardino.fairy.dew": "Fatina Rugiada",
+  "giardino.fairy.petal": "Fatina Petalo",
+  "giardino.fairy.firefly": "Fatina Lucciola",
+  "giardino.fairy.moss": "Folletto Muschio",
+  "giardino.fairy.breeze": "Fatina Brezza",
+  "giardino.fairy.twinkle": "Fatina Stellina"
+}
