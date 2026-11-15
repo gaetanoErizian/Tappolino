@@ -4,7 +4,7 @@ Branch `game/officina-dei-monster-truck` · `order` 7 · con l'acquisto unico (`
 
 ## Stato
 **Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (844×390). In attesa dell'ok per l'unione a `main`.
-Pagina di prova del branch: vedi il diario qui sotto. Il gioco è bloccato come nell'app vera: si apre con `#prova` in fondo all'indirizzo (modalità prova, decisione 25). In locale: `?game=monstertruck&unlock=1`.
+Pagina di prova del branch: https://claude.ai/artifact/DnCPSMmXCW5AA1UQesFVgk (provvisoria). Il gioco è bloccato come nell'app vera: si apre con `#prova` in fondo all'indirizzo (modalità prova, decisione 25). In locale: `?game=monstertruck&unlock=1`.
 
 ## Cosa c'è nel gioco
 - **Menu**: arena all'aperto con il pubblico, la barriera di gomme e un trampolino; il truck personalizzato aspetta a motore acceso (toccalo: clacson, salto sul posto e applausi). Pulsanti: in officina, le mie piste, casa.
@@ -38,3 +38,4 @@ Pagina di prova del branch: vedi il diario qui sotto. Il gioco è bloccato come 
 ## Diario
 - 15/11/2026 — Modulo completo: officina con 4 tipi di guasto, personalizzazione (colori, ruote, adesivi), gara con fisica del salto e rimbalzo, scatoloni, traguardo e premio, collezione delle piste; 5 piste con ambientazione propria; audio con strumenti veri; test (`monstertruck.test.ts`: pezzi e sblocchi, pista, guida e salti simulati su centinaia di percorsi, grafica, testi, audio).
 - 15/11/2026 — Prova nel browser in formato telefono (844×390, tocchi e pressioni veri con il mouse, catture guardate una per una, tutte le 5 piste). Corretto: immagini ruotate tagliate a triangoli (ruote e carrozzeria ora senza rotazioni Phaser); linee della carrozzeria visibili dentro i passaruota; truck troppo piccolo in officina; vernice troppo scura; manina che restava sul guasto già riparato; stelle dei salti fuori posto per un errore nel profilo dei trampolini; rettilineo finale non sempre libero; pubblico troppo vivace dietro le stelle (ora velato dalla foschia). Scheda store nelle 6 lingue e script delle catture.
+- 15/11/2026 — Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/DnCPSMmXCW5AA1UQesFVgk. In attesa dell'ok di Gaetano per l'unione a `main`.
