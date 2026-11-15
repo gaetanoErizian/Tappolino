@@ -83,3 +83,37 @@ describe('audio', () => {
     expect('tone' in audio || 'playSong' in audio).toBe(false);
   });
 });
+
+describe('modalità prova', () => {
+  it('apre tutti i giochi senza toccare lo stato dell’acquisto, e si spegne', async () => {
+    const st = await import('./core/appState');
+    const { canPlay } = await import('./core/module');
+    expect(st.testerAvailable()).toBe(true); // web di prova
+    const seen: boolean[] = [];
+    const off = st.onUnlockChange((v) => seen.push(v));
+    st.setTester(true);
+    expect(st.isTester()).toBe(true);
+    expect(st.isUnlocked()).toBe(true);
+    expect(st.isPurchased()).toBe(false);
+    for (const g of GAMES) expect(canPlay(g, st.isUnlocked())).toBe(true);
+    expect(canPlay({ free: false }, st.isUnlocked())).toBe(true);
+    st.setTester(false);
+    expect(st.isUnlocked()).toBe(false);
+    expect(canPlay({ free: false }, st.isUnlocked())).toBe(false);
+    expect(seen).toEqual([true, false]);
+    off();
+  });
+  it('nelle build per gli store non esiste: su dispositivo serve VITE_TESTER=1', async () => {
+    const st = await import('./core/appState');
+    const g = globalThis as { Capacitor?: unknown };
+    g.Capacitor = { isNativePlatform: () => true };
+    try {
+      expect(st.testerAvailable()).toBe(false);
+      st.setTester(true);
+      expect(st.isTester()).toBe(false);
+      expect(st.isUnlocked()).toBe(false);
+    } finally {
+      delete g.Capacitor;
+    }
+  });
+});

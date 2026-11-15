@@ -41,5 +41,7 @@
   "unlock.future": "Auch neue, die noch kommen",
   "unlock.noAds": "Keine Werbung mehr",
   "unlock.once": "Einmal bezahlen, für immer",
-  "unlock.title": "Schalte „{game}“ und alle anderen Spiele frei"
+  "unlock.title": "Schalte „{game}“ und alle anderen Spiele frei",
+  "tester.on": "Testmodus: Alle Spiele sind geöffnet.",
+  "tester.turnOff": "Ausschalten"
 }
