@@ -19,3 +19,4 @@ store/screenshots/
 # File temporanei di Python (script audio e catture)
 __pycache__/
 *.pyc
+dist-pages/

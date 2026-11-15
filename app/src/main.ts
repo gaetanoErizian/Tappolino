@@ -3,9 +3,12 @@ import { Boot } from './Boot';
 import { Hub } from './hub/Hub';
 import { DESIGN_W, DESIGN_H } from './core/ui';
 import { platform, urlParam } from './core/platform';
+import { testGate } from './core/testGate';
 
 document.body.classList.toggle('web', platform() === 'web');
 
+// Pagina di prova per i tester (solo build `--mode pages`): prima la password, poi il gioco. Altrove parte subito.
+void testGate().then(() => {
 const game = new Phaser.Game({
   type: Phaser.AUTO,
   parent: 'game',
@@ -25,3 +28,4 @@ const game = new Phaser.Game({
 
 // Solo per test automatici nel browser (?debug=1).
 if (urlParam('debug')) (window as unknown as { __game: Phaser.Game }).__game = game;
+});

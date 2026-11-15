@@ -172,3 +172,18 @@ describe('schermo intero sulle pagine di prova', () => {
     expect(fullscreenSupported({ fullscreenEnabled: false } as Document)).toBe(false);
   });
 });
+
+describe('password della pagina di prova (decisione 28)', () => {
+  it('il browser e lo script di pubblicazione calcolano la stessa impronta; maiuscole e spazi non contano', async () => {
+    const { gateHash, GATE_SALT, GATE_ROUNDS } = await import('./core/testGate');
+    const { pbkdf2Sync } = await import('node:crypto');
+    const node = pbkdf2Sync('tappo-prova-2026', GATE_SALT, GATE_ROUNDS, 32, 'sha256').toString('hex');
+    expect(await gateHash('tappo-prova-2026')).toBe(node);
+    expect(await gateHash('  Tappo-Prova-2026 ')).toBe(node);
+    expect(await gateHash('altra-password')).not.toBe(node);
+  });
+  it('senza impronta (app e altre build) il cancello non esiste', async () => {
+    const { testGate } = await import('./core/testGate');
+    await expect(testGate(undefined)).resolves.toBeUndefined();
+  });
+});

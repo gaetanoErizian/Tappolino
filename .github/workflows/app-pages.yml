@@ -1,0 +1,56 @@
+name: App — pagina di prova per i tester
+
+# Pubblica su GitHub Pages la pagina di prova protetta da password (decisione 28).
+# Prima volta: Settings → Pages → Source: "GitHub Actions"; Settings → Secrets and variables → Actions →
+# New repository secret: TEST_PAGE_PASSWORD (almeno 8 caratteri). Senza password la pagina NON viene pubblicata.
+on:
+  push:
+    branches: [main]
+    paths: ["app/**", ".github/workflows/app-pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - name: Build con password
+        env:
+          TEST_PAGE_PASSWORD: ${{ secrets.TEST_PAGE_PASSWORD }}
+        run: |
+          VITE_GATE_HASH="$(node scripts/gate-hash.mjs)"
+          export VITE_GATE_HASH
+          npx vite build --mode pages
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: app/dist-pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

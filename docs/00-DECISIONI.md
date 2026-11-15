@@ -98,3 +98,10 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Motivi: scheda store più forte (monster truck, principesse, treno, cuccioli sono temi cercati), acquisto che vale di più (3 gratis + 7 da sbloccare), nessuna tessera che un bambino tocca senza che succeda nulla, nessuna differenza tra Android e iPhone. È un giudizio, non un dato: la ricerca sulle parole chiave resta da fare (Fase 5).
     - **Prezzo**: 1,99 € come prezzo di lancio per le prime 4 settimane circa, poi 2,99 €. La data esatta dell'aumento la sceglie Gaetano in base ai primi numeri; il cambio si fa a mano nei due store.
     - `comingSoon` in `app/src/config.ts` è vuoto. Gli aggiornamenti successivi portano giochi nuovi (11, 12…), scelti guardando quali sono i più giocati.
+28. **Pagina di prova per i tester (genitori e bambini), con password, su GitHub Pages** (scelta da Gaetano il 15/11/2026).
+    - Indirizzo: `https://gaetanoerizian.github.io/Tappolino/`. Si aggiorna da sola a ogni modifica di `main` (flusso `.github/workflows/app-pages.yml`).
+    - Password: sta solo nel segreto `TEST_PAGE_PASSWORD` del repository (almeno 8 caratteri), mai nel codice. Senza segreto la pagina non viene pubblicata. Per cambiarla: cambiare il segreto e rilanciare il flusso; chi era già entrato deve reinserirla.
+    - **È un cancello di cortesia, non una protezione vera**: il controllo avviene nel browser e il repository è pubblico. Tiene fuori chi capita sull'indirizzo; non ferma un tecnico. La pagina chiede ai motori di ricerca di non indicizzarla.
+    - "Aggiungi a schermata Home" apre il gioco a tutto schermo come un'app. Per far provare anche i giochi bloccati si dà ai tester l'indirizzo con `#prova` in fondo.
+    - Codice: `app/src/core/testGate.ts`, `app/scripts/gate-hash.mjs`, build `npx vite build --mode pages`.
+    - Il repository è pubblico: il codice dei giochi è leggibile da chiunque. Se Gaetano lo rende privato, GitHub Pages richiede un piano a pagamento e la pagina va spostata (per esempio su Cloudflare Pages con accesso per email).
