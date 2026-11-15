@@ -4,7 +4,7 @@ import {
   unlocked, rewardFor, nextUnicorn, rubProgress, wear, layout, canPhoto, addPhoto, sanitizeLooks, sanitizeGroomed,
   unicornById, colorHex, type Look, type AccessoryId,
 } from './salon';
-import { ScratchGrid, maskFromAlpha } from './scratch';
+import { ScratchGrid, maskFromAlpha } from '../../core/scratch';
 import { gameTextures, STICKER_SPOTS, ACC_AT, ACC_SIZE, U } from './art';
 import { mergeDefaults } from '../../core/storage';
 import { LOCALES } from './locales';

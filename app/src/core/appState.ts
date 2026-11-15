@@ -38,7 +38,7 @@ export function setUnlocked(v: boolean): void {
  * Esiste SOLO sul web di prova e nelle build compilate con VITE_TESTER=1: nelle build per gli store
  * `testerAvailable()` è false e niente può attivarla (decisione 25).
  * Si attiva nell'area genitori toccando 5 volte la riga della versione, oppure sul web con #prova.
- * Quando è attiva un'etichetta "PROVA" resta sempre visibile sullo schermo.
+ * Quando è attiva una piccola etichetta "PROVA" resta sempre visibile nell'angolo in basso a sinistra.
  */
 const TESTER_KEY = 'tappolino.tester';
 let tester = false;
@@ -75,8 +75,8 @@ function renderTesterBadge(): void {
     b = document.createElement('div');
     b.id = 'tp-tester';
     b.textContent = 'PROVA';
-    b.style.cssText = 'position:fixed;top:calc(env(safe-area-inset-top) + 4px);left:50%;transform:translateX(-50%);z-index:150;pointer-events:none;'
-      + 'padding:2px 12px;border-radius:999px;border:3px solid #2b2140;background:#ffc800;color:#2b2140;font:700 13px/1.3 "Fredoka",system-ui,sans-serif;letter-spacing:1.5px';
+    b.style.cssText = 'position:fixed;left:calc(env(safe-area-inset-left) + 6px);bottom:calc(var(--footer-h, 0px) + env(safe-area-inset-bottom) + 4px);z-index:150;pointer-events:none;opacity:.85;'
+      + 'padding:1px 8px;border-radius:999px;border:2px solid #2b2140;background:#ffc800;color:#2b2140;font:700 10px/1.3 "Fredoka",system-ui,sans-serif;letter-spacing:1px';
     document.body.appendChild(b);
   }
 }

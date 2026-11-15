@@ -94,7 +94,7 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 - Giro di musica senza stacchi su iOS (formato mp3, verificato finora solo su Chrome) e volume della musica rispetto agli effetti.
 - Pasticceria: precisione del trascinamento con dita piccole, durata della mescolata.
 - Pompieri: getto d'acqua, tempi di risposta al tocco, volume della musica e delle sirene.
-- Dinosauri: fluidità dello strofinare su un telefono economico.
+- Dinosauri e Unicorni: fluidità dello strofinare su un telefono economico; Unicorni: durata delle tappe.
 
 ## Come avviare la chat di un gioco
 > Sei la chat del gioco N di Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, clonalo e segui `docs/06-CHAT-DEI-GIOCHI.md`: regole comuni e brief "Gioco N". Sviluppa il gioco completo fino alla pagina web di prova, poi attendi il mio ok prima di unire a `main`.
@@ -105,7 +105,7 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
 | Identità Tappolino (decisione 18) | Completa su `main` (15/11/2026): Pasticceria e Pompieri adeguate, vecchia sintesi audio rimossa |
-| 2 — Giochi 3–10 in parallelo | In corso dal 15/11/2026. Su `main`: gioco 3 (Dinosauri). In sviluppo: giochi 4–10. Da fare in regia quando anche il gioco 4 è unito: unificare il gesto dello strofinare (`games/dinosauri/scratch.ts`) |
+| 2 — Giochi 3–10 in parallelo | In corso dal 15/11/2026. Su `main`: giochi 3 (Dinosauri), 4 (Unicorni), 6 (Cuccioli). In sviluppo: 5, 7, 8, 9, 10. Gesto dello strofinare unificato in `core/scratch.ts` (15/11/2026) |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |

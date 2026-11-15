@@ -8,7 +8,7 @@ import {
   nextUnicorn, unlocked, rubProgress, rewardFor, addPhoto, isUnicornId, canPhoto, colorHex, RUB_GOAL, RUB_RADIUS,
   type AccessoryId, type ColorId, type Step, type UnicornId,
 } from '../salon';
-import { ScratchLayer, maskFromTexture } from '../scratch';
+import { ScratchLayer, maskFromTexture } from '../../../core/scratch';
 import { U } from '../art';
 import { drawSalon, UnicornView, dullMane, hex, FLOOR_Y } from '../world';
 import { save } from '../save';

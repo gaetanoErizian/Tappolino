@@ -71,13 +71,14 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Stato e diario di ogni gioco in `docs/giochi/<id>.md`; la tabella di `03-ROADMAP.md` la aggiorna la regia. Questo sostituisce, dal gioco 3, la regola della decisione 13 sul registro in `03-ROADMAP.md`.
     - Durante lo sviluppo in parallelo **il codice comune lo modifica solo la regia**. Le chat scrivono nel proprio modulo ciò che manca e lo segnalano; l'unificazione (per esempio il gesto dello strofinare dei giochi 3 e 4) si fa in regia dopo le unioni. Questo sospende, per i giochi 3–10, il passaggio in `core/` previsto dalla decisione 17.
     - Ogni brief fissa ambientazione, colori e stile musicale, perché le chat non si vedono tra loro e i giochi non devono somigliarsi.
+    - Fatto in regia il 15/11/2026, dopo l'unione dei giochi 3 e 4: gesto dello strofinare unificato in `app/src/core/scratch.ts`.
     - Fatto in regia il 15/11/2026, dopo l'unione della musica nuova di Pompieri: tolta la sintesi in tempo reale da `core/audio.ts` e il campo `song` dei moduli.
 24. **Giochi non ancora pubblicati: "in arrivo".** Al lancio (v1.0, giochi 1–5) i giochi 6–10 compaiono nel menu come tessere "in arrivo": si vedono ma non si aprono e non si possono comprare singolarmente. Ogni aggiornamento ne apre uno.
     - Lo realizza la regia in Fase 3, nel codice comune (elenco dei giochi "in arrivo" nella configurazione dell'app, tessera con nastro dedicato, testo nelle 6 lingue).
     - Sulle pagine web di prova tutti i giochi restano apribili.
     - Nella scheda store e nell'offerta di sblocco va detto chiaramente che l'acquisto comprende anche i giochi in arrivo.
 25. **Modalità prova per collaudare i giochi bloccati.**
-    - Cosa fa: apre tutti i giochi senza acquisto e senza toccare lo stato dell'acquisto vero. Quando è attiva, in alto resta l'etichetta "PROVA".
+    - Cosa fa: apre tutti i giochi senza acquisto e senza toccare lo stato dell'acquisto vero. Quando è attiva, nell'angolo in basso a sinistra resta una piccola etichetta "PROVA".
     - Come si attiva: area genitori → 5 tocchi rapidi sulla riga della versione in fondo (stesso gesto per spegnerla, oppure il pulsante "Disattiva"). Sulle pagine web di prova basta aggiungere `#prova` all'indirizzo. Resta attiva tra un avvio e l'altro.
     - **Dove esiste**: solo sulle pagine web di prova e nelle build per telefono compilate apposta con `VITE_TESTER=1`. **Nelle build per gli store non esiste**: un codice segreto dentro un'app pubblicata si può sempre estrarre, e diventerebbe uno sblocco gratuito per chiunque.
     - Per provare l'app pubblicata senza pagare si usano gli strumenti degli store: tester con licenza su Google Play, acquisti di prova gratuiti in TestFlight e in sandbox su Apple, codici promozionali da regalare.

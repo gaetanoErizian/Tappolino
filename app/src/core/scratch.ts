@@ -5,20 +5,20 @@ const ERASE = 17;
 const clamp = (v: number, a: number, b: number): number => Math.max(a, Math.min(b, v));
 
 /**
- * Gesto dello STROFINARE (gioco 4; da unificare in regia con `games/dinosauri/scratch.ts`, decisione 23).
- * Stessa interfaccia del gioco 3 (`ScratchGrid`, `ScratchLayer`, `fractionIn`, `eraseAt`, `clearAll`), più tre cose
- * che servono al salone:
+ * Gesto dello STROFINARE, comune a tutti i giochi (nato nei giochi 3 e 4, unificato in regia: decisione 23).
  *
- * 1. **maschera** — la griglia conta solo le celle che appartengono al bersaglio (la sagoma dell'unicorno,
- *    la criniera): `fraction()` dice quanta parte *del bersaglio* è stata strofinata, non del rettangolo.
- *    `maskFromTexture()` la ricava dall'alfa di una texture.
- * 2. **dentro un Container** — con `parent` lo strato vive nel personaggio (respira e salta con lui) e le
- *    coordinate di x, y, w, h e del pennello sono locali al Container.
- * 3. **modo "paint"** — invece di cancellare, il dito *aggiunge* un timbro (la schiuma); con `rt` si riusa
- *    uno strato esistente (il risciacquo cancella la schiuma appena fatta).
+ * - `ScratchGrid`: logica pura (testabile) — una griglia di celle che si "puliscono" sotto un pennello circolare
+ *   e dice quanta superficie è stata strofinata, in tutto o in un rettangolo. Con una **maschera** conta solo le
+ *   celle del bersaglio (la sagoma di un personaggio): `maskFromTexture()` la ricava dall'alfa di una texture.
+ * - `ScratchLayer`: lo strato in Phaser — una RenderTexture con la copertura (terra, fango, schiuma…).
+ *   - modo `"erase"` (default): il dito cancella la copertura; modo `"paint"`: il dito aggiunge un timbro (`brush`).
+ *   - `parent`: lo strato vive dentro un Container e si muove con lui; x, y, w, h sono locali al Container.
+ *   - `rt`: riusa uno strato esistente (es. il risciacquo cancella la schiuma appena fatta).
+ *   - `shadow`: un secondo strato d'ombra spostato in basso a destra, che dà profondità ai bordi di ciò che si scopre.
+ *   - `brushShape`: `"round"` (morbido, default) oppure `"rough"` (bordo frastagliato, per terra e sabbia).
  *
- * Come nel gioco 3: un solo listener di scena, un tocco senza movimento lascia già un segno (risposta immediata),
- * più dita insieme, i tratti si disegnano una volta per fotogramma.
+ * Sempre: un solo listener di scena, un tocco senza movimento lascia già un segno (risposta immediata per i più
+ * piccoli), più dita insieme, i tratti si disegnano una volta per fotogramma.
  */
 
 export class ScratchGrid {
@@ -180,7 +180,11 @@ export interface ScratchOpts {
   /** posizione nella lista del Container (solo con `parent`); altrimenti in cima */
   index?: number;
   depth?: number;
-  /** ogni passaggio del dito: punto *di scena* e celle nuove scoperte */
+  /** forma del pennello nel modo "erase": tonda e morbida (default) o a bordo frastagliato */
+  brushShape?: 'round' | 'rough';
+  /** ombra dei bordi di ciò che si scopre: spostamento in basso a destra e opacità (solo modo "erase", senza `rt`) */
+  shadow?: { dx: number; dy: number; alpha: number; color?: number };
+  /** ogni passaggio del dito: punto di scena (dentro lo strato) e celle nuove scoperte */
   onScrub?: (x: number, y: number, fresh: number) => void;
   onStart?: (x: number, y: number) => void;
   onEnd?: () => void;
@@ -193,6 +197,7 @@ export class ScratchLayer {
   readonly grid: ScratchGrid;
   enabled = true;
   private rt: Phaser.GameObjects.RenderTexture;
+  private shade?: Phaser.GameObjects.RenderTexture;
   private brushKey: string;
   private radius: number;
   private mode: 'erase' | 'paint';
@@ -205,13 +210,21 @@ export class ScratchLayer {
     this.radius = o.radius ?? 70;
     this.mode = o.mode ?? 'erase';
     this.grid = new ScratchGrid(o.w, o.h, CELL, o.mask);
-    this.brushKey = ensureBrush(scene, Math.round(this.radius * 1.15));
+    this.brushKey = ensureBrush(scene, Math.round(this.radius * 1.15), o.brushShape ?? 'round');
     if (o.rt) {
       this.rt = o.rt;
     } else {
-      this.rt = scene.add.renderTexture(o.x, o.y, o.w, o.h).setOrigin(0).setDepth(o.depth ?? 10);
+      const depth = o.depth ?? 10;
+      if (this.mode === 'erase' && o.shadow && o.shadow.alpha > 0) {
+        this.shade = scene.add.renderTexture(o.x, o.y, o.w, o.h).setOrigin(0).setDepth(depth - 0.01);
+        this.shade.fill(o.shadow.color ?? 0x2a160a, o.shadow.alpha);
+        this.shade.render();
+      }
+      this.rt = scene.add.renderTexture(o.x, o.y, o.w, o.h).setOrigin(0).setDepth(depth);
       if (o.parent) {
-        if (o.index !== undefined) o.parent.addAt(this.rt, o.index); else o.parent.add(this.rt);
+        const at = o.index;
+        if (this.shade) { if (at !== undefined) o.parent.addAt(this.shade, at); else o.parent.add(this.shade); }
+        if (at !== undefined) o.parent.addAt(this.rt, at + (this.shade ? 1 : 0)); else o.parent.add(this.rt);
       }
       if (o.cover) {
         this.rt.stamp(o.cover, undefined, 0, 0, { originX: 0, originY: 0, tint: o.coverTint });
@@ -259,6 +272,11 @@ export class ScratchLayer {
     return this.grid.fractionIn(x, y, w, h);
   }
 
+  /** Come `fractionIn`, ma con il rettangolo in coordinate di scena (strati senza `parent`). */
+  fractionInScene(x: number, y: number, w: number, h: number): number {
+    return this.grid.fractionIn(x - this.o.x, y - this.o.y, w, h);
+  }
+
   /** Un colpo di pennello in coordinate dello strato (anche da codice). */
   private strokeAt(lx: number, ly: number, scale = 1): number {
     if (this.mode === 'paint') {
@@ -270,6 +288,7 @@ export class ScratchLayer {
       }
     } else {
       this.rt.stamp(this.brushKey, undefined, lx, ly, { scale, blendMode: ERASE });
+      if (this.shade && this.o.shadow) this.shade.stamp(this.brushKey, undefined, lx + this.o.shadow.dx, ly + this.o.shadow.dy, { scale, blendMode: ERASE });
       this.dirty = true;
     }
     return this.grid.stamp(lx, ly, this.radius * scale);
@@ -286,14 +305,14 @@ export class ScratchLayer {
     this.enabled = false;
     this.last.clear();
     this.grid.clearRect(0, 0, this.o.w, this.o.h);
-    if (this.mode === 'erase') this.scene.tweens.add({ targets: this.rt, alpha: 0, duration });
+    if (this.mode === 'erase') this.scene.tweens.add({ targets: [this.rt, this.shade].filter(Boolean), alpha: 0, duration });
   }
 
   /** Finisce lo strato e, a dissolvenza conclusa, libera la sua RenderTexture. */
   dispose(duration = 500): void {
     this.clearAll(duration);
     this.destroy();
-    this.scene.time.delayedCall(duration + 50, () => this.rt.destroy());
+    this.scene.time.delayedCall(duration + 50, () => { this.rt.destroy(); this.shade?.destroy(); });
   }
 
   /** Comincia a seguire un dito già appoggiato (es. lo strato è nato mentre il bambino strofinava). */
@@ -332,7 +351,8 @@ export class ScratchLayer {
     let fresh = 0;
     for (const q of ScratchGrid.along(prev.x, prev.y, x, y, this.radius * 0.4)) fresh += this.strokeAt(q.x, q.y);
     this.last.set(p.id, { x, y });
-    this.o.onScrub?.(p.worldX, p.worldY, fresh);
+    const at = this.toScene(x, y);
+    this.o.onScrub?.(at.x, at.y, fresh);
   }
 
   private up(p: Phaser.Input.Pointer): void {
@@ -345,6 +365,7 @@ export class ScratchLayer {
     if (!this.dirty) return;
     this.dirty = false;
     this.rt.render();
+    this.shade?.render();
   }
 
   destroy(): void {
@@ -356,21 +377,32 @@ export class ScratchLayer {
   }
 }
 
-/** Pennello morbido e tondo, creato una volta per raggio. */
-function ensureBrush(scene: Phaser.Scene, r: number): string {
-  const key = `un_scratch_brush_${r}`;
+/** Pennello creato una volta per raggio e forma: tondo e morbido, oppure a bordo frastagliato (terra smossa). */
+function ensureBrush(scene: Phaser.Scene, r: number, shape: 'round' | 'rough'): string {
+  const key = `scratch_brush_${shape}_${r}`;
   if (scene.textures.exists(key)) return key;
   const size = r * 2 + 4;
   const tex = scene.textures.createCanvas(key, size, size)!;
   const ctx = tex.getContext();
   const c = size / 2;
-  const g = ctx.createRadialGradient(c, c, r * 0.3, c, c, r);
-  g.addColorStop(0, 'rgba(255,255,255,1)');
-  g.addColorStop(0.7, 'rgba(255,255,255,0.95)');
-  g.addColorStop(1, 'rgba(255,255,255,0)');
-  ctx.fillStyle = g;
   ctx.beginPath();
-  ctx.arc(c, c, r, 0, Math.PI * 2);
+  if (shape === 'rough') {
+    const n = 22;
+    for (let i = 0; i <= n; i++) {
+      const a = (i / n) * Math.PI * 2;
+      const rr = r * (0.84 + 0.1 * Math.sin(i * 2.7) + 0.06 * Math.cos(i * 5.3));
+      const x = c + Math.cos(a) * rr, y = c + Math.sin(a) * rr;
+      if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+    }
+    ctx.closePath();
+  } else {
+    ctx.arc(c, c, r, 0, Math.PI * 2);
+  }
+  const g = shape === 'rough' ? ctx.createRadialGradient(c, c, r * 0.35, c, c, r) : ctx.createRadialGradient(c, c, r * 0.3, c, c, r);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(shape === 'rough' ? 0.75 : 0.7, 'rgba(255,255,255,0.95)');
+  g.addColorStop(1, shape === 'rough' ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0)');
+  ctx.fillStyle = g;
   ctx.fill();
   tex.refresh();
   return key;

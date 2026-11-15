@@ -4,7 +4,7 @@ import {
   fitScale, dropsOnSkeleton, stagePoint, trayX, isDinoId,
 } from './dinos';
 import { piecesOf, insideFrame, faceOf, HEADS, smoothPath, taper, along } from './skeleton';
-import { ScratchGrid } from './scratch';
+import { ScratchGrid } from '../../core/scratch';
 import { gameTextures } from './art';
 import { dinosauriTile } from './tile';
 import entry from './entry';
