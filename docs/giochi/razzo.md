@@ -4,7 +4,7 @@ Branch `game/razzo-tra-le-stelle` · `order` 5 · con l'acquisto unico (`free: f
 
 ## Stato
 **Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (mouse e tocco vero, catture guardate una per una). Non ancora unito a `main`: si unisce dopo l'ok.
-Pagina di prova del branch (provvisoria): https://claude.ai/artifact/HS778gbLasghnJum7RQEeH — il gioco è la quarta tessera del menu ed è bloccato come tutti i giochi a pagamento: aggiungere `#unlock` all'indirizzo per aprirlo (in locale `?unlock=1&game=razzo`).
+Pagina di prova del branch (provvisoria): https://claude.ai/artifact/HS778gbLasghnJum7RQEeH — il gioco è la quarta tessera del menu; il branch parte da prima della "modalità prova" di `main`, quindi qui il gioco a pagamento si apre aggiungendo `#unlock` all'indirizzo (in locale `?unlock=1&game=razzo`). Con l'unione a `main` vale la modalità prova.
 
 ## Cosa c'è nel gioco
 - **Menu**: spazio blu profondo con nebulose, stelle e pianetini lontani; il razzo scelto aspetta con il motore acceso (toccalo e sfreccia via e torna), in basso l'ultimo pianeta visitato (o il pianeta di casa) che ride se lo tocchi. Pulsanti: parti, i miei pianeti, i miei razzi, casa.
@@ -27,7 +27,6 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/HS778gbLasg
 
 ## Per la regia
 - **Gesto "tieni premuto"**: la manina è in `app/src/games/razzo/holdHint.ts` (`HoldHint`: mano che preme e resta giù, anelli, frecce verso l'alto). Candidata per `core/` insieme a `core/drag.ts`: servirà anche al gioco 7 (Monster Truck, "tenere premuto in pista").
-- **Pagine di prova e giochi bloccati**: sulle pagine pubblicate su claude.ai i giochi a pagamento si aprono solo con `#unlock`; la decisione 24 prevede che sulle pagine di prova restino tutti apribili (da fare in Fase 3).
 - Usati dal codice comune senza modifiche: `core/ui`, `core/hud`, `core/sound`, `core/art`, `core/storage`, `core/brand`.
 
 ## Diario
