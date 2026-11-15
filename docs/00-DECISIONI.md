@@ -1,6 +1,6 @@
 # 00 — Decisioni prese (prevalgono sugli altri file)
 
-Aggiornato: 14/11/2026 (sera) — in caso di conflitto vale questo file, poi `05-STRATEGIA-E-ROADMAP.md`, poi gli altri.
+Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATEGIA-E-ROADMAP.md`, poi gli altri.
 
 1. **Un'unica app "Tappolino" che raccoglie tutti i giochi** (app collettore). I giochi non sono più app separate: sono moduli dentro l'app. Dettagli e fasi in `05-STRATEGIA-E-ROADMAP.md`.
    - appId unico: `it.tappolino.app` — nome store: *Tappolino* (sviluppatore: *Tappolino Games*).
@@ -54,3 +54,11 @@ Aggiornato: 14/11/2026 (sera) — in caso di conflitto vale questo file, poi `05
     - **Una modifica al codice comune alla volta**, e solo quando non ci sono altri branch di gioco aperti. Se ce ne sono, decide la regia l'ordine e i branch aperti si riportano sopra `main` dopo l'unione.
     - La chat del gioco successivo si apre dopo che il branch `core/<tema>` è stato unito.
     - Prima applicazione: trascinamento e manina d'aiuto per il trascinamento, da Pasticceria Magica (`core/drag-e-manina`), per i giochi 6, 9 e 10.
+18. **Identità Tappolino** (logo approvato da Gaetano il 15/11/2026; codice sul branch `core/identita-tappolino`).
+    - **Marchio**: la mascotte "Tappo" (un ditino con il cappello a tappo, sulle onde del tocco) e la scritta a lettere-adesivo colorate con la stella sulla "i". Generati da `app/scripts/make-brand.mjs`; colori e carattere in `app/src/core/brand.ts`.
+    - **Carattere unico**: Fredoka (licenza OFL), incluso nell'app. Nessun testo con caratteri di sistema.
+    - **Un solo loader** (`core/loader.ts`): scritta, barra con i colori del logo, Tappo che la percorre. Ogni caricamento, in ogni punto dell'app e dei giochi, usa questo: avanzamento reale, chiusura solo a caricamento riuscito, "riprova" in caso di errore.
+    - **Pannelli** (impostazioni, area genitori, blocco adulti, offerta): solo i componenti di `core/overlay.ts`, con colori e carattere del marchio.
+    - **Audio moderno con strumenti veri**: niente più musichette sintetizzate. Lettore comune `core/sound.ts`; musica e suoni come file audio generati da script in `app/scripts/audio/`.
+    - **Chi fa cosa sulla musica**: menu principale in regia (fatto); la musica di ogni gioco nella chat di quel gioco, usando `core/sound` e il passo `preload` del modulo. Pasticceria ha già la sua; Pompieri va rifatta nella sua chat.
+    - Come usarli: sezione "Identità Tappolino" di `app/README.md`.

@@ -1,6 +1,6 @@
 # 05 — Strategia di pubblicazione e roadmap operativa
 
-Aggiornato: 14/11/2026. Sostituisce le parti di `02-SETUP-E-PIPELINE.md` e `03-ROADMAP.md` che parlano di "un'app per gioco". Le schede dei 10 giochi restano in `03-ROADMAP.md`.
+Aggiornato: 15/11/2026. Sostituisce le parti di `02-SETUP-E-PIPELINE.md` e `03-ROADMAP.md` che parlano di "un'app per gioco". Le schede dei 10 giochi restano in `03-ROADMAP.md`.
 
 ## Strategia in una frase
 Un'app collettore **Tappolino** come prodotto principale (3 giochi gratis, tutto il resto con un acquisto unico), poi poche app singole sui temi più cercati che portano traffico al collettore.
@@ -93,6 +93,7 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 |---|---|
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
+| Identità Tappolino (decisione 18) | Sul branch `core/identita-tappolino`, test e build verdi; pagina di prova https://claude.ai/artifact/P1UK9b4WaXkbJbSb1Tr1ZL. Manca l'ok di Gaetano, poi unione a `main` in un solo commit. Dopo: musica di Pompieri nella sua chat; Pasticceria adotta carattere, loader e `core/sound` |
 | 2 — Giochi 2–5 | In corso. Pasticceria Magica: completa sul branch `game/pasticceria-magica`, in attesa dell'ok di Gaetano; poi unione a `main` e branch `core/drag-e-manina` (decisione 17). Prossimo: Scavo dei Dinosauri |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
