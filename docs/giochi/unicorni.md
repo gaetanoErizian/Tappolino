@@ -26,7 +26,7 @@ Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifa
 
 ## Cosa provare sul telefono
 1. Fluidità mentre si strofina, su un telefono economico: l'unicorno è fatto di strati grandi (manto, criniera, riflessi) e mentre si lava ci sono due strati da strofinare insieme (fango sotto, schiuma sopra). È il punto più pesante del gioco.
-2. Durata delle tappe: oggi ogni tappa finisce quando è strofinata circa metà della superficie (`RUB_GOAL` in `salon.ts`: 50% schiuma e risciacquo, 55% spazzola, 50% colore). Se sono troppo lunghe o troppo corte per un bambino di 3 anni si regolano lì.
+2. Durata delle tappe: le tre tappe di pulizia sono state allungate di circa l'80% (richiesta di Gaetano). Oggi finiscono quando è strofinato il 60% del manto (schiuma), il 56% (risciacquo) e il 66% della criniera (spazzola), con pennelli più piccoli; il colore è rimasto al 50%. Si regolano in `RUB_GOAL` e `RUB_RADIUS` di `salon.ts`.
 3. Colore senza toccare il barattolo: strofinando subito la criniera deve partire un colore a sorpresa, senza dover alzare il dito.
 4. Accessori con tocchi veloci uno dopo l'altro: ognuno deve finire al suo posto (in testa ne resta uno solo, gli adesivi al massimo 6).
 5. Volume del nitrito e della doccetta rispetto alla musica.
@@ -44,6 +44,7 @@ Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifa
 - Nota per le pagine di test automatiche: con Playwright, `page.evaluate("...scene.start(...)")` si blocca perché prova a restituire l'oggetto della scena: aggiungere `; null` (come già fa `store-screenshots.py`).
 
 ## Diario
+- 15/11/2026 — Richiesta di Gaetano: tempi di pulizia troppo corti, allungarli almeno del 70%. Misurato con una simulazione di strofinio "da bambino" sulla sagoma vera (piccoli giri su punti a caso): movimento del dito necessario ×1,80 per la schiuma (quota 50→60%, pennello 72→52), ×1,84 per il risciacquo (50→56%, 84→66), ×1,76 per la spazzola (55→66%, 62→54). Il colore non è cambiato. Quote mai oltre il 70%, per non costringere il bambino a cercare gli ultimi angolini.
 - 15/11/2026 — Modulo completo: 5 tappe (schiuma, risciacquo, spazzola, colore, accessori), foto ricordo, album, 13 sorprese; grafica a strati in SVG; audio con strumenti veri; test.
 - 15/11/2026 — Merge di `main` nel branch (modalità prova, decisione 25), nessun conflitto; test (112) e build verdi; il gioco si apre dal menu con `#prova`. Pagina di prova ripubblicata.
 - 15/11/2026 — Pagina di prova del branch pubblicata: https://claude.ai/artifact/JpZ9uo7z17RiHYshCJM5Ar. In attesa dell'ok di Gaetano per l'unione a `main`.

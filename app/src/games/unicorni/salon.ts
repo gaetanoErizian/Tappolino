@@ -127,8 +127,15 @@ export function nextUnicorn(visits: number, groomed: readonly string[], prev: st
 }
 
 // ---------- Strofinare ----------
-/** Quota della superficie da strofinare per finire una tappa (schiuma, risciacquo, spazzola, colore). */
-export const RUB_GOAL: Record<Exclude<Step, 'decorate'>, number> = { wash: 0.5, rinse: 0.5, brush: 0.55, color: 0.5 };
+/**
+ * Quota della superficie da strofinare per finire una tappa (schiuma, risciacquo, spazzola, colore).
+ * Insieme al raggio del pennello (RUB_RADIUS) decide quanto dura una tappa. Le tappe di pulizia sono state
+ * allungate di circa l'80% su richiesta di Gaetano (simulazione di uno strofinio "da bambino" sulla sagoma vera).
+ */
+export const RUB_GOAL: Record<Exclude<Step, 'decorate'>, number> = { wash: 0.6, rinse: 0.56, brush: 0.66, color: 0.5 };
+
+/** Raggio del pennello di ogni tappa (unità della tela dell'unicorno). */
+export const RUB_RADIUS: Record<Exclude<Step, 'decorate'>, number> = { wash: 52, rinse: 66, brush: 54, color: 60 };
 
 /** Avanzamento 0..1 della tappa, data la quota strofinata. */
 export function rubProgress(step: Exclude<Step, 'decorate'>, fraction: number): number {

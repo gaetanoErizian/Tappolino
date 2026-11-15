@@ -5,7 +5,7 @@ import { muteButton, goTo } from '../../../core/hud';
 import { Hint } from '../../../core/drag';
 import { sound } from '../../../core/sound';
 import {
-  nextUnicorn, unlocked, rubProgress, rewardFor, addPhoto, isUnicornId, canPhoto, colorHex, RUB_GOAL,
+  nextUnicorn, unlocked, rubProgress, rewardFor, addPhoto, isUnicornId, canPhoto, colorHex, RUB_GOAL, RUB_RADIUS,
   type AccessoryId, type ColorId, type Step, type UnicornId,
 } from '../salon';
 import { ScratchLayer, maskFromTexture } from '../scratch';
@@ -108,7 +108,7 @@ export class Salon extends Phaser.Scene {
     this.messyMask = mask('un_mane_messy');
     this.maneMask = mask('un_mane');
     // il fango c'è già all'arrivo; si toglie solo nella tappa della schiuma
-    this.mud = new ScratchLayer(this, { ...this.full(), cover: 'un_mud', mask: this.coatMask, radius: 72, index: this.uni.indexFor('mud') });
+    this.mud = new ScratchLayer(this, { ...this.full(), cover: 'un_mud', mask: this.coatMask, radius: RUB_RADIUS.wash, index: this.uni.indexFor('mud') });
     this.mud.enabled = false;
 
     this.drops = this.add.particles(0, 0, 'un_drop', {
@@ -281,7 +281,7 @@ export class Salon extends Phaser.Scene {
     // la spugna toglie il fango (strato sotto) e intanto lascia la schiuma (strato sopra)
     const o = this.full();
     this.mud.destroy();
-    this.mud = new ScratchLayer(this, { ...o, rt: this.mud.layer, mask: this.coatMask, radius: 72 });
+    this.mud = new ScratchLayer(this, { ...o, rt: this.mud.layer, mask: this.coatMask, radius: RUB_RADIUS.wash });
     this.foam = new ScratchLayer(this, {
       ...this.rubOpts((x, y, fresh) => {
         if (this.every(150)) sfx.squish();
@@ -290,7 +290,7 @@ export class Salon extends Phaser.Scene {
           if (Math.random() < 0.4) sfx.bubble();
         }
       }),
-      mode: 'paint', brush: 'un_foam', mask: this.coatMask, radius: 72, index: this.uni.c.getIndex(this.mud.layer) + 1,
+      mode: 'paint', brush: 'un_foam', mask: this.coatMask, radius: RUB_RADIUS.wash, index: this.uni.c.getIndex(this.mud.layer) + 1,
     });
     this.rub = this.foam;
     this.lastAction = this.time.now;
@@ -321,7 +321,7 @@ export class Salon extends Phaser.Scene {
         if (this.tool && this.fx(40)) this.drops.explode(4, this.tool.x + (Math.random() * 2 - 1) * 40, this.tool.y + 50);
         if (Math.random() < 0.05) burst(this, x, y, 'un_foam', { count: 1, speed: [80, 180], scale: [0.4, 0.1], gravity: -200, life: 700, depth: 660 });
       }),
-      rt: this.foam!.layer, mask: this.coatMask, radius: 84,
+      rt: this.foam!.layer, mask: this.coatMask, radius: RUB_RADIUS.rinse,
     });
     this.lastAction = this.time.now;
     if (this.tutorial) this.time.delayedCall(700, () => this.showHint());
@@ -359,7 +359,7 @@ export class Salon extends Phaser.Scene {
         if (this.every(130)) sfx.brush();
         if (fresh > 0 && this.fx(70)) burst(this, x, y, 'un_tuft', { count: 2, tints: [tint, 0xffffff], speed: [80, 220], scale: [0.9, 0.3], gravity: 600, life: 700, depth: 660 });
       }),
-      cover: 'un_mane_messy', coverTint: tint, mask: this.messyMask, radius: 62, index: this.uni.indexFor('messyCover'),
+      cover: 'un_mane_messy', coverTint: tint, mask: this.messyMask, radius: RUB_RADIUS.brush, index: this.uni.indexFor('messyCover'),
     });
     this.lastAction = this.time.now;
     if (this.tutorial) this.time.delayedCall(700, () => this.showHint());
@@ -452,7 +452,7 @@ export class Salon extends Phaser.Scene {
         if (this.every(160)) sfx.paint();
         if (fresh > 0 && this.fx(80)) burst(this, x, y, 'sparkle', { count: 2, tints: [tipTint, 0xffffff], speed: [60, 200], scale: [0.6, 0], gravity: 0, life: 500, depth: 660 });
       }),
-      cover: now === null ? 'un_mane_rainbow' : 'un_mane', coverTint: now ?? undefined, mask: this.maneMask, radius: 60, index: this.uni.indexFor('maneCover'),
+      cover: now === null ? 'un_mane_rainbow' : 'un_mane', coverTint: now ?? undefined, mask: this.maneMask, radius: RUB_RADIUS.color, index: this.uni.indexFor('maneCover'),
     });
     this.uni.setMane(c);
     if (startWith) this.rub.begin(startWith);

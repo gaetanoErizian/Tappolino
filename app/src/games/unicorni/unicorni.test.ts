@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  UNICORNS, COLORS, ACCESSORIES, REWARDS, START, STEPS, RUB_GOAL, MAX_STICKERS, ALBUM_MAX,
+  UNICORNS, COLORS, ACCESSORIES, REWARDS, START, STEPS, RUB_GOAL, RUB_RADIUS, MAX_STICKERS, ALBUM_MAX,
   unlocked, rewardFor, nextUnicorn, rubProgress, wear, layout, canPhoto, addPhoto, sanitizeLooks, sanitizeGroomed,
   unicornById, colorHex, type Look, type AccessoryId,
 } from './salon';
@@ -76,7 +76,9 @@ describe('unicorni: collezione e sblocchi', () => {
 describe('unicorni: tappe e strofinare', () => {
   it('5 tappe, le prime 4 si finiscono strofinando una parte (mai tutto)', () => {
     expect(STEPS).toEqual(['wash', 'rinse', 'brush', 'color', 'decorate']);
-    for (const g of Object.values(RUB_GOAL)) { expect(g).toBeGreaterThan(0.3); expect(g).toBeLessThan(0.8); }
+    // mai tutta la superficie: gli ultimi angolini sarebbero una caccia frustrante
+    for (const g of Object.values(RUB_GOAL)) { expect(g).toBeGreaterThan(0.3); expect(g).toBeLessThanOrEqual(0.7); }
+    for (const r of Object.values(RUB_RADIUS)) { expect(r).toBeGreaterThanOrEqual(45); expect(r).toBeLessThanOrEqual(80); }
     expect(rubProgress('wash', 0)).toBe(0);
     expect(rubProgress('wash', RUB_GOAL.wash / 2)).toBeCloseTo(0.5);
     expect(rubProgress('brush', 1)).toBe(1);
