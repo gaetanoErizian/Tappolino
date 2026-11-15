@@ -1,6 +1,6 @@
 # Tappolino — app collettore
 
-Un'unica app (`it.tappolino.app`) con i giochi come moduli: menu dei giochi 2.5D, 3 giochi gratis, un solo acquisto `it.tappolino.app.unlock_all` che sblocca tutto e toglie la pubblicità (decisioni 1–3). Per ora contiene il gioco 1, **Pompieri in Azione** (gratis).
+Un'unica app (`it.tappolino.app`) con i giochi come moduli: menu dei giochi 2.5D, 3 giochi gratis, un solo acquisto `it.tappolino.app.unlock_all` che sblocca tutto e toglie la pubblicità (decisioni 1–3). Contiene il gioco 1, **Pompieri in Azione**, e il gioco 2, **Pasticceria Magica** (entrambi gratis).
 
 ## Avvio rapido
 
@@ -39,6 +39,7 @@ src/
   games/
     registry.ts      elenco dei giochi (voci leggere) — l'unico file da toccare per aggiungere un gioco al menu
     pompieri/        modulo gioco 1: index.ts, tile.ts, art.ts, levels.ts, save.ts, sfx.ts, world.ts, scenes/, locales/, pompieri.test.ts
+    pasticceria/     modulo gioco 2: recipes.ts (logica pura), art.ts, world.ts (cucina, dolce composto, trascinamento, manina), save.ts, sfx.ts, scenes/, locales/, pasticceria.test.ts
 android/ ios/        progetti nativi (rigenerabili: npx cap add + node scripts/native-setup.mjs)
 scripts/             make-icons.ts (icona, splash, grafiche store), native-setup.mjs (personalizzazioni native)
 assets/              sorgenti per @capacitor/assets
@@ -74,6 +75,10 @@ Tutto ciò che si vede e si sente fuori dai giochi segue il marchio. I giochi lo
 - Phaser 4: **non ruotare oggetti grandi** (Container, testi, immagini ampie): nei test sono comparsi triangoli "tagliati". Animare con scala, alpha e posizione; ruotare solo oggetti piccoli.
 - Area di design 1920×1080 con `Scale.EXPAND` (`setupView`), pulsanti ancorati agli angoli con `pin()`. Sul telefono il gioco occupa ~310 dp di altezza: massimo 3 righe di bersagli.
 - Tocchi: un listener di scena e ricerca del bersaglio più vicino con raggio ampio (~175 unità).
+- Trascinamento (gioco 2, `games/pasticceria/world.ts`): `DragManager` prende l'oggetto più vicino al dito, un tocco senza movimento vale come azione semplice (per i più piccoli), se il rilascio è fuori bersaglio l'oggetto torna a posto. `Hint` mostra la manina per tocco, trascinamento e movimento circolare. Candidati a passare in `core/` con i prossimi giochi a trascinamento (6, 9, 10).
+- Parti da colorare (impasto, glassa): disegnate in scala di grigi e colorate con `setTint`; i riflessi bianchi in una texture separata sopra, altrimenti il tint li spegne.
+- Audio di Pasticceria Magica: pacchetto `pasticceria` di `core/sound` (registrato e caricato nel `preload` del modulo, `src/games/pasticceria/sfx.ts`); musica ed effetti generati da `scripts/audio/pasticceria_music.py` e `pasticceria_sfx.py` (FluidSynth + MuseScore General, MIT; crediti in `src/games/pasticceria/audio/CREDITS.md`).
+- Test automatici nel browser: con `?debug=1` la scena di gioco di Pasticceria è in `window.__pa` e `autoStep()` esegue il passo corrente (usato da `scripts/store-screenshots.py`).
 
 ## Prima della pubblicazione (compiti di Gaetano, docs/05)
 1. Privacy policy online: completare i campi tra parentesi quadre in `store/privacy-policy.html`, pubblicarla e aggiornare `privacyUrl` in `src/config.ts`.

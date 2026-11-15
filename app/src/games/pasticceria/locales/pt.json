@@ -1,0 +1,14 @@
+{
+  "pasticceria.title": "Confeitaria Mágica",
+  "pasticceria.recipe.cupcake": "Cupcake",
+  "pasticceria.recipe.cookie": "Biscoitos",
+  "pasticceria.recipe.cake": "Bolo",
+  "pasticceria.recipe.gelato": "Sorvete",
+  "pasticceria.yum": "Nham!",
+  "pasticceria.bravo": "Que delícia!",
+  "pasticceria.newRecipe": "Nova receita!",
+  "pasticceria.newTopping": "Nova decoração!",
+  "pasticceria.newColor": "Nova cobertura!",
+  "pasticceria.showcase": "A vitrine",
+  "pasticceria.served": "Doces servidos: {n}"
+}

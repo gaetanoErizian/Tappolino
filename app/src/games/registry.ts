@@ -1,5 +1,6 @@
 import type { GameEntry } from '../core/module';
 import { pompieriTile } from './pompieri/tile';
+import { pasticceriaTile } from './pasticceria/tile';
 
 /**
  * Elenco dei giochi dell'app, nell'ordine del menu.
@@ -8,6 +9,7 @@ import { pompieriTile } from './pompieri/tile';
  */
 export const GAMES: GameEntry[] = [
   { id: 'pompieri', free: true, titleKey: 'games.pompieri', color: '#ef4a35', tile: pompieriTile, load: () => import('./pompieri') },
+  { id: 'pasticceria', free: true, titleKey: 'games.pasticceria', color: '#ff7fb0', tile: pasticceriaTile, load: () => import('./pasticceria') },
 ];
 
 export const gameById = (id: string): GameEntry | undefined => GAMES.find((g) => g.id === id);

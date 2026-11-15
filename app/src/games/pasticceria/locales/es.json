@@ -1,0 +1,14 @@
+{
+  "pasticceria.title": "Pastelería Mágica",
+  "pasticceria.recipe.cupcake": "Cupcake",
+  "pasticceria.recipe.cookie": "Galletas",
+  "pasticceria.recipe.cake": "Tarta",
+  "pasticceria.recipe.gelato": "Helado",
+  "pasticceria.yum": "¡Ñam!",
+  "pasticceria.bravo": "¡Qué rico!",
+  "pasticceria.newRecipe": "¡Nueva receta!",
+  "pasticceria.newTopping": "¡Nueva decoración!",
+  "pasticceria.newColor": "¡Nuevo glaseado!",
+  "pasticceria.showcase": "El escaparate",
+  "pasticceria.served": "Dulces servidos: {n}"
+}
