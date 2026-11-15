@@ -1,0 +1,15 @@
+{
+  "dinosauri.title": "Excavación de Dinosaurios",
+  "dinosauri.album": "Álbum de dinosaurios",
+  "dinosauri.count": "Dinosaurios encontrados: {n} de {tot}",
+  "dinosauri.new": "¡Nuevo dinosaurio!",
+  "dinosauri.again": "¡Qué bien verte otra vez!",
+  "dinosauri.dino.rex": "Tiranosaurio",
+  "dinosauri.dino.pachy": "Paquicefalosaurio",
+  "dinosauri.dino.tricera": "Triceratops",
+  "dinosauri.dino.ptero": "Pteranodonte",
+  "dinosauri.dino.anky": "Anquilosaurio",
+  "dinosauri.dino.para": "Parasaurolophus",
+  "dinosauri.dino.stego": "Estegosaurio",
+  "dinosauri.dino.brachio": "Braquiosaurio"
+}

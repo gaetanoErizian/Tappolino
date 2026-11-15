@@ -1,0 +1,15 @@
+{
+  "dinosauri.title": "Dinosaur Dig",
+  "dinosauri.album": "Dinosaur album",
+  "dinosauri.count": "Dinosaurs found: {n} of {tot}",
+  "dinosauri.new": "New dinosaur!",
+  "dinosauri.again": "Nice to see you again!",
+  "dinosauri.dino.rex": "Tyrannosaurus",
+  "dinosauri.dino.pachy": "Pachycephalosaurus",
+  "dinosauri.dino.tricera": "Triceratops",
+  "dinosauri.dino.ptero": "Pteranodon",
+  "dinosauri.dino.anky": "Ankylosaurus",
+  "dinosauri.dino.para": "Parasaurolophus",
+  "dinosauri.dino.stego": "Stegosaurus",
+  "dinosauri.dino.brachio": "Brachiosaurus"
+}
