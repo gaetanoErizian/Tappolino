@@ -1,0 +1,15 @@
+{
+  "dinosauri.title": "Scavo dei Dinosauri",
+  "dinosauri.album": "Album dei dinosauri",
+  "dinosauri.count": "Dinosauri trovati: {n} su {tot}",
+  "dinosauri.new": "Nuovo dinosauro!",
+  "dinosauri.again": "Che bello rivederti!",
+  "dinosauri.dino.rex": "Tirannosauro",
+  "dinosauri.dino.pachy": "Pachicefalosauro",
+  "dinosauri.dino.tricera": "Triceratopo",
+  "dinosauri.dino.ptero": "Pteranodonte",
+  "dinosauri.dino.anky": "Anchilosauro",
+  "dinosauri.dino.para": "Parasaurolofo",
+  "dinosauri.dino.stego": "Stegosauro",
+  "dinosauri.dino.brachio": "Brachiosauro"
+}

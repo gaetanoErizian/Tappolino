@@ -1,0 +1,15 @@
+{
+  "dinosauri.title": "Fouille de Dinosaures",
+  "dinosauri.album": "Album des dinosaures",
+  "dinosauri.count": "Dinosaures trouvés : {n} sur {tot}",
+  "dinosauri.new": "Nouveau dinosaure !",
+  "dinosauri.again": "Content de te revoir !",
+  "dinosauri.dino.rex": "Tyrannosaure",
+  "dinosauri.dino.pachy": "Pachycéphalosaure",
+  "dinosauri.dino.tricera": "Tricératops",
+  "dinosauri.dino.ptero": "Ptéranodon",
+  "dinosauri.dino.anky": "Ankylosaure",
+  "dinosauri.dino.para": "Parasaurolophus",
+  "dinosauri.dino.stego": "Stégosaure",
+  "dinosauri.dino.brachio": "Brachiosaure"
+}

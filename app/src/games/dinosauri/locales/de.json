@@ -1,0 +1,15 @@
+{
+  "dinosauri.title": "Dinosaurier-Ausgrabung",
+  "dinosauri.album": "Dinosaurier-Album",
+  "dinosauri.count": "Gefundene Dinosaurier: {n} von {tot}",
+  "dinosauri.new": "Neuer Dinosaurier!",
+  "dinosauri.again": "Schön, dich wiederzusehen!",
+  "dinosauri.dino.rex": "Tyrannosaurus",
+  "dinosauri.dino.pachy": "Pachycephalosaurus",
+  "dinosauri.dino.tricera": "Triceratops",
+  "dinosauri.dino.ptero": "Pteranodon",
+  "dinosauri.dino.anky": "Ankylosaurus",
+  "dinosauri.dino.para": "Parasaurolophus",
+  "dinosauri.dino.stego": "Stegosaurus",
+  "dinosauri.dino.brachio": "Brachiosaurus"
+}
