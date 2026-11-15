@@ -23,13 +23,15 @@ export interface Recipe {
   frostDy: number;
   /** zona delle decorazioni */
   area: Area;
+  /** distanza tra il centro del dolce e il piattino sotto */
+  plateDy: number;
 }
 
 export const RECIPES: Recipe[] = [
-  { id: 'cupcake', ingredients: ['flour', 'egg', 'milk', 'sugar'], batter: '#f6d8a0', cold: false, frostDy: -120, area: { x: 0, y: -150, rx: 120, ry: 70 } },
-  { id: 'cookie', ingredients: ['flour', 'butter', 'sugar', 'choco'], batter: '#e2b072', cold: false, frostDy: -14, area: { x: 0, y: -20, rx: 150, ry: 62 } },
-  { id: 'cake', ingredients: ['flour', 'egg', 'sugar', 'strawberry'], batter: '#f8c4c8', cold: false, frostDy: -70, area: { x: 0, y: -112, rx: 170, ry: 46 } },
-  { id: 'gelato', ingredients: ['milk', 'cream', 'sugar', 'strawberry'], batter: '#fbd6e4', cold: true, frostDy: -110, area: { x: 0, y: -150, rx: 105, ry: 92 } },
+  { id: 'cupcake', ingredients: ['flour', 'egg', 'milk', 'sugar'], batter: '#f6d8a0', cold: false, frostDy: -120, area: { x: 0, y: -150, rx: 120, ry: 64 }, plateDy: 186 },
+  { id: 'cookie', ingredients: ['flour', 'butter', 'sugar', 'choco'], batter: '#e2b072', cold: false, frostDy: -14, area: { x: 0, y: -20, rx: 150, ry: 62 }, plateDy: 98 },
+  { id: 'cake', ingredients: ['flour', 'egg', 'sugar', 'strawberry'], batter: '#f8c4c8', cold: false, frostDy: -70, area: { x: 0, y: -92, rx: 165, ry: 40 }, plateDy: 160 },
+  { id: 'gelato', ingredients: ['milk', 'cream', 'sugar', 'strawberry'], batter: '#fbd6e4', cold: true, frostDy: -110, area: { x: 0, y: -150, rx: 100, ry: 88 }, plateDy: 214 },
 ];
 
 export const recipeById = (id: string): Recipe => RECIPES.find((r) => r.id === id) ?? RECIPES[0];
@@ -108,6 +110,11 @@ export function clampToEllipse(px: number, py: number, cx: number, cy: number, r
 export const MAX_TOPPINGS = 14;
 /** Decorazioni minime (dopo la glassa) per far comparire il pulsante "servi". */
 export const MIN_TOPPINGS = 2;
+
+/** Il pulsante "servi" compare con glassa + 2 decorazioni, oppure con 4 decorazioni anche senza glassa. */
+export function canServe(frosted: boolean, toppings: number): boolean {
+  return toppings >= MIN_TOPPINGS + (frosted ? 0 : 2);
+}
 
 /** Dolce creato dal bambino: ricetta, glassa (o null) e decorazioni [id, dx, dy] relative al centro. */
 export interface Creation {
