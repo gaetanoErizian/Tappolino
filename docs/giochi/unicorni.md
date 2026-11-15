@@ -3,8 +3,8 @@
 Branch `game/salone-degli-unicorni` · `order` 4 · a pagamento (compreso nello sblocco unico) · colore `#b58cf0`
 
 ## Stato
-**Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita vera provata nel browser in formato telefono (strofinio con il mouse, tocchi su barattoli e accessori, foto, album), catture guardate una per una.
-Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifact/JpZ9uo7z17RiHYshCJM5Ar — il gioco è la quarta tessera del menu; essendo a pagamento si apre con la modalità prova, aggiungendo `#prova` all'indirizzo (decisione 25). In locale: `?game=unicorni&unlock=1` oppure `#prova`.
+**Approvato da Gaetano e unito a `main`** (15/11/2026), in un solo commit. Test e build web verdi, partita provata nel browser in formato telefono.
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5 — il gioco è la quarta tessera del menu; essendo a pagamento si apre con la modalità prova, aggiungendo `#prova` all'indirizzo (decisione 25). In locale: `?game=unicorni&unlock=1` oppure `#prova`.
 
 ## Cosa c'è nel gioco
 - **Menu**: salone tra le nuvole (cielo lilla e rosa, arcobaleno nella foschia, tende turchesi, specchio con le lucine, lampade a stella, pavimento di nuvole). Pulsante gioca e pulsante album. Sulla pedana c'è l'ultimo unicorno fotografato, con il suo look; se lo tocchi salta e fa un nitrito magico.
@@ -44,6 +44,7 @@ Pagina di prova del branch (provvisoria, decisione 21): https://claude.ai/artifa
 - Nota per le pagine di test automatiche: con Playwright, `page.evaluate("...scene.start(...)")` si blocca perché prova a restituire l'oggetto della scena: aggiungere `; null` (come già fa `store-screenshots.py`).
 
 ## Diario
+- 15/11/2026 — Ok di Gaetano: `main` già nel branch (nessuna novità), test e build verdi, unito a `main` in un solo commit; ripubblicata la pagina di prova ufficiale.
 - 15/11/2026 — Richiesta di Gaetano: tempi di pulizia troppo corti, allungarli almeno del 70%. Misurato con una simulazione di strofinio "da bambino" sulla sagoma vera (piccoli giri su punti a caso): movimento del dito necessario ×1,80 per la schiuma (quota 50→60%, pennello 72→52), ×1,84 per il risciacquo (50→56%, 84→66), ×1,76 per la spazzola (55→66%, 62→54). Il colore non è cambiato. Quote mai oltre il 70%, per non costringere il bambino a cercare gli ultimi angolini.
 - 15/11/2026 — Modulo completo: 5 tappe (schiuma, risciacquo, spazzola, colore, accessori), foto ricordo, album, 13 sorprese; grafica a strati in SVG; audio con strumenti veri; test.
 - 15/11/2026 — Merge di `main` nel branch (modalità prova, decisione 25), nessun conflitto; test (112) e build verdi; il gioco si apre dal menu con `#prova`. Pagina di prova ripubblicata.
