@@ -10,7 +10,7 @@ import {
   FLOOR, BONE_BOX, FOUND_AT, TRAY_Y, TRAY_BOX, STAGE, FRAME, GROUND, TREASURES, type Dino, type DinoId, type Treasure,
 } from '../dinos';
 import { piecesOf, type BonePiece } from '../skeleton';
-import { ScratchLayer } from '../scratch';
+import { ScratchLayer } from '../../../core/scratch';
 import { drawDesert, drawPit, DinoView } from '../world';
 import { save } from '../save';
 import { sfx, playDinosauriMusic } from '../sfx';
@@ -84,7 +84,7 @@ export class Dig extends Phaser.Scene {
     this.buryBones();
     this.scratch = new ScratchLayer(this, {
       x: FLOOR.x, y: FLOOR.y, w: FLOOR.w, h: FLOOR.h, cover: 'di_soil', radius: 74, depth: 10,
-      shadow: { dx: 12, dy: 15, alpha: 0.42 },
+      shadow: { dx: 12, dy: 15, alpha: 0.42 }, brushShape: 'rough',
       onStart: (x, y) => this.onScrubStart(x, y),
       onScrub: (x, y, fresh) => this.onScrub(x, y, fresh),
       onEnd: () => this.brush.setVisible(false),
@@ -153,10 +153,10 @@ export class Dig extends Phaser.Scene {
     if (now - this.lastSound > 110) { this.lastSound = now; sfx.brush(); }
     if (fresh > 0 && now - this.lastDust > 50) { this.lastDust = now; this.dust.explode(4, x, y); }
     for (const b of this.bones) {
-      if (!b.found && this.scratch.fractionIn(b.rect.x, b.rect.y, b.rect.width, b.rect.height) >= FOUND_AT) this.boneFound(b);
+      if (!b.found && this.scratch.fractionInScene(b.rect.x, b.rect.y, b.rect.width, b.rect.height) >= FOUND_AT) this.boneFound(b);
     }
     const tr = this.treasure;
-    if (tr && !tr.found && this.scratch.fractionIn(tr.rect.x, tr.rect.y, tr.rect.width, tr.rect.height) >= 0.5) this.treasureFound();
+    if (tr && !tr.found && this.scratch.fractionInScene(tr.rect.x, tr.rect.y, tr.rect.width, tr.rect.height) >= 0.5) this.treasureFound();
   }
 
   /** La terra attorno all'osso crolla, l'osso salta fuori e vola nel vassoio. */
