@@ -634,19 +634,28 @@ export class Salon extends Phaser.Scene {
   // =================================================================
   // Solo test automatici (?debug=1): esegue la tappa corrente
   // =================================================================
-  /** Strofina da codice lo strato attivo (cella per cella del bersaglio) fino alla quota indicata. */
-  rubTo(share: number): void {
+  /**
+   * Strofina da codice lo strato attivo fino alla quota indicata, partendo dalle celle più vicine
+   * a un punto della tela dell'unicorno (per le catture "a metà lavoro"); senza punto, dal centro.
+   */
+  rubTo(share: number, cx = U.OX, cy = U.H / 2): void {
     const layer = this.rub;
     if (!layer) return;
     const g = layer.grid;
-    for (let row = 0; row < g.rows && layer.fraction() < share; row++) {
-      for (let col = 0; col < g.cols && layer.fraction() < share; col++) {
+    const cells: [number, number, number][] = [];
+    for (let row = 0; row < g.rows; row++) {
+      for (let col = 0; col < g.cols; col++) {
         const lx = (col + 0.5) * g.cell, ly = (row + 0.5) * g.cell;
-        if (!g.inMask(lx, ly) || g.isClear(lx, ly)) continue;
-        const p = layer.toScene(lx, ly);
-        layer.eraseAt(p.x, p.y);
-        if (this.phase === 'wash') this.mud.eraseAt(p.x, p.y);
+        if (g.inMask(lx, ly) && !g.isClear(lx, ly)) cells.push([lx, ly, (lx - cx) ** 2 + (ly - cy) ** 2]);
       }
+    }
+    cells.sort((a, b) => a[2] - b[2]);
+    for (const [lx, ly] of cells) {
+      if (layer.fraction() >= share) break;
+      if (g.isClear(lx, ly)) continue;
+      const p = layer.toScene(lx, ly);
+      layer.eraseAt(p.x, p.y);
+      if (this.phase === 'wash') this.mud.eraseAt(p.x, p.y);
     }
   }
 
