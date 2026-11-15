@@ -1,0 +1,40 @@
+# Gioco 7 — Officina dei Monster Truck (`monstertruck`)
+
+Branch `game/officina-dei-monster-truck` · `order` 7 · con l'acquisto unico (`free: false`) · colore `#f2a01e`
+
+## Stato
+**Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (844×390). In attesa dell'ok per l'unione a `main`.
+Pagina di prova del branch: vedi il diario qui sotto. Il gioco è bloccato come nell'app vera: si apre con `#prova` in fondo all'indirizzo (modalità prova, decisione 25). In locale: `?game=monstertruck&unlock=1`.
+
+## Cosa c'è nel gioco
+- **Menu**: arena all'aperto con il pubblico, la barriera di gomme e un trampolino; il truck personalizzato aspetta a motore acceso (toccalo: clacson, salto sul posto e applausi). Pulsanti: in officina, le mie piste, casa.
+- **Officina** (gesto: tocco): parete con il pannello degli attrezzi, porta aperta sull'arena, lampade, ponte sollevatore. Il truck arriva con **tre guasti**, ognuno con la sua nuvoletta che indica l'attrezzo: gomma a terra (la pompa la gonfia in tre colpi), ruota davanti smontata (rotola da sola al suo posto e il cric se ne va), fango sulla carrozzeria (acqua e bolle), motore che fuma e tossisce (chiave inglese, poi rombo felice). Si tocca la nuvoletta, il punto del guasto o un punto qualsiasi del truck: bersagli grandi. La prima visita ha sempre gomma, fango e motore; poi tre guasti a caso su quattro.
+- **Personalizzazione**: riparato tutto (clacson, saltello, coriandoli) compaiono a sinistra tre pulsanti — colore, ruote, adesivi — e in basso una riga di scelte. Colore: schizzi di vernice; ruote: le ruote girano e il truck sobbalza; adesivi: "ciaf" sulla fiancata. I pezzi da sbloccare sono sagome con il punto interrogativo (un tocco: dondolano, nessun errore). La bandiera a scacchi porta in pista.
+- **Pista** (gesto: tenere premuto, con qualsiasi dito e in qualsiasi punto): tieni premuto e il truck accelera; sui dossi fa piccoli salti, sui trampolini salti grandi; lascia e rallenta dolcemente fino a fermarsi. Stelle a terra e lungo i salti (al massimo 3 altezze, una stellona da 3 a metà gara), pile di scatoloni sorridenti da schiacciare (pezzi di cartone, coriandoli, "ooh" del pubblico e un saltello). **Niente incidenti**: il truck atterra sempre sulle ruote, le molle lo fanno rimbalzare. Il pubblico esulta sui salti lunghi. In alto la strada verso il traguardo con il truck in miniatura (del colore scelto) e il contatore delle stelle.
+- **Tutorial**: in officina la manina tocca il primo guasto (e torna se il bambino non tocca per 6 s; poi indica la bandiera); in pista la manina "tieni premuto" (`core/holdHint`), che sparisce appena il bambino preme e torna se il truck resta fermo per 6 s.
+- **Traguardo**: arco a scacchi, coriandoli, pubblico in festa, "Traguardo!" con le stelle della gara e il **premio**: "Nuovo pezzo!" (colore, ruote o adesivo) oppure "Nuova pista!" con la cartolina. Pulsanti: le mie piste, officina (di nuovo, con nuovi guasti). Toccando il truck: clacson.
+- **Collezione**: un premio a ogni gara finita, 18 in tutto: 8 colori, 5 tipi di ruote (classiche, stelle, fiamme, arcobaleno, oro), 6 adesivi (stella, fulmine, fiamme, cuore, sorriso, scacchi) e **5 piste** — Arena del Sole, Dune di Sabbia, Cantiere, Canyon Rosso, Arena di Notte — ognuna con cielo, sfondo lontano, terreno, decorazioni e carattere del percorso diversi (dune: colline grandi; cantiere: tanti scatoloni e dossi; canyon: più trampolini; notte: luna, stelle e riflettori). La pista appena sbloccata è quella della gara dopo; in "Le mie piste" si sceglie con un tocco.
+- **Partita**: officina ~30 s, gara ~32 s il primo giro tenendo premuto, fino a ~40 s con l'esperienza (più chi si ferma a guardare).
+- **Salvataggi** in `Store('tappolino.monstertruck')`: gare finite, stelle, colore/ruote/adesivo, pista scelta, piste provate, visite in officina, tutorial visti (ripuliti al caricamento: pezzi sconosciuti o non ancora sbloccati tornano ai primi).
+- **Audio**: musica "Su di giri!" (rock allegro, 128 bpm: chitarra elettrica pulita, chitarra stoppata, organo rock, basso col plettro, batteria; loop esatto di 60 s) e 25 effetti (strumenti veri per quelli musicali, sintesi offline per motore, clacson, cartone, acqua…), generati da `scripts/audio/monstertruck_*.py`. Crediti in `app/src/games/monstertruck/CREDITS.md` e `audio/CREDITS.md`.
+- **Testi**: IT, EN, ES, FR, DE, PT (pt-BR come negli altri giochi). Per giocare non serve leggere.
+- **Scheda store** nelle 6 lingue: `app/store/games/monstertruck/` (limiti dei caratteri verificati). Catture: `python scripts/store-screenshots.py --groups monstertruck`.
+
+## Cosa provare sul telefono
+1. **Inclinazione e ruote**: il truck non usa rotazioni di Phaser (vedi "Per la regia"). Le ruote girano a fotogrammi da 10° e in pista la carrozzeria si inclina a scatti di 3°: dire se il movimento sembra fluido o "a scatti" su colline e trampolini.
+2. Primo avvio in pista: la manina deve far capire subito che si tiene premuto; provare anche a premere e lasciare spesso (il truck rallenta piano, non si blocca di colpo).
+3. Fluidità della gara su un telefono economico (60 fps): il terreno è un poligono ridisegnato a ogni fotogramma e ci sono tre piani larghi (sfondo, tribune, barriera). Nel browser senza scheda grafica del computer di prova va alla stessa velocità del Razzo.
+4. Officina: i tocchi sui guasti devono essere facili anche per i più piccoli (si può toccare ovunque sul truck); la riga delle scelte in basso non deve finire sotto il banner Android.
+5. Volume di clacson, motore e applausi rispetto alla musica.
+6. Telefoni molto allungati (20:9) e tablet: strada e contatore in alto, pulsanti di categoria a sinistra e bandiera a destra sempre visibili.
+
+## Per la regia
+- **Rotazioni in Phaser 4**: nel browser di prova le immagini ruotate con `setAngle` si tagliano a triangoli non solo se grandi, ma anche piccole (scatolone 110×100, stelle, riquadri; vedi la regola in `app/README.md`). Il gioco non ruota nessuna immagine: ruote con 6 fotogrammi ruotati su canvas 2D (`wheelFrames`) e carrozzeria in pista con 17 fotogrammi già inclinati (`tiltFrames`, ±24° ogni 3°, colore e adesivo inclusi, rifatti solo quando cambia il truck) in `app/src/games/monstertruck/world.ts`. Candidato per `core/` ("immagine con rotazione a fotogrammi"), utile a chiunque debba inclinare o far girare qualcosa. Da verificare su telefono vero se il problema c'è anche lì (potrebbe essere solo del browser senza scheda grafica).
+- Da valutare: `burst()` di `core/ui` fa ruotare le particelle (`rotate: 0–360`); con particelle piccole il taglio non si nota, ma è lo stesso caso.
+- **Gesto "tieni premuto"**: usato `core/holdHint` senza frecce (qui premere = andare avanti, non salire). Funziona bene così.
+- Usati dal codice comune senza modifiche: `core/ui`, `core/hud`, `core/holdHint`, `core/sound`, `core/art`, `core/storage`, `core/brand`, `core/textures`.
+- Nota per la scheda store: "monster truck" è il nome generico del veicolo; "Monster Jam" è un marchio e non è usato da nessuna parte.
+
+## Diario
+- 15/11/2026 — Modulo completo: officina con 4 tipi di guasto, personalizzazione (colori, ruote, adesivi), gara con fisica del salto e rimbalzo, scatoloni, traguardo e premio, collezione delle piste; 5 piste con ambientazione propria; audio con strumenti veri; test (`monstertruck.test.ts`: pezzi e sblocchi, pista, guida e salti simulati su centinaia di percorsi, grafica, testi, audio).
+- 15/11/2026 — Prova nel browser in formato telefono (844×390, tocchi e pressioni veri con il mouse, catture guardate una per una, tutte le 5 piste). Corretto: immagini ruotate tagliate a triangoli (ruote e carrozzeria ora senza rotazioni Phaser); linee della carrozzeria visibili dentro i passaruota; truck troppo piccolo in officina; vernice troppo scura; manina che restava sul guasto già riparato; stelle dei salti fuori posto per un errore nel profilo dei trampolini; rettilineo finale non sempre libero; pubblico troppo vivace dietro le stelle (ora velato dalla foschia). Scheda store nelle 6 lingue e script delle catture.

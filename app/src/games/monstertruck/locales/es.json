@@ -1,0 +1,13 @@
+{
+  "monstertruck.title": "Taller de Monster Trucks",
+  "monstertruck.tracks": "Mis pistas",
+  "monstertruck.count": "Pistas: {n} de {tot}",
+  "monstertruck.finish": "¡Meta!",
+  "monstertruck.newPart": "¡Pieza nueva!",
+  "monstertruck.newTrack": "¡Pista nueva!",
+  "monstertruck.track.arena": "Arena del Sol",
+  "monstertruck.track.dune": "Dunas de Arena",
+  "monstertruck.track.cantiere": "Zona de Obras",
+  "monstertruck.track.canyon": "Cañón Rojo",
+  "monstertruck.track.notte": "Arena Nocturna"
+}
