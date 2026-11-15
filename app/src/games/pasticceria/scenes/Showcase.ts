@@ -43,7 +43,7 @@ export class Showcase extends Phaser.Scene {
       });
     }
     this.add.text(960, 990, t('pasticceria.served', { n: save.state.served }), {
-      fontFamily: FONT, fontSize: '54px', fontStyle: 'bold', color: '#ffffff', stroke: '#c2386f', strokeThickness: 12,
+      fontFamily: FONT, fontSize: '54px', fontStyle: 'bold', color: '#ffffff', stroke: '#c2386f', strokeThickness: 8,
     }).setOrigin(0.5).setDepth(70);
 
     muteButton(this);

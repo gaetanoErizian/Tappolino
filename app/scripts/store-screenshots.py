@@ -7,7 +7,7 @@ Uso:
   python scripts/store-screenshots.py --langs it,en [--url http://localhost:4175/] [--chrome /usr/bin/google-chrome]
 
 Uscita: store/screenshots/<gruppo>/<lingua>/<dispositivo>/*.png
-  gruppi: app (menu dei giochi), pompieri (gioco 1). Dispositivi: telefono Play 1920×1080,
+  gruppi: app (menu dei giochi), pompieri (gioco 1), pasticceria (gioco 2). Dispositivi: telefono Play 1920×1080,
   iPhone 6,9" 2868×1320, iPad 13" 2752×2064.
 Per aggiungere un gioco: scrivere una funzione shots_<id>() sul modello di shots_pompieri().
 """
@@ -80,7 +80,50 @@ def shots_pompieri(pg, url, lang, d):
     start_game(pg, 'pompieri:Garage'); shot(pg, f'{d}/5-garage.png')
 
 
-GROUPS = {'app': shots_app, 'pompieri': shots_pompieri}
+def open_pasticceria(pg, url, lang, data):
+    """Apre Pasticceria Magica (?game=pasticceria) con i progressi indicati."""
+    load(pg, url, lang, {'tappolino.pasticceria': data})
+    pg.goto(f'{url}?debug=1&lang={lang}&game=pasticceria'); time.sleep(5)
+
+
+def pa_wait(pg, step, timeout=40):
+    """Aspetta che la partita arrivi al passo indicato e non sia occupata in un'animazione."""
+    end = time.time() + timeout
+    while time.time() < end:
+        st, busy = run(pg, "[window.__pa.step, window.__pa.busy]")
+        if st == step and not busy: return
+        time.sleep(0.25)
+
+
+def shots_pasticceria(pg, url, lang, d):
+    vetrina = [
+        {'r': 'cake', 'c': 'mint', 't': [['cherry', 0, -100], ['star', -80, -90], ['star', 80, -88], ['sprinkles', -30, -70]]},
+        {'r': 'gelato', 'c': 'pink', 't': [['heart', 0, -205], ['sprinkles', -40, -120], ['cherry', 40, -110]]},
+        {'r': 'cupcake', 'c': 'berry', 't': [['strawberry', 0, -205], ['sprinkles', -50, -140], ['flower', 50, -130]]},
+        {'r': 'cookie', 'c': 'choco', 't': [['candy', -70, -20], ['flower', 70, -10], ['sprinkles', 0, -40], ['heart', 0, 10]]},
+        {'r': 'cupcake', 'c': 'pink', 't': [['cherry', 0, -210], ['sprinkles', -40, -140], ['sprinkles', 40, -140]]},
+        {'r': 'cake', 'c': 'lemon', 't': [['strawberry', -60, -96], ['strawberry', 60, -96], ['chocochip', 0, -80]]},
+    ]
+    base = {'served': 11, 'creations': vetrina, 'recipe': 'cupcake', 'customer': 'fox', 'tutorialDone': True}
+    open_pasticceria(pg, url, lang, base); shot(pg, f'{d}/1-menu.png')
+    run(pg, "window.__game.scene.getScene('pasticceria:Menu').scene.start('pasticceria:Game', {recipe: 'cupcake'}); null")
+    time.sleep(3.5); shot(pg, f'{d}/2-cliente.png')
+    pa_wait(pg, 'ingredients'); time.sleep(1.5)
+    run(pg, "window.__pa.autoStep()"); time.sleep(1.2); shot(pg, f'{d}/3-ingredienti.png')
+    for _ in range(3): run(pg, "window.__pa.autoStep()"); time.sleep(0.8)
+    pa_wait(pg, 'mix'); time.sleep(1); run(pg, "window.__pa.addMix(1400); null"); time.sleep(0.3)
+    run(pg, "window.__pa.autoStep()"); pa_wait(pg, 'bake'); time.sleep(1.5)
+    run(pg, "window.__pa.autoStep()"); time.sleep(2.2); shot(pg, f'{d}/4-forno.png')
+    pa_wait(pg, 'decorate'); time.sleep(1.5)
+    run(pg, "window.__pa.autoStep()"); time.sleep(0.5); pa_wait(pg, 'decorate')
+    run(pg, "window.__pa.autoStep()"); time.sleep(1.5); shot(pg, f'{d}/5-decora.png')
+    pa_wait(pg, 'decorate'); run(pg, "window.__pa.autoStep()"); time.sleep(6); shot(pg, f'{d}/6-gnam.png')
+    open_pasticceria(pg, url, lang, base)
+    run(pg, "window.__game.scene.getScene('pasticceria:Menu').scene.start('pasticceria:Showcase'); null"); time.sleep(4)
+    shot(pg, f'{d}/7-vetrina.png')
+
+
+GROUPS = {'app': shots_app, 'pompieri': shots_pompieri, 'pasticceria': shots_pasticceria}
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
