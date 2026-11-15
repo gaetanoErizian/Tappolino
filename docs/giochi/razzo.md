@@ -4,7 +4,7 @@ Branch `game/razzo-tra-le-stelle` · `order` 5 · con l'acquisto unico (`free: f
 
 ## Stato
 **Pronto per la prova di Gaetano** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono (mouse e tocco vero, catture guardate una per una). Non ancora unito a `main`: si unisce dopo l'ok.
-Pagina di prova del branch (provvisoria): https://claude.ai/artifact/HS778gbLasghnJum7RQEeH — il gioco è la quarta tessera del menu; il branch parte da prima della "modalità prova" di `main`, quindi qui il gioco a pagamento si apre aggiungendo `#unlock` all'indirizzo (in locale `?unlock=1&game=razzo`). Con l'unione a `main` vale la modalità prova.
+Pagina di prova del branch (provvisoria), aggiornata con `main` (giochi 1–6): https://claude.ai/artifact/HS778gbLasghnJum7RQEeH#prova — con `#prova` si attiva la modalità prova (decisione 25) e tutti i giochi si aprono; il Razzo è la prima tessera della seconda pagina del menu. In locale: `?game=razzo#prova`.
 
 ## Cosa c'è nel gioco
 - **Menu**: spazio blu profondo con nebulose, stelle e pianetini lontani; il razzo scelto aspetta con il motore acceso (toccalo e sfreccia via e torna), in basso l'ultimo pianeta visitato (o il pianeta di casa) che ride se lo tocchi. Pulsanti: parti, i miei pianeti, i miei razzi, casa.
@@ -23,7 +23,8 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/HS778gbLasg
 2. Fluidità del viaggio su un telefono economico (60 fps): lo sfondo è stato alleggerito (un solo piano a tutto schermo), ma va verificato su un dispositivo vero. Nel browser senza scheda grafica del computer di prova il gioco va alla stessa velocità di Scavo dei Dinosauri.
 3. Volume del "boing" e delle stelle prese di fila rispetto alla musica.
 4. Al primo ingresso nella mappa dei pianeti e nell'hangar, possibile breve attesa (Phaser prepara i suoi shader): dire se si nota.
-5. Telefoni molto allungati (20:9): contatore e strada in alto non coperti, razzo e stelle sempre visibili sopra il banner.
+5. In modalità prova l'etichetta "PROVA" sta in alto al centro: durante il viaggio la strada verso il pianeta scende un po' per non finirci sotto (nelle build per gli store resta in alto).
+6. Telefoni molto allungati (20:9): contatore e strada in alto non coperti, razzo e stelle sempre visibili sopra il banner.
 
 ## Per la regia
 - **Gesto "tieni premuto"**: la manina è in `app/src/games/razzo/holdHint.ts` (`HoldHint`: mano che preme e resta giù, anelli, frecce verso l'alto). Candidata per `core/` insieme a `core/drag.ts`: servirà anche al gioco 7 (Monster Truck, "tenere premuto in pista").
@@ -32,3 +33,4 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/HS778gbLasg
 ## Diario
 - 15/11/2026 — Modulo completo: viaggio, rimbalzi, arrivo e atterraggio, mappa dei pianeti, hangar dei razzi; audio con strumenti veri; test (`razzo.test.ts`: percorso, volo, collezione, grafica, testi, audio).
 - 15/11/2026 — Prova nel browser in formato telefono (844×390, mouse e tocco vero con più dita; catture guardate una per una). Corretto: sfondo troppo pesante (tre piani di stelle a tutto schermo → stelle lontane dentro il cielo e stelline piccole: il doppio dei fotogrammi nel browser di prova); vulcani del Pianeta Vulcano che sembravano orecchie; icona del pulsante pianeti; scelta del razzo nell'hangar poco visibile (ora stella e luce sulla rampa); tutorial che con fotogrammi lenti non si chiudeva (ora conta il tempo vero); pianetini lontani che all'arrivo passavano dietro le scritte. Scheda store nelle 6 lingue e script delle catture. Pagina di prova del branch pubblicata.
+- 15/11/2026 — Merge di `main` nel branch (giochi 4 e 6, modalità prova): nessun conflitto, test (160) e build verdi. In modalità prova la strada del viaggio scende sotto l'etichetta "PROVA". Pagina di prova ripubblicata.
