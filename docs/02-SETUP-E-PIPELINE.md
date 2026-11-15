@@ -13,7 +13,7 @@
 | Acquisto in-app | `@capgo/native-purchases` (Play Billing + StoreKit 2 diretti, nessun server, supporta SPM) | Scelto al gioco 1 al posto di `cordova-plugin-purchase` (plugin Cordova poco adatti a Capacitor 8 con SPM) |
 | Salvataggi | `@capacitor/preferences` (locale) | Niente account, niente cloud |
 | Grafica | SVG scritti nel codice, rasterizzati all'avvio, stile 2.5D | Originale, nitida, nessun file di terzi |
-| Audio | Sintetizzato con Web Audio | Nessun file audio, nessuna licenza |
+| Audio | File audio preparati con script (`app/scripts/audio/`), strumenti campionati; lettore comune `core/sound.ts` | Suono moderno, tutto originale (decisione 18) |
 | Test | Vitest (logica) + prova nel browser in modalità mobile (Playwright headless per screenshot) | |
 
 ### Versioni bloccate (dal gioco 1, 14/11/2026)
@@ -38,7 +38,7 @@ Installare sempre con `npm i -E` (versioni esatte).
 ## Struttura
 Quella definitiva (`app/` con `core/`, `hub/`, `games/<id>/`) è in `05-STRATEGIA-E-ROADMAP.md`.
 
-La struttura è costruita sul branch `game/pompieri-in-azione` (in attesa di unione a `main`): `app/README.md` spiega come avviare, provare e compilare, ed elenca i segreti della CI e il comando per il keystore.
+È tutta su `main`: `app/README.md` spiega come avviare, provare e compilare, ed elenca i segreti della CI e il comando per il keystore.
 
 Dentro ogni modulo gioco restano validi i file del gioco 1: `art.ts`, `levels.ts`, `save.ts`, `sfx.ts`, `world.ts`, `scenes/`, `locales/` (6 lingue), `tests/`.
 
@@ -76,7 +76,7 @@ npx cap sync                        # copia la build web nei progetti nativi
 | `?banner=1` | simula lo spazio del banner Android |
 | `?debug=1` | espone `window.__game` per i test automatici |
 
-Sulle pagine di test pubblicate su claude.ai i parametri `?…` non arrivano al gioco: lì si usano le varianti `#lock`, `#unlock` e `#reset`.
+Sulle pagine di test pubblicate su claude.ai i parametri `?…` non arrivano al gioco: lì si usano le varianti con `#` (una alla volta): `#lock`, `#unlock`, `#reset`, `#prova`, `#arrivo`, `#ios`.
 
 ## Cosa serve a Gaetano (una tantum)
 - **Account Google Play Console** (esistente da anni: nessun obbligo dei 12 tester).
@@ -113,4 +113,6 @@ Sulle pagine di test pubblicate su claude.ai i parametri `?…` non arrivano al 
 - [ ] ID AdMob reali e `testing: false`
 - [ ] Prova offline, prova su telefono piccolo e su tablet
 - [ ] Nessun banner che copre pulsanti o area di gioco
-- [ ] Regole degli store ricontrollate (cambiano spesso)
+- [ ] Regole degli store ricontrollate (cambiano spesso): ultimo controllo 15/11/2026 in `app/store/compliance.md`
+- [ ] iPhone e iPad: nessun gioco "in arrivo" visibile, nessuna promessa di contenuti futuri nella scheda (decisione 26)
+- [ ] Android: versione dell'SDK Google Mobile Ads presente nell'elenco degli SDK autocertificati per le famiglie
