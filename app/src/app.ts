@@ -22,7 +22,6 @@ export async function startApp(): Promise<void> {
   if (!isNative() && urlParam('unlock') === '1') setUnlocked(true);
   initI18n(APP_LOCALES, urlParam('lang') ?? s.lang);
   addLocales(gameTitles());
-  audio.install();
   audio.setMuted(s.muted);
   sound.install();
   registerHubSound();

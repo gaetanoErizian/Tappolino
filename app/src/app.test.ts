@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { canPlay } from './core/module';
 import { mergeDefaults } from './core/storage';
-import { noteFreq } from './core/audio';
+import { audio } from './core/audio';
 import { initI18n, addLocales, setLang, t } from './core/i18n';
 import { APP_STATE_DEFAULTS } from './core/appState';
 import { APP_LOCALES } from './locales';
@@ -75,7 +75,11 @@ describe('traduzioni dell’app', () => {
 });
 
 describe('audio', () => {
-  it('frequenze note', () => {
-    expect(noteFreq('A4')).toBeCloseTo(440);
+  it('il muto è uno stato condiviso; la sintesi in tempo reale non esiste più', () => {
+    audio.setMuted(true);
+    expect(audio.muted).toBe(true);
+    audio.setMuted(false);
+    expect(audio.muted).toBe(false);
+    expect('tone' in audio || 'playSong' in audio).toBe(false);
   });
 });

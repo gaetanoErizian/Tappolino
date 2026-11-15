@@ -4,8 +4,7 @@ import { audio } from './audio';
  * Lettore audio comune a campioni: musica con strumenti veri ed effetti preparati offline (file audio).
  * Ogni parte dell'app registra un "pacchetto" (il menu dei giochi è `hub`, ogni gioco usa il proprio id)
  * con una musica in loop e i suoi effetti. Suona una sola musica alla volta.
- * Il muto segue quello dell'app (core/audio). La vecchia sintesi di core/audio resta per i giochi
- * che non sono ancora passati ai file audio.
+ * Il muto segue quello dell'app (core/audio).
  */
 export interface MusicDef {
   ogg: string;
@@ -132,11 +131,10 @@ class Sound {
     src.start(c.currentTime + (o.delay ?? 0));
   }
 
-  /** Avvia in loop la musica del pacchetto (sfumando quella in corso). Ferma anche la musica sintetizzata. */
+  /** Avvia in loop la musica del pacchetto (sfumando quella in corso). */
   playMusic(pack: string): void {
     this.install();
     this.wanted = pack;
-    audio.stopSong();
     void this.preload(pack);
     this.sync();
   }

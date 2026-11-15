@@ -5,7 +5,8 @@
 - **Musica e suoni del menu**: composizione originale per Tappolino ("Il saltello di Tappo"), partitura in `scripts/audio/hub_audio.py` (MIDI di riferimento: `src/hub/audio/theme.mid`), suonata con strumenti campionati.
 - **Musica e suoni di Pasticceria Magica**: composizione originale per Tappolino (valzer da pasticceria), partitura in `scripts/audio/pasticceria_music.py` (MIDI di riferimento: `src/games/pasticceria/audio/theme.mid`); effetti da `scripts/audio/pasticceria_sfx.py` (strumenti campionati e sintesi offline). Dettagli in `src/games/pasticceria/audio/CREDITS.md`.
 - **Strumenti campionati**: *MuseScore General SoundFont* di S. Christian Collins (licenza MIT; alcune parti CC0 o di pubblico dominio), derivato da *Fluid (R3) GM* di Frank Wen (MIT). Pacchetto Debian/Ubuntu `musescore-general-soundfont-lossless`.
-- **Suoni dei giochi non ancora passati ai file audio**: sintetizzati in tempo reale con Web Audio (`src/core/audio.ts`, `src/games/<id>/sfx.ts`).
+- **Musica e suoni di Pompieri in Azione**: "La marcetta dei pompieri", composizione originale per Tappolino, partitura in `scripts/audio/pompieri_music.py`; effetti creati con `scripts/audio/pompieri_sfx.py` (strumenti campionati e sintesi offline). Dettagli in `src/games/pompieri/audio/CREDITS.md`.
+- Nessun suono è sintetizzato in tempo reale: musica ed effetti sono tutti file audio preparati con gli script in `scripts/audio/`.
 - **Carattere**: Fredoka (The Fredoka Project Authors), licenza SIL Open Font License 1.1, incluso nell'app tramite `@fontsource/fredoka`.
 - **Librerie** (licenze open source):
   - Phaser 4 — MIT

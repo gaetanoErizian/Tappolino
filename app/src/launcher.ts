@@ -1,7 +1,6 @@
 import type Phaser from 'phaser';
 import { addLocales, t } from './core/i18n';
 import { registerSvgTextures } from './core/textures';
-import { audio } from './core/audio';
 import { isUnlocked } from './core/appState';
 import { canPlay, type GameEntry, type GameModule } from './core/module';
 import { openUnlockOffer } from './core/unlockOffer';
@@ -28,7 +27,6 @@ export async function launchGame(scene: Phaser.Scene, entry: GameEntry): Promise
   const mod = await loadModule(scene, entry);
   // La musica del menu si ferma: da qui suona quella del gioco.
   sound.stopMusic();
-  if (mod.song) audio.playSong(mod.song);
   goTo(scene, mod.startScene);
 }
 
@@ -55,7 +53,6 @@ async function loadModule(scene: Phaser.Scene, entry: GameEntry): Promise<GameMo
 
 /** Pulsante "casa" dei giochi: torna al menu Tappolino. */
 export function backToHub(scene: Phaser.Scene): void {
-  audio.stopSong();
   playHubMusic();
   goTo(scene, 'Hub');
 }

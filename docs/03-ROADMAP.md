@@ -6,16 +6,16 @@ I giochi sono moduli dell'app Tappolino. Fasi e strategia in `05-STRATEGIA-E-ROA
 
 | # | Gioco | Tema | Gesto | Accesso | Stato |
 |---|---|---|---|---|---|
-| 1 | Pompieri in Azione | maschietto | tocco | gratis | Approvato — nell'app su `main`; build di prova Android/iOS da fare (servono segreti e account Apple) |
+| 1 | Pompieri in Azione | maschietto | tocco | gratis | Su `main`, con musica e suoni nuovi (15/11/2026); build di prova Android/iOS quando ci sono segreti e account Apple |
 | 2 | Pasticceria Magica | femminuccia | trascinamento | gratis | Unito a `main` il 15/11/2026 (web); build Android/iOS di prova quando ci sono segreti e account Apple |
-| 3 | Scavo dei Dinosauri | maschietto | strofinare | gratis | Da fare |
-| 4 | Salone degli Unicorni | femminuccia | strofinare / tocco | bloccato | Da fare |
-| 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | Da fare |
-| 6 | Cuccioli dal Dottore | femminuccia | trascinamento | bloccato | Da fare |
-| 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | bloccato | Da fare |
-| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | Da fare |
-| 9 | Treno degli Animali | maschietto | trascinamento | bloccato | Da fare |
-| 10 | Atelier delle Principesse | femminuccia | trascinamento | bloccato | Da fare |
+| 3 | Scavo dei Dinosauri | maschietto | strofinare | gratis | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 4 | Salone degli Unicorni | femminuccia | strofinare / tocco | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 5 | Razzo tra le Stelle | maschietto | tenere premuto | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 6 | Cuccioli dal Dottore | femminuccia | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 7 | Officina dei Monster Truck | maschietto | tocco / tenere premuto | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 8 | Giardino delle Fate | femminuccia | tocco | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 9 | Treno degli Animali | maschietto | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
+| 10 | Atelier delle Principesse | femminuccia | trascinamento | bloccato | In sviluppo in parallelo (brief in `06-CHAT-DEI-GIOCHI.md`) |
 
 ## Schede
 
@@ -50,9 +50,9 @@ Gli animali aspettano in stazione: trascina ognuno nel vagone con la forma o il 
 Vesti il personaggio trascinando abiti, corone, scarpe e accessori; scegli lo sfondo (castello, bosco, festa). Si possono scegliere personaggi diversi, anche principi e cavalieri. Ricompensa: nuovi abiti sbloccati giocando.
 
 ## In sospeso per Gaetano
-- Ok sulla musica nuova di Pompieri (branch `game/pompieri-musica`).
+- Provare e approvare i giochi 3–10 man mano che le chat consegnano la pagina di prova (prima i giochi 3, 4 e 5).
 - Verifica disponibilità di "Tappolino" (dominio, store, EUIPO).
-- Iscrizione Apple Developer e segreti per la CI nel repository (elenco nel README del gioco 1).
+- Iscrizione Apple Developer e segreti per la CI nel repository (elenco in `app/README.md`).
 
 ## Registro
 Dal gioco 3 in poi ogni gioco ha il suo diario in `docs/giochi/<id>.md` (decisione 23); qui sotto restano i giochi 1 e 2.

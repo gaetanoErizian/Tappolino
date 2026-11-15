@@ -93,7 +93,7 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 - Banner AdMob, acquisto e ripristino, prima build iOS in CI.
 - Giro di musica senza stacchi su iOS (formato mp3, verificato finora solo su Chrome) e volume della musica rispetto agli effetti.
 - Pasticceria: precisione del trascinamento con dita piccole, durata della mescolata.
-- Pompieri: getto d'acqua e tempi di risposta al tocco.
+- Pompieri: getto d'acqua, tempi di risposta al tocco, volume della musica e delle sirene.
 
 ## Come avviare la chat di un gioco
 > Sei la chat del gioco N di Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, clonalo e segui `docs/06-CHAT-DEI-GIOCHI.md`: regole comuni e brief "Gioco N". Sviluppa il gioco completo fino alla pagina web di prova, poi attendi il mio ok prima di unire a `main`.
@@ -103,8 +103,8 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 |---|---|
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
-| Identità Tappolino (decisione 18) | Su `main` (15/11/2026). Pasticceria adeguata; musica nuova di Pompieri pronta sul suo branch. Poi, in regia: togliere la vecchia sintesi da `core/audio.ts` |
-| 2 — Giochi 3–10 in parallelo | Pasticceria su `main`. Registro dei giochi automatico e regole per il lavoro in parallelo su `main` (15/11/2026): le otto chat possono partire. Musica nuova di Pompieri sul branch `game/pompieri-musica`, in attesa dell'ok di Gaetano |
+| Identità Tappolino (decisione 18) | Completa su `main` (15/11/2026): Pasticceria e Pompieri adeguate, vecchia sintesi audio rimossa |
+| 2 — Giochi 3–10 in parallelo | Avviata il 15/11/2026: otto chat, una per gioco, con brief in `06-CHAT-DEI-GIOCHI.md`. Ogni gioco entra in `main` dopo l'ok di Gaetano |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
 | 5 — App singole | Da fare |

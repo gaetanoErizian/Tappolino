@@ -60,7 +60,7 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - **Un solo loader** (`core/loader.ts`): scritta, barra con i colori del logo, Tappo che la percorre. Ogni caricamento, in ogni punto dell'app e dei giochi, usa questo: avanzamento reale, chiusura solo a caricamento riuscito, "riprova" in caso di errore.
     - **Pannelli** (impostazioni, area genitori, blocco adulti, offerta): solo i componenti di `core/overlay.ts`, con colori e carattere del marchio.
     - **Audio moderno con strumenti veri**: niente più musichette sintetizzate. Lettore comune `core/sound.ts`; musica e suoni come file audio generati da script in `app/scripts/audio/`.
-    - **Chi fa cosa sulla musica**: menu principale in regia (fatto); la musica di ogni gioco nella chat di quel gioco, usando `core/sound` e il passo `preload` del modulo. Pasticceria ha già la sua; Pompieri va rifatta nella sua chat.
+    - **Chi fa cosa sulla musica**: menu principale in regia (fatto); la musica di ogni gioco nella chat di quel gioco, usando `core/sound` e il passo `preload` del modulo. Pasticceria e Pompieri hanno la loro (15/11/2026).
     - Come usarli: sezione "Identità Tappolino" di `app/README.md`.
 19. **Come si porta un branch sopra `main`**: con un *merge* di `main` nel branch, mai con rebase e push forzato (nell'ambiente delle chat il push forzato non è permesso). L'unione finale a `main` resta in un solo commit (squash), quindi il risultato è identico.
 20. **Lavori in parallelo**: due chat possono lavorare insieme solo se nessuna tocca `core/` o `hub/` e ognuna resta nel proprio modulo (`games/<id>/`, i propri script audio, la propria scheda store). Chi unisce per secondo fa prima il merge di `main` nel proprio branch e risolve i piccoli conflitti sui file condivisi (`games/registry.ts`, testi dell'app, `README.md`, `CREDITS.md`, `docs/03-ROADMAP.md`).
@@ -71,7 +71,7 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - Stato e diario di ogni gioco in `docs/giochi/<id>.md`; la tabella di `03-ROADMAP.md` la aggiorna la regia. Questo sostituisce, dal gioco 3, la regola della decisione 13 sul registro in `03-ROADMAP.md`.
     - Durante lo sviluppo in parallelo **il codice comune lo modifica solo la regia**. Le chat scrivono nel proprio modulo ciò che manca e lo segnalano; l'unificazione (per esempio il gesto dello strofinare dei giochi 3 e 4) si fa in regia dopo le unioni. Questo sospende, per i giochi 3–10, il passaggio in `core/` previsto dalla decisione 17.
     - Ogni brief fissa ambientazione, colori e stile musicale, perché le chat non si vedono tra loro e i giochi non devono somigliarsi.
-    - Da fare in regia dopo l'unione della musica nuova di Pompieri: togliere la sintesi da `core/audio.ts` e il campo `song` dei moduli.
+    - Fatto in regia il 15/11/2026, dopo l'unione della musica nuova di Pompieri: tolta la sintesi in tempo reale da `core/audio.ts` e il campo `song` dei moduli.
 24. **Giochi non ancora pubblicati: "in arrivo".** Al lancio (v1.0, giochi 1–5) i giochi 6–10 compaiono nel menu come tessere "in arrivo": si vedono ma non si aprono e non si possono comprare singolarmente. Ogni aggiornamento ne apre uno.
     - Lo realizza la regia in Fase 3, nel codice comune (elenco dei giochi "in arrivo" nella configurazione dell'app, tessera con nastro dedicato, testo nelle 6 lingue).
     - Sulle pagine web di prova tutti i giochi restano apribili.

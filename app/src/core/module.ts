@@ -1,7 +1,6 @@
 import type Phaser from 'phaser';
 import type { SvgTex } from './textures';
 import type { Dict, Lang } from './i18n';
-import type { Song } from './audio';
 
 /**
  * Contratto di un modulo gioco (docs/05-STRATEGIA-E-ROADMAP.md).
@@ -18,8 +17,6 @@ export interface GameModule {
   scenes: Phaser.Types.Scenes.SceneType[];
   /** scena da cui parte il gioco (di solito "<id>:Menu") */
   startScene: string;
-  /** musica sintetizzata del gioco (vecchio sistema; i giochi con file audio usano core/sound) */
-  song?: Song;
   /** chiamata una volta al primo avvio del gioco: es. caricare i salvataggi */
   init?: () => Promise<void>;
   /**
