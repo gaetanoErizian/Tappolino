@@ -3,8 +3,8 @@
 Branch `game/treno-degli-animali` · `order` 9 · non gratis (si apre con l'acquisto unico) · colore `#e2574c`
 
 ## Stato
-**Completo, in attesa dell'ok di Gaetano** per l'unione a `main`. Test e build web verdi, partita provata nel browser in formato telefono e iPad.
-Pagina di prova del branch (provvisoria): https://claude.ai/artifact/4kFkjw1Ne4qzmhshahk5Ze — il gioco è nel menu ed è bloccato come nell'app vera: si apre aggiungendo `#prova` all'indirizzo (modalità prova, decisione 25). In locale: `?game=treno&unlock=1` oppure `#prova`.
+**Approvato da Gaetano e unito a `main`** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono e iPad.
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5 — il gioco è l'ultima tessera della seconda pagina del menu ed è bloccato come nell'app vera: si apre aggiungendo `#prova` all'indirizzo (modalità prova, decisione 25). In locale: `?game=treno&unlock=1` oppure `#prova`.
 
 ## Cosa c'è nel gioco
 - **Menu**: la stazioncina di campagna (legno dipinto di rosso, tetto di legno, orologio, cassette di fiori), colline nella foschia, staccionata, lampioni e cartello con lo stemma della prossima destinazione. Sul binario la locomotiva rossa con due vagoni e due passeggeri; sul marciapiede un animale che aspetta. Pulsanti: gioca, album delle stazioni, casa. Toccando la locomotiva fischia, toccando gli animali salutano.
@@ -45,3 +45,4 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/4kFkjw1Ne4q
 - 15/11/2026 — Modulo completo: menu, stazioncina con viaggi di colori, forme e numeri, viaggio, arrivo con conteggio e festa, album delle stazioni con 15 animali; audio con strumenti veri; test (`treno.test.ts`, 24 casi). 184 test dell'app e build verdi.
 - 15/11/2026 — Prova nel browser in formato telefono (844×390) e iPad, con trascinamenti veri, vagone sbagliato, tocchi, manina, tutti e tre i tipi di viaggio, le tre stazioni e l'album; catture guardate una per una. Corretto: ruote ruotate con i triangoli tagliati (ora a fotogrammi); animali seduti troppo piccoli e affondati nel vagone; nome della stazione sopra il treno nell'arrivo; album con le colonne troppo vicine e i nomi sovrapposti; pulcinella di mare che da piccola sembrava un secondo pinguino; prato vuoto durante il viaggio. Nessun errore in console.
 - 15/11/2026 — Scheda store nelle 6 lingue e script delle catture (provato). Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/4kFkjw1Ne4qzmhshahk5Ze. In attesa dell'ok di Gaetano per l'unione a `main`.
+- 15/11/2026 — Ok di Gaetano: merge di `main` (arrivati il Giardino delle Fate e i documenti della regia), 200 test e build verdi, menu con tutti e 8 i giochi; unito a `main` in un solo commit e pagina ufficiale di `main` ripubblicata.
