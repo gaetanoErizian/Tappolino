@@ -3,8 +3,8 @@
 Branch `game/cuccioli-dal-dottore` · `order` 6 · non gratis (si apre con l'acquisto unico) · colore `#4cc3a5`
 
 ## Stato
-**Completo sul branch, in attesa dell'ok di Gaetano** per l'unione a `main`. Test (`npm test`) e build (`npm run build`) verdi; partita provata nel browser in formato telefono con trascinamenti veri, tocchi e catture guardate una per una.
-Pagina di prova del branch (provvisoria): https://claude.ai/artifact/JTpk8EtAaaos4aQcDe62wk — il gioco è la quarta tessera del menu (finché non arrivano i giochi 4 e 5). In locale: `?game=cuccioli&unlock=1`.
+**Approvato da Gaetano e unito a `main`** (15/11/2026). Test e build web verdi, partita provata nel browser in formato telefono.
+Pagina di prova ufficiale di `main` (decisione 21): https://claude.ai/artifact/AFdW7dCQxKDUYkfdacnoz5 — il gioco è nella seconda pagina del menu ed è bloccato come nell'app vera: si apre aggiungendo `#prova` all'indirizzo (modalità prova, decisione 25). In locale: `?game=cuccioli&unlock=1` oppure `#prova`.
 
 ## Cosa c'è nel gioco
 - **Menu**: ambulatorio luminoso verde acqua e crema, finestra sul giardino, mensola con barattoli, quadretto con impronta e cuore, lampada. Pulsante gioca e pulsante giardino; sul lettino c'è l'ultimo cucciolo curato (la prima volta il primo paziente), che salta e fa il suo verso se lo tocchi.
@@ -37,6 +37,7 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/JTpk8EtAaao
 - Usati dal codice comune senza modifiche: `core/drag` (`DragManager` con raggio 160, `Hint.drag`), `core/ui`, `core/hud`, `core/sound`, `core/art`, `core/storage`. Nessun file comune toccato.
 - **Nota tecnica (Phaser 4)**: fermare una `TweenChain` dall'interno del suo stesso richiamo (es. un saltello che ne fa partire un altro all'atterraggio) a volte faceva perdere i richiami successivi. Per questo il saltello dei cuccioli (`PetView.hop` in `world.ts`) è calcolato a ogni fotogramma senza catene; se servisse in altri giochi, è un buon candidato per `core/`.
 - `?game=cuccioli` sul web di prova richiede `&unlock=1` (gioco non gratis): lo script delle catture lo aggiunge da sé.
+- Menu dei giochi con 5 giochi (visto dopo l'arrivo di Unicorni): sul telefono le frecce di pagina coprono in parte la prima e l'ultima tessera (codice comune `hub/`, non toccato).
 - Il parametro `problems` della scena `cuccioli:Clinic` serve solo a test e catture (sceglie i guai della visita).
 
 ## Diario
@@ -44,3 +45,4 @@ Pagina di prova del branch (provvisoria): https://claude.ai/artifact/JTpk8EtAaao
 - 15/11/2026 — Prova nel browser in formato telefono (trascinamenti veri, tocchi, strumento sbagliato, manina, tutte le cure, giardino; catture guardate una per una). Corretto: cucciolo che a volte non arrivava sul lettino (saltello riscritto a fotogrammi); occhi assonnati e bocca dei brividi che sembravano imbronciati; fiocchi di neve poco visibili; scatola dei fazzoletti che finiva sul muso; foschia delle colline in giardino con un bordo netto; coda della volpina. Scheda store nelle 6 lingue e script delle catture.
 - 15/11/2026 — Pagina di prova del branch pubblicata (`npx vite build --mode artifact`): https://claude.ai/artifact/JTpk8EtAaaos4aQcDe62wk. In attesa dell'ok di Gaetano per l'unione a `main`.
 - 15/11/2026 — Merge di `main` nel branch (modalità prova, decisione 25): nessun conflitto, 110 test e build verdi. Provato nel browser: senza `#prova` Cuccioli chiede l'adulto, con `#prova` si apre (etichetta PROVA). Pagina di prova ripubblicata con la nuova build, stesso indirizzo.
+- 15/11/2026 — Ok di Gaetano: merge di `main` (arrivato anche Unicorni), 137 test e build verdi, menu con tutti e 5 i giochi; unito a `main` in un solo commit e pagina ufficiale di `main` ripubblicata.
