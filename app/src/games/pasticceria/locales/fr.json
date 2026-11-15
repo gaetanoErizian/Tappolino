@@ -1,0 +1,14 @@
+{
+  "pasticceria.title": "Pâtisserie Magique",
+  "pasticceria.recipe.cupcake": "Cupcake",
+  "pasticceria.recipe.cookie": "Biscuits",
+  "pasticceria.recipe.cake": "Gâteau",
+  "pasticceria.recipe.gelato": "Glace",
+  "pasticceria.yum": "Miam !",
+  "pasticceria.bravo": "Délicieux !",
+  "pasticceria.newRecipe": "Nouvelle recette !",
+  "pasticceria.newTopping": "Nouvelle déco !",
+  "pasticceria.newColor": "Nouveau glaçage !",
+  "pasticceria.showcase": "La vitrine",
+  "pasticceria.served": "Gâteaux servis : {n}"
+}

@@ -1,5 +1,6 @@
 {
   "app.title": "Tappolino",
+  "games.pasticceria": "Zauberbäckerei",
   "games.pompieri": "Feuerwehr im Einsatz",
   "gate.hold": "Halte den Knopf 3 Sekunden lang gedrückt.",
   "gate.question": "Wie viel ist {a} plus {b}?",

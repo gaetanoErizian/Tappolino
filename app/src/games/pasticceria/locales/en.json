@@ -1,0 +1,14 @@
+{
+  "pasticceria.title": "Magic Bakery",
+  "pasticceria.recipe.cupcake": "Cupcake",
+  "pasticceria.recipe.cookie": "Cookies",
+  "pasticceria.recipe.cake": "Cake",
+  "pasticceria.recipe.gelato": "Ice cream",
+  "pasticceria.yum": "Yum!",
+  "pasticceria.bravo": "Delicious!",
+  "pasticceria.newRecipe": "New recipe!",
+  "pasticceria.newTopping": "New topping!",
+  "pasticceria.newColor": "New frosting!",
+  "pasticceria.showcase": "Display case",
+  "pasticceria.served": "Treats served: {n}"
+}

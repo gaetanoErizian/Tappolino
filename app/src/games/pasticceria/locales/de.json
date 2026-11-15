@@ -1,0 +1,14 @@
+{
+  "pasticceria.title": "Zauberbäckerei",
+  "pasticceria.recipe.cupcake": "Cupcake",
+  "pasticceria.recipe.cookie": "Kekse",
+  "pasticceria.recipe.cake": "Torte",
+  "pasticceria.recipe.gelato": "Eis",
+  "pasticceria.yum": "Mmmh!",
+  "pasticceria.bravo": "Lecker!",
+  "pasticceria.newRecipe": "Neues Rezept!",
+  "pasticceria.newTopping": "Neue Deko!",
+  "pasticceria.newColor": "Neue Glasur!",
+  "pasticceria.showcase": "Die Vitrine",
+  "pasticceria.served": "Servierte Leckereien: {n}"
+}
