@@ -18,10 +18,15 @@ export interface GameModule {
   scenes: Phaser.Types.Scenes.SceneType[];
   /** scena da cui parte il gioco (di solito "<id>:Menu") */
   startScene: string;
-  /** musica del gioco */
+  /** musica sintetizzata del gioco (vecchio sistema; i giochi con file audio usano core/sound) */
   song?: Song;
   /** chiamata una volta al primo avvio del gioco: es. caricare i salvataggi */
   init?: () => Promise<void>;
+  /**
+   * Caricamenti lunghi del gioco (es. file audio con core/sound), mostrati nel loader Tappolino:
+   * chiamare `report` con l'avanzamento 0..1. Un errore qui non impedisce di giocare.
+   */
+  preload?: (report: (p: number) => void) => Promise<void>;
 }
 
 export interface GameEntry {

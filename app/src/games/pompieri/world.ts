@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { waterJet } from './jet';
 import { TRUCK_PIVOT } from './art';
 import { truckById, type TruckDef } from './levels';
 import { sfx } from './sfx';
@@ -9,7 +10,7 @@ export const OUT = 0x2b2140;
 export const GROUND_Y = 900;   // inizio marciapiede
 export const STREET_Y = 940;   // inizio strada
 export const CELL = 200;
-export const FONT = '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif';
+export { FONT } from '../../core/brand';
 
 export function darken(c: number, pct: number): number {
   return Phaser.Display.Color.IntegerToColor(c).darken(pct).color;
@@ -232,38 +233,13 @@ export class Truck {
     return { x: this.nozzle.x + Math.cos(clamped) * len, y: this.nozzle.y + Math.sin(clamped) * len };
   }
 
-  /** Getto d'acqua ad arco: gocce lungo una curva; onHit quando arrivano. */
+  /** Getto d'acqua ad arco: un flusso continuo dal cannone al bersaglio (jet.ts); onHit quando arriva. */
   spray(tx: number, ty: number, onHit?: () => void): void {
     const from = this.aim(tx, ty);
     sfx.spray();
     const ctrl = new Phaser.Math.Vector2((from.x + tx) / 2, Math.min(from.y, ty) - 160);
     const curve = new Phaser.Curves.QuadraticBezier(new Phaser.Math.Vector2(from.x, from.y), ctrl, new Phaser.Math.Vector2(tx, ty));
-    const N = 12;
-    for (let i = 0; i < N; i++) {
-      const d = this.scene.add.image(from.x, from.y, 'drop').setDepth(60).setScale(0.6 + Math.random() * 0.5).setAlpha(0);
-      const p = { t: 0 };
-      this.scene.tweens.add({
-        targets: p, t: 1, duration: 300, delay: i * 18, ease: 'Sine.easeIn',
-        onStart: () => d.setAlpha(1),
-        onUpdate: () => {
-          const pt = curve.getPoint(p.t);
-          const next = curve.getPoint(Math.min(1, p.t + 0.05));
-          d.setPosition(pt.x, pt.y).setRotation(Phaser.Math.Angle.Between(pt.x, pt.y, next.x, next.y) - Math.PI / 2);
-        },
-        onComplete: () => {
-          d.destroy();
-          if (i === 3) onHit?.();
-        },
-      });
-    }
-    this.scene.time.delayedCall(300 + N * 18, () => {
-      const e = this.scene.add.particles(tx, ty, 'drop', {
-        speed: { min: 150, max: 380 }, angle: { min: 200, max: 340 }, gravityY: 1400,
-        scale: { start: 0.5, end: 0.1 }, lifespan: 500, emitting: false,
-      }).setDepth(61);
-      e.explode(10);
-      this.scene.time.delayedCall(600, () => e.destroy());
-    });
+    waterJet(this.scene, curve, onHit);
   }
 
   /** Estende la scala fino a (tx,ty); resolve quando è in posizione. */

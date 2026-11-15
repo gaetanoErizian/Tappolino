@@ -1,4 +1,4 @@
-import { openOverlay, el } from './overlay';
+import { openOverlay, el, cardHeader, statusLine } from './overlay';
 import { parentalGate } from './parentalGate';
 import { t } from './i18n';
 import { buy, getPrice, restore } from './purchase';
@@ -22,17 +22,18 @@ export function benefits(): string[] {
 /** Blocco acquisto + ripristino, usato sia nell'offerta sia nell'area genitori. */
 export function purchaseBlock(cfg: AppConfig, onDone?: () => void): HTMLElement {
   const box = el('div');
-  const msg = el('div', { className: 'tp-msg' });
-  const say = (s: string) => { msg.textContent = s; };
+  const status = statusLine();
+  const msg = status.el;
+  const say = status.say;
   const actions = el('div');
 
   const render = async () => {
     actions.innerHTML = '';
     if (isUnlocked()) {
-      actions.append(el('p', { textContent: '✓ ' + t('parents.unlocked') }));
+      actions.append(el('div', { className: 'tp-ok', textContent: t('parents.unlocked') }));
       return;
     }
-    const btn = el('button', { className: 'tp-btn', textContent: t('parents.unlockShort') });
+    const btn = el('button', { className: 'tp-btn go', textContent: t('parents.unlockShort') });
     actions.append(btn);
     if (!isNative()) {
       btn.disabled = true;
@@ -42,7 +43,7 @@ export function purchaseBlock(cfg: AppConfig, onDone?: () => void): HTMLElement 
       btn.textContent = price ? t('parents.unlock', { price }) : t('parents.unlockShort');
       btn.addEventListener('click', async () => {
         btn.disabled = true;
-        say(t('parents.wait'));
+        say(t('parents.wait'), true);
         const r = await buy(cfg.productId);
         btn.disabled = false;
         if (r === 'ok') { setUnlocked(true); say(t('parents.thanks')); void render(); onDone?.(); }
@@ -54,7 +55,7 @@ export function purchaseBlock(cfg: AppConfig, onDone?: () => void): HTMLElement 
     rest.addEventListener('click', async () => {
       if (!isNative()) { say(t('parents.onlyInApp')); return; }
       rest.disabled = true;
-      say(t('parents.wait'));
+      say(t('parents.wait'), true);
       const owned = await restore(cfg.productId);
       rest.disabled = false;
       if (owned) { setUnlocked(true); say(t('parents.restored')); void render(); onDone?.(); }
@@ -72,7 +73,7 @@ export function purchaseBlock(cfg: AppConfig, onDone?: () => void): HTMLElement 
 export async function openUnlockOffer(cfg: AppConfig, gameTitle: string, onClose?: () => void): Promise<void> {
   if (!(await parentalGate())) { onClose?.(); return; }
   const { card, close } = openOverlay(onClose);
-  card.append(el('h2', { textContent: t('unlock.title', { game: gameTitle }) }));
+  card.append(cardHeader(t('unlock.title', { game: gameTitle })));
   const ul = el('ul', { className: 'tp-list' });
   benefits().forEach((b) => ul.append(el('li', { textContent: b })));
   card.append(ul, purchaseBlock(cfg, () => setTimeout(close, 900)));

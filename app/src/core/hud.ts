@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { button, pin } from './ui';
 import { isMuted, toggleMute } from './appState';
+import { FONT } from './brand';
 
 /** Pulsante muto in alto a destra (sempre visibile, in ogni scena). */
 export function muteButton(scene: Phaser.Scene): Phaser.GameObjects.Image {
@@ -23,9 +24,9 @@ export function homeButton(scene: Phaser.Scene, onTap: () => void, key = 'btn_ho
 /** Testo con contorno spesso, stile cartoon. */
 export function title(scene: Phaser.Scene, x: number, y: number, text: string, size = 110): Phaser.GameObjects.Text {
   return scene.add.text(x, y, text, {
-    fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif',
+    fontFamily: FONT,
     fontSize: `${size}px`,
-    fontStyle: 'bold',
+    fontStyle: '700',
     color: '#ffffff',
     stroke: '#4a2a1e',
     strokeThickness: Math.round(size * 0.16),

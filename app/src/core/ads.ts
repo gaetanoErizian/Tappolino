@@ -94,7 +94,7 @@ function showHouse(list: HouseAd[]): void {
   f.style.paddingBottom = `${sb}px`;
   const bar = document.createElement('div');
   bar.style.cssText = `height:${h}px;display:flex;align-items:center;justify-content:center;gap:12px;color:#fff;
-    font:bold 17px "Trebuchet MS",system-ui,sans-serif;background:#2b2140;cursor:pointer;transition:background .4s`;
+    font:600 17px "Fredoka","Trebuchet MS",system-ui,sans-serif;background:#2b2140;cursor:pointer;transition:background .4s`;
   f.appendChild(bar);
   let i = 0;
   const render = () => {
