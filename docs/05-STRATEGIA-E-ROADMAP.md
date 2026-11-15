@@ -97,6 +97,7 @@ Per il lancio (Fase 3) servono i giochi 3, 4 e 5: hanno la precedenza nelle prov
 - Dinosauri e Unicorni: fluidità dello strofinare su un telefono economico; Unicorni: durata delle tappe.
 - Razzo: fluidità del viaggio su un telefono economico, volume del "boing", eventuale breve attesa alla prima apertura di mappa dei pianeti e hangar.
 - Giardino: volume della pioggia e delle note dei fiori rispetto alla musica; fluidità con un'aiuola piena e tutte le fatine su un telefono economico.
+- Tempi tra un'animazione e l'altra su un telefono lento (segnalato dall'Atelier): nel browser di prova senza scheda grafica (8–12 fotogrammi al secondo) le attese programmate si allungano. Con le impostazioni attuali Phaser scarta solo i fotogrammi più lunghi di 200 ms, quindi a 30 fotogrammi stabili non dovrebbe succedere: da confermare su un telefono economico; se succede, si corregge in un punto solo, nella configurazione comune.
 
 ## Come avviare la chat di un gioco
 > Sei la chat del gioco N di Tappolino. Collega il repository https://github.com/gaetanoErizian/Tappolino con permesso di scrittura, clonalo e segui `docs/06-CHAT-DEI-GIOCHI.md`: regole comuni e brief "Gioco N". Sviluppa il gioco completo fino alla pagina web di prova, poi attendi il mio ok prima di unire a `main`.
