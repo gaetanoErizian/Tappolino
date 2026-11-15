@@ -41,5 +41,7 @@
   "unlock.future": "Including new ones as they arrive",
   "unlock.noAds": "No more ads",
   "unlock.once": "One payment, forever",
-  "unlock.title": "Unlock “{game}” and all the other games"
+  "unlock.title": "Unlock “{game}” and all the other games",
+  "tester.on": "Test mode: all games are open.",
+  "tester.turnOff": "Turn off"
 }

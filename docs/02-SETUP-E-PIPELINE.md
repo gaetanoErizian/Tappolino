@@ -67,6 +67,7 @@ npx cap sync                        # copia la build web nei progetti nativi
 |---|---|
 | `?game=<id>` | apre direttamente un gioco |
 | `?unlock=1` / `#unlock` | simula l'acquisto |
+| `?prova=1` / `#prova` | modalità prova: apre tutti i giochi senza simulare l'acquisto (decisione 25); si accende e si spegne anche dall'area genitori con 5 tocchi sulla versione |
 | `?lock=1` / `#lock` | mostra tutti i giochi come bloccati, per provare il percorso di acquisto |
 | `?reset=1` / `#reset` | azzera progressi e impostazioni |
 | `?lang=en` | forza la lingua |

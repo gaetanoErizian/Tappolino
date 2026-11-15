@@ -47,6 +47,9 @@ store/               schede store (bozza 6 lingue; games/<id>/ per le app singol
 ```
 Build automatiche nella radice del repository: `.github/workflows/app-web.yml`, `app-android.yml`, `app-ios.yml`.
 
+## Modalità prova (collaudo dei giochi bloccati)
+Apre tutti i giochi senza acquisto. Area genitori → 5 tocchi sulla riga della versione; sul web anche `#prova`. Etichetta "PROVA" sempre visibile quando è attiva. Esiste solo sul web e nelle build fatte con `VITE_TESTER=1 npm run build`: **mai usare quella variabile per una build destinata agli store** (decisione 25).
+
 ## Aggiungere un gioco
 Un gioco è una cartella. **Non si modifica nessun file condiviso**: così più giochi si sviluppano in parallelo senza conflitti (decisione 23). Brief e regole per le chat dei giochi: `docs/06-CHAT-DEI-GIOCHI.md`.
 
