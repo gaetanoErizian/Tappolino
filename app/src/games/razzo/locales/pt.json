@@ -1,0 +1,17 @@
+{
+  "razzo.title": "Foguete nas Estrelas",
+  "razzo.planets": "Meus planetas",
+  "razzo.hangar": "Meus foguetes",
+  "razzo.count": "Planetas visitados: {n} de {tot}",
+  "razzo.newPlanet": "Novo planeta!",
+  "razzo.again": "Que bom voltar aqui!",
+  "razzo.newRocket": "Novo foguete!",
+  "razzo.planet.luna": "Lua",
+  "razzo.planet.anelli": "Planeta Anéis",
+  "razzo.planet.bolle": "Planeta Bolhas",
+  "razzo.planet.giungla": "Planeta Selva",
+  "razzo.planet.caramella": "Planeta Doce",
+  "razzo.planet.ghiaccio": "Planeta Gelo",
+  "razzo.planet.vulcano": "Planeta Vulcão",
+  "razzo.planet.arcobaleno": "Planeta Arco-Íris"
+}

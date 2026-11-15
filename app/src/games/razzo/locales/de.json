@@ -1,0 +1,17 @@
+{
+  "razzo.title": "Rakete zu den Sternen",
+  "razzo.planets": "Meine Planeten",
+  "razzo.hangar": "Meine Raketen",
+  "razzo.count": "Besuchte Planeten: {n} von {tot}",
+  "razzo.newPlanet": "Neuer Planet!",
+  "razzo.again": "Schön, wieder hier zu sein!",
+  "razzo.newRocket": "Neue Rakete!",
+  "razzo.planet.luna": "Mond",
+  "razzo.planet.anelli": "Ringplanet",
+  "razzo.planet.bolle": "Blubberplanet",
+  "razzo.planet.giungla": "Dschungelplanet",
+  "razzo.planet.caramella": "Bonbonplanet",
+  "razzo.planet.ghiaccio": "Eisplanet",
+  "razzo.planet.vulcano": "Vulkanplanet",
+  "razzo.planet.arcobaleno": "Regenbogenplanet"
+}
