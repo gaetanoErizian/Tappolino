@@ -15,3 +15,7 @@ dist-web/
 
 # Screenshot store: generati con scripts/store-screenshots.py, mai in git (decisione 14)
 store/screenshots/
+
+# File temporanei di Python (script audio e catture)
+__pycache__/
+*.pyc
