@@ -1,4 +1,5 @@
-import { openOverlay, el } from './overlay';
+import { openOverlay, el, cardHeader, tappoImg } from './overlay';
+import { BRAND, RAINBOW } from './brand';
 import { t, tList } from './i18n';
 
 /**
@@ -21,11 +22,15 @@ export function parentalGate(): Promise<boolean> {
     const { card } = ov;
 
     // --- Passo 1: tieni premuto ---
-    const title = el('h2', { textContent: t('gate.title') });
+    const title = cardHeader(t('gate.title'));
     const info = el('p', { textContent: t('gate.hold') });
     const hold = el('div', { className: 'tp-hold' });
-    hold.innerHTML = `<svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="68" fill="none" stroke="#ffd23f" stroke-width="12"
-      stroke-dasharray="427.3" stroke-dashoffset="427.3" stroke-linecap="round"/></svg><span>✋</span>`;
+    // L'anello si riempie con i colori del logo mentre si tiene premuto Tappo.
+    hold.innerHTML = `<svg viewBox="0 0 150 150"><defs><linearGradient id="tpgate" x1="0" y1="0" x2="1" y2="1">${
+      RAINBOW.map((c, i) => `<stop offset="${(i / (RAINBOW.length - 1)).toFixed(2)}" stop-color="${c}"/>`).join('')
+    }</linearGradient></defs><circle cx="75" cy="75" r="68" fill="none" stroke="url(#tpgate)" stroke-width="12"
+      stroke-dasharray="427.3" stroke-dashoffset="427.3" stroke-linecap="round"/></svg>`;
+    hold.append(tappoImg());
     const ring = hold.querySelector('circle') as SVGCircleElement;
     card.append(title, info, hold);
 
@@ -34,6 +39,7 @@ export function parentalGate(): Promise<boolean> {
     let raf = 0;
     const reset = () => {
       cancelAnimationFrame(raf);
+      hold.classList.remove('down');
       start = 0;
       ring.style.strokeDashoffset = '427.3';
     };
@@ -50,6 +56,7 @@ export function parentalGate(): Promise<boolean> {
     hold.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       hold.setPointerCapture(e.pointerId);
+      hold.classList.add('down');
       start = performance.now();
       raf = requestAnimationFrame(step);
     });
@@ -72,8 +79,10 @@ export function parentalGate(): Promise<boolean> {
         if (d > 0 && d !== sum) options.add(d);
       }
       const row = el('div', { className: 'tp-choices' });
-      [...options].sort(() => Math.random() - 0.5).forEach((n) => {
+      const colors = [BRAND.blue, BRAND.pink, BRAND.green];
+      [...options].sort(() => Math.random() - 0.5).forEach((n, i) => {
         const b2 = el('button', { textContent: String(n) });
+        b2.style.setProperty('--c', colors[i % colors.length]);
         b2.addEventListener('click', () => finish(n === sum));
         row.append(b2);
       });

@@ -54,7 +54,7 @@ Aggiornato: 15/11/2026 — in caso di conflitto vale questo file, poi `05-STRATE
     - **Una modifica al codice comune alla volta**, e solo quando non ci sono altri branch di gioco aperti. Se ce ne sono, decide la regia l'ordine e i branch aperti si riportano sopra `main` dopo l'unione.
     - La chat del gioco successivo si apre dopo che il branch `core/<tema>` è stato unito.
     - Prima applicazione: trascinamento e manina d'aiuto per il trascinamento, da Pasticceria Magica (`core/drag-e-manina`), per i giochi 6, 9 e 10.
-18. **Identità Tappolino** (logo approvato da Gaetano il 15/11/2026; codice sul branch `core/identita-tappolino`).
+18. **Identità Tappolino** (approvata da Gaetano e unita a `main` il 15/11/2026).
     - **Marchio**: la mascotte "Tappo" (un ditino con il cappello a tappo, sulle onde del tocco) e la scritta a lettere-adesivo colorate con la stella sulla "i". Generati da `app/scripts/make-brand.mjs`; colori e carattere in `app/src/core/brand.ts`.
     - **Carattere unico**: Fredoka (licenza OFL), incluso nell'app. Nessun testo con caratteri di sistema.
     - **Un solo loader** (`core/loader.ts`): scritta, barra con i colori del logo, Tappo che la percorre. Ogni caricamento, in ogni punto dell'app e dei giochi, usa questo: avanzamento reale, chiusura solo a caricamento riuscito, "riprova" in caso di errore.

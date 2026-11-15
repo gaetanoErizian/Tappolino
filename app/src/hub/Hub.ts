@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { setupView, button, pin, burst, view } from '../core/ui';
-import { muteButton, title } from '../core/hud';
+import { muteButton } from '../core/hud';
+import { FONT } from '../core/brand';
 import { t } from '../core/i18n';
 import { isUnlocked, isMuted, onUnlockChange } from '../core/appState';
 import { canPlay, type GameEntry } from '../core/module';
@@ -28,7 +29,7 @@ export class Hub extends Phaser.Scene {
     this.drawBackdrop();
 
     const logo = this.logo();
-    this.tweens.add({ targets: logo, scale: 1.04, duration: 1500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.tweens.add({ targets: logo, scale: 0.72, duration: 1500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
     const mute = muteButton(this);
     const lock = button(this, 0, 0, 'btn_lock', () => openParents(this, () => mute.setTexture(isMuted() ? 'btn_sound_off' : 'btn_sound_on')), 0.9);
@@ -67,12 +68,19 @@ export class Hub extends Phaser.Scene {
     });
   }
 
-  private logo(): Phaser.GameObjects.Text {
-    const txt = title(this, 960, 150, t('app.title'), 150);
-    const grad = txt.context.createLinearGradient(0, 0, txt.width, 0);
-    ['#ff6b6b', '#ffb02e', '#ffe14d', '#5ed06a', '#4fb3f7', '#a97cf2'].forEach((c, i, a) => grad.addColorStop(i / (a.length - 1), c));
-    txt.setFill(grad);
-    return txt;
+  /** Il marchio Tappolino (mascotte + scritta); toccandolo Tappo fa un saltello. */
+  private logo(): Phaser.GameObjects.Image {
+    const img = this.add.image(960, 162, 'brand_logo').setScale(0.7).setDepth(900);
+    img.setInteractive({ useHandCursor: true });
+    let hopping = false;
+    img.on('pointerdown', () => {
+      if (hopping) return;
+      hopping = true;
+      hubSfx.pop();
+      burst(this, 960 - 290, 150, 'sparkle', { count: 10, tints: [0xffd23f, 0xff5e9a, 0x36a9f0], gravity: 0, life: 500 });
+      this.tweens.add({ targets: img, y: 134, duration: 140, yoyo: true, ease: 'Quad.easeOut', onComplete: () => { hopping = false; } });
+    });
+    return img;
   }
 
   private drawPage(): void {
@@ -90,7 +98,7 @@ export class Hub extends Phaser.Scene {
     const frame = this.add.image(x, y, 'hub_card').setDepth(10);
     const art = this.add.image(x, y - 34, `tile_${g.id}`).setDepth(11);
     const label = this.add.text(x, y + 150, t(g.titleKey), {
-      fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif', fontSize: '40px', fontStyle: 'bold',
+      fontFamily: FONT, fontSize: '42px', fontStyle: '600',
       color: '#3a2a52', align: 'center', wordWrap: { width: 380 },
     }).setOrigin(0.5).setDepth(12);
     const parts: Phaser.GameObjects.GameObject[] = [shadow, frame, art, label];
@@ -131,7 +139,7 @@ export class Hub extends Phaser.Scene {
   /** Frecce per scorrere le pagine quando i giochi sono più di 4. */
   private pager(): void {
     const pages = Math.ceil(GAMES.length / PER_PAGE);
-    const go = (d: number) => { this.page = (this.page + d + pages) % pages; this.drawPage(); };
+    const go = (d: number) => { this.page = (this.page + d + pages) % pages; hubSfx.page(); this.drawPage(); };
     const l = button(this, 0, 560, 'btn_back', () => go(-1), 0.9);
     const r = button(this, 0, 560, 'btn_next', () => go(1), 0.62);
     const place = () => { const v = view(this); l.x = Math.max(v.left + 90, 90); r.x = Math.min(v.right - 90, 1830); };

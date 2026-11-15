@@ -93,7 +93,7 @@ Per ogni gioco: modulo in `app/src/games/<id>/` → versione web di test → ok 
 |---|---|
 | 0 — Pompieri, versione web | Chiusa (14/11/2026) |
 | 1 — App contenitore + catena di build | Unita a `main` (15/11/2026) con Pompieri come modulo. Manca la prima build di prova su Android e iOS (servono segreti e account Apple) |
-| Identità Tappolino (decisione 18) | Sul branch `core/identita-tappolino`, test e build verdi; pagina di prova https://claude.ai/artifact/P1UK9b4WaXkbJbSb1Tr1ZL. Manca l'ok di Gaetano, poi unione a `main` in un solo commit. Dopo: musica di Pompieri nella sua chat; Pasticceria adotta carattere, loader e `core/sound` |
+| Identità Tappolino (decisione 18) | Approvata da Gaetano e unita a `main` (15/11/2026). Pagina di prova: https://claude.ai/artifact/P1UK9b4WaXkbJbSb1Tr1ZL. Da fare nelle chat dei giochi: musica nuova di Pompieri; Pasticceria adotta carattere, loader e `core/sound` |
 | 2 — Giochi 2–5 | In corso. Pasticceria Magica: completa sul branch `game/pasticceria-magica`, in attesa dell'ok di Gaetano; poi unione a `main` e branch `core/drag-e-manina` (decisione 17). Prossimo: Scavo dei Dinosauri |
 | 3 — Lancio pubblico v1.0 | Da fare |
 | 4 — Giochi 6–10 | Da fare |
