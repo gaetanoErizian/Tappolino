@@ -5,9 +5,10 @@ Branch `game/cacchino` · `order` 11 · non gratis (si apre con l'acquisto unico
 Brief scelto dalla chat del gioco (non era in `06-CHAT-DEI-GIOCHI.md`): cucciolo virtuale "prenditi cura", umorismo da bambini (puzzette), rompicapo di logica per completare le attività. Ambiente: casa a colori caldi, una stanza per colore. Musica: polka buffa da banda (tuba, trombone, fisarmonica, xilofono).
 
 ## Stato
-**Gioco completo in attesa della prova di Gaetano** (18/11/2026). Test del gioco e build verdi; partita provata nel browser in formato telefono e tablet, catture guardate una per una.
-- Il lavoro è in un commit locale sul branch `game/cacchino`: **il push non è stato possibile** (permesso di scrittura sul repository negato nella sessione). Vedi "Per la regia".
-- `npm test`: 1 test **comune** fallisce per scelta di progetto, non per un errore: `src/app.test.ts` si aspetta che al lancio i giochi pubblicati siano esattamente 10. Vedi "Per la regia".
+**Approvato da Gaetano e unito a `main`** (18/11/2026). Test e build verdi; partita provata nel browser in formato telefono e tablet, e da Gaetano sulla pagina di prova.
+- Nato come "Pupou", rinominato **Cacchino** prima dell'unione (vedi "Per la regia").
+- **Esce al lancio con gli altri 10 giochi** (scelta di Gaetano del 18/11/2026): il controllo comune in `src/app.test.ts` passa da 10 a 11 giochi pubblicati; `comingSoon` resta vuoto.
+- In locale: `?game=cacchino&unlock=1` oppure `#prova`.
 
 ## Cosa c'è nel gioco
 - **Cacchino**: un cucciolo di cacchina a "giri" color caramello con il ricciolo in cima, occhioni, guance rosa, braccine e piedini. Respira, sbatte le palpebre, cambia faccia con l'umore (felice, tranquillo, triste), ha il ciuccio da cucciolo e la stellina sul ricciolo da re. Disegno originale (`swirl.ts`).
@@ -45,13 +46,12 @@ Brief scelto dalla chat del gioco (non era in `06-CHAT-DEI-GIOCHI.md`): cucciolo
 9. Schermo stretto (tablet 4:3): bisogni in alto e stanze in basso non si sovrappongono a casa e mute.
 
 ## Per la regia
-- **Push non riuscito**: nella sessione il collegamento del repository con permesso di scrittura è stato negato. Il lavoro è completo in locale (commit sul branch `game/cacchino`) e consegnato anche come file patch. Serve ridare il permesso per fare push e, dopo l'ok, l'unione a `main`.
-- **Test comune da decidere** (`src/app.test.ts`, "al lancio sono pubblicati tutti e 10"): con Cacchino i giochi sono 11. Due strade: (a) Cacchino esce al lancio → il test passa a 11; (b) Cacchino arriva con un aggiornamento → aggiungere `'cacchino'` a `comingSoon` in `src/config.ts` (su iPhone resta nascosto, decisione 26). Non ho toccato né il test né la configurazione.
+- **File comune toccato, uno solo**: `src/app.test.ts` (giochi pubblicati al lancio: da 10 a 11), su scelta di Gaetano. Da riportare in regia: la decisione 27 parla di 10 giochi al lancio e va aggiornata a 11; scheda store dell'app, tabella di `03-ROADMAP.md` e `README.md` vanno allineati.
 - **Nome**: il gioco è nato come "Pupou"; Gaetano lo ha rinominato **Cacchino** il 18/11/2026 perché sugli store esiste dal 2012 *Pou* (Zakeh Limited), cucciolo virtuale dello stesso genere con un nome troppo simile. Rinominati anche `id`, cartelle, chiave dei salvataggi (`tappolino.cacchino`) e script. Da una ricerca web non risultano giochi chiamati Cacchino; non è una verifica di marchio (da fare prima di un'eventuale app singola).
 - **Scostamenti dalle regole comuni dei giochi 3–10**, voluti dal tipo di gioco: non è un gioco da 1–2 minuti con un solo gesto, e i rompicapo più avanti sono per bambini di 6–10 anni (i primi vanno bene dai 4–5). Niente scena "Menu": si entra direttamente in casa.
 - **Monete di gioco**: la decisione 2 dice "nessuna valuta virtuale". Qui le monete non si comprano mai (si guadagnano solo giocando), quindi non c'è nulla da dichiarare agli store come acquisto; lo segnalo perché la regia confermi.
 - **Candidato naturale per la prima app singola** (decisione 4): i cuccioli virtuali sono un genere molto cercato e questo gioco ha la durata giusta per stare da solo.
-- Usati dal codice comune senza modifiche: `core/drag` (`DragManager`, `Hint`), `core/ui`, `core/hud`, `core/sound`, `core/art`, `core/storage`, `core/brand`. Nessun file comune toccato.
+- Usati dal codice comune senza modifiche: `core/drag` (`DragManager`, `Hint`), `core/ui`, `core/hud`, `core/sound`, `core/art`, `core/storage`, `core/brand`. Nessun altro file comune toccato.
 - Riusabili da altri giochi, restano nel modulo finché non servono: generatore casuale con seme (`rng.ts`) e i quattro rompicapo con risolutore (`puzzles/`): sono senza Phaser e potrebbero servire anche alla linea Mossetta come prototipi.
 - Con `?debug=1`: `window.__pp` (casa) e `window.__pz` (rompicapo, con `autoStep()` che fa una mossa giusta).
 
@@ -63,3 +63,4 @@ Brief scelto dalla chat del gioco (non era in `06-CHAT-DEI-GIOCHI.md`): cucciolo
 
 ## Diario
 - 18/11/2026 — Modulo completo: logica (bisogni, aria, crescita, monete, dispensa, armadio, amici), quattro rompicapo con generatore e risolutore, casa con cinque stanze, negozio, armadio, scena dei rompicapo, grafica SVG, musica e 30 effetti, 6 lingue, test (`cacchino.test.ts`, 18 casi, con 400 livelli generati e risolti per tipo). Prova nel browser in formato telefono e tablet. Corretto durante la prova: pannello delle sequenze fuori posto, pulsanti aiutino e ricomincia sotto il pulsante di schermo intero, Cacchino nascosto dietro il vasino, nanna in piedi sul tappeto (ora sul lettino), palla sovrapposta a Cacchino. Scheda store e script delle catture.
+- 18/11/2026 — Ok di Gaetano dopo la prova. Rinominato da Pupou a Cacchino (titolo, `id`, cartelle, salvataggi, script, scheda store). Esce al lancio: controllo comune portato a 11 giochi. Unito a `main` in un solo commit.
